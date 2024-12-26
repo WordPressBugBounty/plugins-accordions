@@ -1,10 +1,10 @@
-=== Accordion ===
-	Contributors: PickPlugins
+=== Accordions - AI FAQ, Post Accordion, Product FAQ, FAQ Builder ===
+	Contributors: PickPlugins, nafismahmudayon
 	Donate link: https://pickplugins.com/accordions/
-	Tags: accordion, tabs, FAQ, WooCommerce FAQ Tab, accordions
+	Tags: accordion, tabs, AI FAQ, WooCommerce FAQ Tab, accordions
 	Requires at least: 3.8
-	Tested up to: 6.6
-	Stable tag: 2.3.1
+	Tested up to: 6.7
+	Stable tag: 2.3.2
 	License: GPLv2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -139,7 +139,9 @@ then paste this shortcode anywhere in your page to display accordions<br />
 
 == Changelog ==
 
-
+	= 2.3.2 =
+    * 2024-12-24 - add - React based modern Accordion builder added
+    
 
 	= 2.3.1 =
     * 2024-10-12 - add - Allow access to edit accordions by user roles.

@@ -10,8 +10,8 @@ class accordions_post_types
 
 	public function __construct()
 	{
-		add_action('init', array($this, '_posttype_accordions'), 0);
-		add_action('admin_init', array($this, 'add_capability'));
+		add_action('init', [$this, '_posttype_accordions'], 0);
+		add_action('admin_init', [$this, 'add_capability']);
 	}
 	public function add_capability()
 	{
@@ -60,7 +60,7 @@ class accordions_post_types
 	public function _posttype_accordions()
 	{
 
-		if (post_type_exists("accordions"))
+		if (post_type_exists("class_accordions_shortcodes"))
 			return;
 
 		$singular  = __('Accordions', 'accordions');
@@ -109,7 +109,7 @@ class accordions_post_types
 				'hierarchical' 			=> false,
 				'rewrite' 				=> true,
 				'query_var' 			=> true,
-				'supports' 				=> array('title', 'revisions'),
+				'supports' 				=> array('title', 'editor', 'revisions'),
 				'show_in_nav_menus' 	=> true,
 				//'show_in_menu' 	=> 'edit.php?post_type=team',	
 				'menu_icon' => 'dashicons-align-center',

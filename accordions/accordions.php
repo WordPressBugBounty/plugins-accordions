@@ -1,9 +1,9 @@
 <?php
 /*
-Plugin Name: Accordions Combo
+Plugin Name: Accordions - By PickPlugins
 Plugin URI: https://pickplugins.com/accordions/
 Description: Fully responsive and mobile ready accordion grid for wordpress.
-Version: 2.3.1
+Version: 2.3.2
 Author: PickPlugins
 Author URI: http://pickplugins.com
 Text Domain: accordions
@@ -23,7 +23,7 @@ class Accordions
 
     define('accordions_plugin_url', plugins_url('/', __FILE__));
     define('accordions_plugin_dir', plugin_dir_path(__FILE__));
-    define('accordions_version', '2.3.1');
+    define('accordions_version', '2.3.2');
     define('accordions_plugin_name', 'Accordions Combo');
     define('accordions_plugin_basename', plugin_basename(__FILE__));
 
@@ -35,6 +35,8 @@ class Accordions
     $accordionsAttrData = [];
 
 
+    global $accordionsSchema;
+    global $accordionsCss;
     global $accordionsCss;
     global $accordionsCustomCss;
     global $accordionsCustomScripts;
@@ -54,11 +56,12 @@ class Accordions
     require_once(accordions_plugin_dir . 'includes/class-admin-notices.php');
     require_once(accordions_plugin_dir . 'includes/functions-data-upgrade.php');
 
-
+    require_once(accordions_plugin_dir . 'includes/functions-rest.php');
 
     require_once(accordions_plugin_dir . 'includes/class-settings-tabs.php');
     require_once(accordions_plugin_dir . 'includes/functions.php');
     require_once(accordions_plugin_dir . 'includes/functions-wc.php');
+    require_once(accordions_plugin_dir . 'includes/functions-builder.php');
     require_once(accordions_plugin_dir . 'includes/class-shortcodes.php');
     require_once(accordions_plugin_dir . 'includes/duplicate-post.php');
 
@@ -66,6 +69,7 @@ class Accordions
 
     require_once(accordions_plugin_dir . 'templates/accordion/accordion-hook.php');
     require_once(accordions_plugin_dir . 'templates/tabs/tabs-hook.php');
+    require_once(accordions_plugin_dir . 'templates/accordions-builder/accordions-builder-hook.php');
 
     require_once(accordions_plugin_dir . 'includes/3rd-party/3rd-party.php');
 
@@ -153,6 +157,10 @@ class Accordions
 
   public function _front_scripts()
   {
+    wp_register_style('accordions_animate', accordions_plugin_url . 'assets/css/animate.min.css');
+
+
+    wp_enqueue_script('accordions_front_scripts', accordions_plugin_url . 'templates/accordions-builder/front-scripts.js', array('jquery'), '20181018');
 
     wp_register_script('accordions_js', accordions_plugin_url . 'assets/frontend/js/scripts.js', array('jquery'), time(), true);
     wp_register_style('accordions-style', accordions_plugin_url . 'assets/frontend/css/style.css');
@@ -163,6 +171,10 @@ class Accordions
     wp_register_style('fontawesome-4',  accordions_plugin_url . 'assets/global/css/font-awesome-4.css');
     wp_register_style('jquery-ui',  accordions_plugin_url . 'assets/frontend/css/jquery-ui.css');
     wp_register_style('accordions-themes',  accordions_plugin_url . 'assets/global/css/themes.style.css');
+
+    wp_register_style('bootstrap-icons', accordions_plugin_url . 'assets/css/bootstrap-icons/bootstrap-icons.css');
+    wp_register_style('fontawesome-icons', accordions_plugin_url . 'assets/css/fontawesome/css/all.min.css');
+    wp_register_style('icofont-icons', accordions_plugin_url . 'assets/css/icofont/icofont.min.css');
   }
 
   public function _admin_scripts()
@@ -170,6 +182,8 @@ class Accordions
     $screen = get_current_screen();
 
     //var_dump($screen);
+
+    wp_register_style('accordions_animate', accordions_plugin_url . 'assets/css/animate.min.css');
 
 
     wp_enqueue_script('accordions_admin_js', accordions_plugin_url . 'assets/admin/js/scripts.js', array('jquery'), '20181018');
