@@ -17,6 +17,7 @@ function accordions_builder_accordion($post_id, $accordionData)
     $autoPlayTimeout = isset($globalOptions["autoPlayTimeout"]) ? $globalOptions["autoPlayTimeout"] : 2000;
     $autoPlayDelay = isset($globalOptions["autoPlayDelay"]) ? $globalOptions["autoPlayDelay"] : 2000;
     $autoPlayOrder = isset($globalOptions["autoPlayOrder"]) ? $globalOptions["autoPlayOrder"] : "topToBottom";
+    $itemSource = isset($globalOptions["itemSource"]) ? $globalOptions["itemSource"] : "topToBottom";
 
 
 
@@ -28,6 +29,13 @@ function accordions_builder_accordion($post_id, $accordionData)
 
 
     $items = isset($accordionData["items"]) ? $accordionData["items"] : [];
+
+    if ($itemSource == "posts") {
+        $items = accordion_post_query_items();
+    }
+    if ($itemSource == "terms") {
+        $items = accordion_terms_query_item();
+    }
 
     $expandCollapseAll = isset($accordionData["expandCollapseAll"]) ? $accordionData["expandCollapseAll"] : [];
     $expandCollapseAllOptions = isset($expandCollapseAll["options"]) ? $expandCollapseAll["options"] : [];
@@ -259,19 +267,18 @@ function accordions_builder_accordion($post_id, $accordionData)
 
             $itemActive = isset($item["active"]) ? (bool) $item["active"] : false;
 
-
-
-
             $headerLabel = isset($item["headerLabel"]) ? $item["headerLabel"] : [];
             $headerLabelOptions = isset($headerLabel["options"]) ? $headerLabel["options"] : [];
-            $headerLabelText = isset($headerLabelOptions["text"]) ? $headerLabelOptions["text"] : "";
-            $headerLabelToggledText = isset($headerLabelOptions["toggledText"]) ? $headerLabelOptions["toggledText"] : "";
-            $headerLabelSlug = isset($headerLabelOptions["slug"]) ? $headerLabelOptions["slug"] : "";
 
+            $headerLabelText = isset($item["headerLabelText"]) ? $item["headerLabelText"] : "";
+            $headerLabelToggledText = isset($item["headerLabelToggledText"]) ? $item["headerLabelToggledText"] : "";
+            $headerLabelSlug = isset($item["headerLabelSlug"]) ? $item["headerLabelSlug"] : "";
+
+
+            $contentText = isset($item["contentText"]) ? $item["contentText"] : "";
 
             $content = isset($item["content"]) ? $item["content"] : [];
             $contentOptions = isset($content["options"]) ? $content["options"] : [];
-            $contentText = isset($contentOptions["text"]) ? $contentOptions["text"] : "";
 
 
 
