@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 								iconToggle.classList.remove("animate__animated");
 								iconToggle.classList.remove("animate__" + entranceAnimation);
 								// popup.style.display = "none";
-							}, 2000);
+							}, 100);
 						}
 						if (iconIdle != null) {
 							iconIdle.style.display = "none";
@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 								iconIdle.classList.remove("animate__animated");
 								iconIdle.classList.remove("animate__" + entranceAnimation);
 								// popup.style.display = "none";
-							}, 2000);
+							}, 1000);
 
 						}
 						content.style.display = "block";
@@ -191,7 +191,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 							iconToggle.classList.remove("animate__animated");
 							iconToggle.classList.remove("animate__" + entranceAnimation);
 							// popup.style.display = "none";
-						}, 2000);
+						}, 1000);
 					}
 					if (iconIdle != null) {
 						iconIdle.style.display = "none";
@@ -204,7 +204,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 							iconIdle.classList.remove("animate__animated");
 							iconIdle.classList.remove("animate__" + entranceAnimation);
 							// popup.style.display = "none";
-						}, 2000);
+						}, 1000);
 
 					}
 					content.style.display = "block";
@@ -340,7 +340,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 							iconToggle.classList.remove("animate__animated");
 							iconToggle.classList.remove("animate__" + entranceAnimation);
 							// popup.style.display = "none";
-						}, 2000);
+						}, 1000);
 					}
 					if (iconIdle != null) {
 						iconIdle.style.display = "none";
@@ -353,7 +353,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 							iconIdle.classList.remove("animate__animated");
 							iconIdle.classList.remove("animate__" + entranceAnimation);
 							// popup.style.display = "none";
-						}, 2000);
+						}, 1000);
 
 					}
 					content.style.display = "block";
@@ -455,24 +455,46 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 			var accordionHeaders = document.querySelectorAll("#" + window.pgAccordion.id + " .accordion-header");
 
-			var items = [];
+			// var items = [];
 
 
 
-			accordionHeaders.forEach((header, i) => {
+			// accordionHeaders.forEach((header, i) => {
 
-				items.push(i)
-			});
+			// 	items.push(i)
+			// });
+
+			//console.log(items);
+
+			let currentIndex = 0;
 
 
-			let currentIndex = -1;
+			const items = [1, 2, 3, 4, 5, 6, 7];
+			//let currentIndex = 0;
 
 			function loopThroughItems() {
-				currentIndex = (currentIndex + 1) % items.length; // Move to the next index
-				setTimeout(loopThroughItems, autoPlayDelay); // Recursively call after 1 second
-
-				window.pgAccordion.switch(currentIndex)
+				console.log(items[currentIndex]); // Print the current item
+				currentIndex = (currentIndex + 1) % items.length; // Move to the next index (looping back to 0 after reaching the end)
+				setTimeout(loopThroughItems, 1000); // Recursively call after 1 second
 			}
+
+
+
+
+
+
+
+
+			// function loopThroughItems() {
+			// 	console.log(items[currentIndex]); // Print the current item
+
+
+			// 	currentIndex = (currentIndex + 1) % items.length; // Move to the next index
+
+			// 	setTimeout(loopThroughItems, autoPlayDelay); // Recursively call after 1 second
+
+			// 	window.pgAccordion.switch(currentIndex)
+			// }
 
 			currentIndex = items.length;
 			function loopThroughItemsReverse() {
@@ -485,7 +507,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
 				window.pgAccordion.switch(currentIndex)
 			}
 
-			currentIndex = 0;
 
 			function loopThroughItemsRandom() {
 				const currentIndex = Math.floor(Math.random() * items.length);
@@ -593,7 +614,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 					// 	console.log(i);
 
 
-					// }, 2000)
+					// }, 1000)
 
 
 					(function (index) {
@@ -746,7 +767,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 										iconToggle.classList.remove("animate__animated");
 										iconToggle.classList.remove("animate__" + entranceAnimation);
 										// popup.style.display = "none";
-									}, 2000);
+									}, 1000);
 								}
 								if (iconIdle != null) {
 									iconIdle.style.display = "none";
@@ -759,7 +780,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 										iconIdle.classList.remove("animate__animated");
 										iconIdle.classList.remove("animate__" + entranceAnimation);
 										// popup.style.display = "none";
-									}, 2000);
+									}, 1000);
 
 								}
 								content.style.display = "block";
@@ -854,7 +875,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 					window.pgAccordion.search(value)
 				}
 
-				searchHndle.addEventListener('keyup', debounce(handleKeyup, 500));
+				searchHndle.addEventListener('keyup', debounce(handleKeyup, 1000));
 
 			}
 

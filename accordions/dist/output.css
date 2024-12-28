@@ -281,6 +281,10 @@
   margin-bottom: 0px;
 }
 
+.mb-1 {
+  margin-bottom: 0.25rem;
+}
+
 .mb-2 {
   margin-bottom: 0.5rem;
 }
@@ -461,6 +465,10 @@
   height: 2.5rem;
 }
 
+.h-12 {
+  height: 3rem;
+}
+
 .h-28 {
   height: 7rem;
 }
@@ -524,6 +532,10 @@
 
 .w-10 {
   width: 2.5rem;
+}
+
+.w-12 {
+  width: 3rem;
 }
 
 .w-16 {
@@ -641,6 +653,10 @@
 
 .min-w-\[100px\] {
   min-width: 100px;
+}
+
+.min-w-\[180px\] {
+  min-width: 180px;
 }
 
 .min-w-\[550px\] {
@@ -791,6 +807,10 @@
   align-items: flex-start;
 }
 
+.items-end {
+  align-items: flex-end;
+}
+
 .items-center {
   align-items: center;
 }
@@ -801,6 +821,10 @@
 
 .justify-start {
   justify-content: flex-start;
+}
+
+.justify-end {
+  justify-content: flex-end;
 }
 
 .justify-center {
@@ -1080,6 +1104,11 @@
   border-bottom-color: rgb(31 41 55 / 0.2);
 }
 
+.border-b-slate-300 {
+  --tw-border-opacity: 1;
+  border-bottom-color: rgb(203 213 225 / var(--tw-border-opacity, 1));
+}
+
 .border-l-green-700 {
   --tw-border-opacity: 1;
   border-left-color: rgb(21 128 61 / var(--tw-border-opacity, 1));
@@ -1349,6 +1378,10 @@
   padding: 1.25rem;
 }
 
+.p-6 {
+  padding: 1.5rem;
+}
+
 .p-7 {
   padding: 1.75rem;
 }
@@ -1428,6 +1461,11 @@
 .px-\[16px\] {
   padding-left: 16px;
   padding-right: 16px;
+}
+
+.py-0\.5 {
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
 }
 
 .py-1 {
@@ -1537,6 +1575,10 @@
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
+.\!text-\[12px\] {
+  font-size: 12px !important;
+}
+
 .\!text-\[13px\] {
   font-size: 13px !important;
 }
@@ -1563,6 +1605,10 @@
 .text-4xl {
   font-size: 2.25rem;
   line-height: 2.5rem;
+}
+
+.text-\[11px\] {
+  font-size: 11px;
 }
 
 .text-\[12px\] {
@@ -1692,6 +1738,11 @@
   color: rgb(107 114 128 / var(--tw-text-opacity, 1));
 }
 
+.text-gray-600 {
+  --tw-text-opacity: 1;
+  color: rgb(75 85 99 / var(--tw-text-opacity, 1));
+}
+
 .text-gray-700 {
   --tw-text-opacity: 1;
   color: rgb(55 65 81 / var(--tw-text-opacity, 1));
@@ -1732,6 +1783,11 @@
   color: rgb(239 68 68 / var(--tw-text-opacity, 1));
 }
 
+.text-red-700 {
+  --tw-text-opacity: 1;
+  color: rgb(185 28 28 / var(--tw-text-opacity, 1));
+}
+
 .text-red-800 {
   --tw-text-opacity: 1;
   color: rgb(153 27 27 / var(--tw-text-opacity, 1));
@@ -1750,6 +1806,11 @@
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+
+.text-yellow-500 {
+  --tw-text-opacity: 1;
+  color: rgb(234 179 8 / var(--tw-text-opacity, 1));
 }
 
 .underline {
