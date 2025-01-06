@@ -128,7 +128,7 @@ function accordions_builder_tabs($post_id, $accordionData)
     $iconToggleLibrary = isset($iconToggleOptions['library']) ? $iconToggleOptions['library'] : "fontAwesome";
     $iconToggleSrcType = isset($iconToggleOptions['srcType']) ? $iconToggleOptions['srcType'] : "";
     $iconToggleSrc = !empty($iconToggleOptions['iconSrc']) ? $iconToggleOptions['iconSrc'] : "";
-    $iconToggleHtml = !empty($iconToggleSrc) ? '<span class="nav-icon-toggle ' . $iconToggleSrc . '"></span>' : '';
+    $iconToggleHtml = !empty($iconToggleSrc) ? '<span  class="nav-icon-toggle ' . $iconToggleSrc . '"></span>' : '';
 
 
     if ($iconLibrary == 'fontAwesome') {
@@ -155,16 +155,7 @@ function accordions_builder_tabs($post_id, $accordionData)
     }
 
 
-    $activeIndex = [];
-    foreach ($items as $index => $item) {
-        $itemActive = isset($item["active"]) ? (bool) $item["active"] : false;
 
-        if ($itemActive) {
-            $activeIndex[] = $index;
-        }
-    }
-
-    $activeIndex[] = 9999;
 
     $blockId = "accordions-" . $post_id;
 
@@ -174,11 +165,11 @@ function accordions_builder_tabs($post_id, $accordionData)
             $navsIndex[$i] = $i;
         }
 
-    $activeTab = 0;
+    $navActiveIndex = 0;
 
     $accordionDataAttr = [
         "id" => $blockId,
-        "activeTab" => "pg" . $activeTab,
+        "navActiveIndex" => $navActiveIndex,
         "activeEvent" => $activeEvent,
         "autoPlay" => $autoPlay,
         "autoPlayTimeout" => $autoPlayTimeout,
@@ -200,10 +191,9 @@ function accordions_builder_tabs($post_id, $accordionData)
     ];
 
 
-    $activeTab = 1;
     $labelCounterEnable = false;
 ?>
-    <div id="<?php echo esc_attr($blockId); ?>" class="<?php echo esc_attr($wrapperClass); ?> <?php echo esc_attr($blockId); ?> " data-pgTabs="<?php echo esc_attr(json_encode($accordionDataAttr)); ?>">
+    <div id="<?php echo esc_attr($blockId); ?>" class="<?php echo esc_attr($wrapperClass); ?> <?php echo esc_attr($blockId); ?> " data-tabsBuilder="<?php echo esc_attr(json_encode($accordionDataAttr)); ?>" style="<?php echo ($lazyLoad) ? "display: none;" : ""; ?>">
         <div class="navs-wrapper" role="tablist">
             <?php
             foreach ($items as $index => $item) {
@@ -224,7 +214,7 @@ function accordions_builder_tabs($post_id, $accordionData)
 
 
             ?>
-                <div id="pg<?php echo esc_attr($index); ?>" data-tab-id="pg<?php echo esc_attr($index); ?>" class="<?php echo ($index == $activeTab) ? ' nav-item  ' : 'nav-item ' ?>" role="tab" tabIndex="<?php echo ($index == $activeTab) ? '0' : '-1' ?>" aria-controls="tabs-<?php echo esc_attr($index); ?>" aria-selected="false" aria-expanded="false" index="<?php echo esc_attr($index); ?>">
+                <div id="pg<?php echo esc_attr($index); ?>" data-tab-id="pg<?php echo esc_attr($index); ?>" class="<?php echo ($index == $navActiveIndex) ? ' nav-item  nav-item-active' : 'nav-item ' ?>" role="tab" tabIndex="<?php echo ($index == $navActiveIndex) ? '0' : '-1' ?>" aria-controls="tabs-<?php echo esc_attr($index); ?>" aria-selected="false" aria-expanded="false" index="<?php echo esc_attr($index); ?>">
 
 
                     <?php if ($iconPosition == 'before') : ?>
@@ -325,7 +315,7 @@ function accordions_builder_tabs($post_id, $accordionData)
 
             ?>
 
-                <div class="tabs-panel <?php echo ($index == $activeTab) ? 'tabs-panel-active' : '' ?>" data-tab-id="pg<?php echo esc_attr($index); ?>" hidden="true" aria-hidden="true" role="tabpanel" aria-labelledby="<?php echo esc_attr($index); ?>">
+                <div class="tabs-panel <?php echo ($index == $navActiveIndex) ? 'tabs-panel-active' : '' ?>" data-tab-id="pg<?php echo esc_attr($index); ?>" hidden="true" aria-hidden="true" role="tabpanel" aria-labelledby="<?php echo esc_attr($index); ?>">
                     <?php echo ($contentText); ?>
                 </div>
             <?php
