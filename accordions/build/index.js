@@ -5588,9 +5588,7 @@ function Html(props) {
     }
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__.Icon, {
     icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_25__["default"]
-  })), isProFeature && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    className: "bg-amber-500 px-2 py-0.5 text-[11px]  no-underline rounded-sm  cursor-pointer text-white "
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)("Pro", "accordions"))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_input_toggle__WEBPACK_IMPORTED_MODULE_22__["default"], {
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_input_toggle__WEBPACK_IMPORTED_MODULE_22__["default"], {
     value: globalOptions?.urlHash,
     onChange: newVal => {
       if (isProFeature) {
@@ -5621,9 +5619,7 @@ function Html(props) {
     }
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__.Icon, {
     icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_25__["default"]
-  })), isProFeature && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    className: "bg-amber-500 px-2 py-0.5 text-[11px]  no-underline rounded-sm  cursor-pointer text-white "
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)("Pro", "accordions"))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_input_toggle__WEBPACK_IMPORTED_MODULE_22__["default"], {
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_input_toggle__WEBPACK_IMPORTED_MODULE_22__["default"], {
     value: globalOptions?.clickToScrollTop,
     onChange: newVal => {
       if (isProFeature) {
@@ -5670,9 +5666,7 @@ function Html(props) {
     }
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__.Icon, {
     icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_25__["default"]
-  })), isProFeature && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    className: "bg-amber-500 px-2 py-0.5 text-[11px]  no-underline rounded-sm  cursor-pointer text-white "
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)("Pro", "accordions"))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_input_toggle__WEBPACK_IMPORTED_MODULE_22__["default"], {
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_input_toggle__WEBPACK_IMPORTED_MODULE_22__["default"], {
     value: globalOptions?.autoPlay,
     onChange: newVal => {
       if (isProFeature) {
@@ -8905,6 +8899,18 @@ function Html(props) {
     seticonCollapseAllHtml(collapseIconHtml);
   }, [expandCollapseAll?.options]);
   var [active, setactive] = useState(9999);
+  function unescapeHTML(str) {
+    const map = {
+      '&amp;': '&',
+      '&lt;': '<',
+      '&gt;': '>',
+      '&quot;': '"',
+      '&#039;': "'"
+    };
+    return str.replace(/&amp;|&lt;|&gt;|&quot;|&#039;/g, function (match) {
+      return map[match];
+    });
+  }
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "px-10 py-10"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -8960,8 +8966,9 @@ function Html(props) {
       dangerouslySetInnerHTML: {
         __html: labelIconHtml
       }
-    })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
       className: ` accordion-header-label`,
+      href: "#" + item.headerLabelSlug,
       onClick: e => {
         return;
       }
@@ -9017,9 +9024,9 @@ function Html(props) {
         __html: iconToggleHtml
       }
     }))), active == index && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: `accordion-content`,
+      className: `accordion-content animate__animated animate__${content?.options?.inAnimation}`,
       dangerouslySetInnerHTML: {
-        __html: item?.contentText
+        __html: unescapeHTML(item?.contentText)
       }
     })));
   })));
@@ -9107,7 +9114,7 @@ function Html(props) {
   var [wrapper, setwrapper] = useState(accordionData.wrapper); // Using the hook.
   var [items, setitems] = useState(accordionData.items); // Using the hook.
   var [item, setitem] = useState(accordionData.item);
-  var [contentWrap, setcontentWrap] = useState(accordionData.contentWrap);
+  var [overlay, setoverlay] = useState(accordionData.overlay);
   var [content, setcontent] = useState(accordionData.content);
   var [title, settitle] = useState(accordionData.title);
   var [image, setimage] = useState(accordionData.image);
@@ -9164,7 +9171,7 @@ function Html(props) {
     setwrapper(accordionData.wrapper);
     setitems(accordionData.items);
     setitem(accordionData.item);
-    setcontentWrap(accordionData.contentWrap);
+    setoverlay(accordionData.overlay);
     setcontent(accordionData.content);
     settitle(accordionData.title);
     setimage(accordionData.image);
@@ -9178,26 +9185,46 @@ function Html(props) {
     setpleaseUpdateX(pleaseUpdate);
   }, [pleaseUpdate]);
   var [active, setactive] = useState(9999);
+  function unescapeHTML(str) {
+    const map = {
+      '&amp;': '&',
+      '&lt;': '<',
+      '&gt;': '>',
+      '&quot;': '"',
+      '&#039;': "'"
+    };
+    return str.replace(/&amp;|&lt;|&gt;|&quot;|&#039;/g, function (match) {
+      return map[match];
+    });
+  }
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "px-10 py-10"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     id: `accordions-${id}`,
     className: `image-accordion-wrapper ${wrapper?.options?.class} `
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "items"
   }, items?.map((i, index) => {
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       key: index,
-      className: `image-accordion-item ${item?.options?.class} `
+      className: `image-accordion-item  ${i.active ? "active" : ""} ${index == active ? "active" : ""} ${item?.options?.class} `,
+      onMouseOver: ev => {
+        setactive(index);
+      },
+      onMouseLeave: ev => {
+        setactive(9999);
+      }
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
       src: i.image.url,
       className: `image-accordion-image ${image?.options?.class}`
-    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: `image-accordion-content-wrap ${contentWrap?.options?.class}`
+    }), (index == active || i.active) && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: `image-accordion-overlay ${overlay?.options?.class} animate__animated animate__${overlay?.options?.inAnimation}`
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: `image-accordion-title ${title?.options?.class}`
     }, i.title), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: `accordion-content ${content?.options?.class}`
-    }, i.content)));
-  })));
+      className: `image-accordion-content ${content?.options?.class}`
+    }, unescapeHTML(i.content))));
+  }))));
 }
 class PreviewImageAccordion extends Component {
   constructor(props) {
@@ -9340,6 +9367,7 @@ function Html(props) {
     setwrapper(accordionData.wrapper);
     setitems(accordionData.items);
     setcontent(accordionData.content);
+    setpanelWrap(accordionData.panelWrap);
     setaccOptions(accordionData.accOptions);
     setheader(accordionData.header);
     setheaderActive(accordionData.headerActive);
@@ -9383,6 +9411,18 @@ function Html(props) {
     seticonCollapseAllHtml(collapseIconHtml);
   }, [expandCollapseAll?.options]);
   var [active, setactive] = useState(9999);
+  function unescapeHTML(str) {
+    const map = {
+      '&amp;': '&',
+      '&lt;': '<',
+      '&gt;': '>',
+      '&quot;': '"',
+      '&#039;': "'"
+    };
+    return str.replace(/&amp;|&lt;|&gt;|&quot;|&#039;/g, function (match) {
+      return map[match];
+    });
+  }
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "px-10 py-10"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -9481,7 +9521,7 @@ function Html(props) {
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: `tabs-panel animate__animated animate__${panelWrap?.options?.inAnimation}  ${activeTab === index ? "tabs-panel-active" : "hidden"}`,
       dangerouslySetInnerHTML: {
-        __html: tab.contentText
+        __html: unescapeHTML(tab.contentText)
       }
     });
   }))));
@@ -16362,7 +16402,9 @@ function Html(props) {
   if (!props.warn) {
     return null;
   }
-  var content = props.val == null || props.val == undefined ? "" : props.val.replaceAll('"', "");
+  var content = props.val == null || props.val == undefined ? " " : props.val;
+  content = props.val.replaceAll('"', "");
+  content = content.replaceAll("u2018", "'");
   content = content.replaceAll("u0022", "");
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "mt-4"
@@ -16371,10 +16413,18 @@ function Html(props) {
     type: "text",
     onChange: newVal => {
       if (newVal.includes("attr")) {
+        newVal = newVal.replaceAll('"', "u0022");
+        newVal = newVal.replaceAll('"', "u2018");
         props.onChange(newVal, "content");
       }
       //setwidthVal(newVal);
-      else props.onChange('"' + newVal + '"', "content");
+      else {
+        newVal = newVal.replaceAll('"', "u0022");
+        newVal = newVal.replaceAll("'", "u2018");
+        newVal = 'u0022' + newVal + 'u0022';
+        console.log(newVal);
+        props.onChange(newVal, "content");
+      }
     }
   }));
 }
@@ -32484,3573 +32534,6 @@ var AccordionMenuDefaultData = {
 
 /***/ }),
 
-/***/ "./src/components/dashboard/accordion-templates.js":
-/*!*********************************************************!*\
-  !*** ./src/components/dashboard/accordion-templates.js ***!
-  \*********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-var accordionTemplates = [{
-  label: "Template 1",
-  thumb: "https://pickplugins.com/wp-content/uploads/2024/12/accoridons-template-1.png",
-  isPro: false,
-  data: {
-    "wrapper": {
-      "options": {
-        "tag": "div",
-        "class": "accordions-wrapper"
-      },
-      "styles": {}
-    },
-    "content": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-content"
-      },
-      "styles": {
-        "padding": {
-          "Desktop": "20px 20px 20px 20px"
-        },
-        "backgroundColor": {
-          "Desktop": "#ffffff"
-        },
-        "borderRight": {
-          "Desktop": "1px solid #3079ff"
-        },
-        "borderBottom": {
-          "Desktop": "1px solid #3079ff"
-        },
-        "borderLeft": {
-          "Desktop": "1px solid #2461ca"
-        }
-      }
-    },
-    "header": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-header"
-      },
-      "styles": {
-        "justifyContent": {
-          "Desktop": "start"
-        },
-        "backgroundColor": {
-          "Desktop": "#3079ff"
-        },
-        "color": {
-          "Desktop": "#ffffff"
-        },
-        "margin": {
-          "Desktop": "10px 0px 0px 0px"
-        },
-        "display": {
-          "Desktop": "flex"
-        },
-        "alignItems": {
-          "Desktop": "center"
-        },
-        "fontSize": {
-          "Desktop": "18px"
-        },
-        "fontFamily": {
-          "Desktop": "Courgette"
-        },
-        "fontWeight": {
-          "Desktop": "500"
-        },
-        "gap": {
-          "Desktop": "1em"
-        },
-        "cursor": {
-          "Desktop": "pointer"
-        }
-      }
-    },
-    "headerActive": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-header-active"
-      },
-      "styles": {}
-    },
-    "headerLabel": {
-      "options": {
-        "text": "Accordion Header",
-        "tag": "div",
-        "class": "accordion-header-label"
-      },
-      "styles": {}
-    },
-    "labelCounter": {
-      "options": {
-        "enable": false,
-        "position": "",
-        "tag": "div",
-        "class": "accordion-label-counter"
-      },
-      "styles": {
-        "display": [],
-        "height": [],
-        "lineHeight": [],
-        "width": [],
-        "backgroundColor": {
-          "Desktop": "#2461ca"
-        },
-        "margin": [],
-        "color": {
-          "Desktop": "#ffffff"
-        },
-        "position": [],
-        "zIndex": [],
-        "padding": {
-          "Desktop": "10px 20px 10px 20px"
-        }
-      }
-    },
-    "labelIcon": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "",
-        "position": "",
-        "class": "accordion-label-icon"
-      },
-      "styles": {
-        "display": {
-          "Desktop": "inline-block"
-        },
-        "width": []
-      }
-    },
-    "icon": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "fas fa-angle-down",
-        "position": "left",
-        "class": "accordion-icon"
-      },
-      "styles": {
-        "display": [],
-        "height": [],
-        "lineHeight": [],
-        "width": [],
-        "backgroundColor": {
-          "Desktop": "#2461ca"
-        },
-        "margin": [],
-        "color": {
-          "Desktop": "#ffffff"
-        },
-        "position": [],
-        "zIndex": [],
-        "padding": {
-          "Desktop": "10px 20px 10px 20px"
-        }
-      }
-    },
-    "iconToggle": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": " fas fa-angle-up",
-        "class": "accordion-icon-toggle"
-      },
-      "styles": {}
-    }
-  }
-}, {
-  label: "Template 02",
-  thumb: "https://pickplugins.com/wp-content/uploads/2024/12/accoridons-template-15.png",
-  isPro: true,
-  data: {
-    "wrapper": {
-      "options": {
-        "tag": "div",
-        "class": "accordions-wrapper"
-      },
-      "styles": {}
-    },
-    "content": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-content"
-      },
-      "styles": {
-        "padding": {
-          "Desktop": "20px 20px 20px 20px"
-        },
-        "backgroundColor": {
-          "Desktop": "#ffffff"
-        },
-        "borderRight": {
-          "Desktop": "1px solid #ededed"
-        },
-        "borderBottom": {
-          "Desktop": "1px solid #ededed"
-        },
-        "borderLeft": {
-          "Desktop": "1px solid #ededed"
-        },
-        "boxShadow": []
-      }
-    },
-    "header": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-header"
-      },
-      "styles": {
-        "justifyContent": {
-          "Desktop": "start"
-        },
-        "backgroundColor": [],
-        "color": {
-          "Desktop": "#ffffff"
-        },
-        "padding": [],
-        "margin": {
-          "Desktop": "10px 0px 0px 0px"
-        },
-        "display": {
-          "Desktop": "flex"
-        },
-        "alignItems": {
-          "Desktop": "center"
-        },
-        "fontSize": {
-          "Desktop": "18px"
-        },
-        "fontFamily": {
-          "Desktop": "Poppins"
-        },
-        "fontWeight": {
-          "Desktop": "500"
-        },
-        "gap": {
-          "Desktop": "1em"
-        },
-        "borderRadius": [],
-        "borderLeft": [],
-        "cursor": {
-          "Desktop": "pointer"
-        },
-        "borderTop": [],
-        "boxShadow": [],
-        "borderRight": []
-      }
-    },
-    "headerActive": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-header-active"
-      },
-      "styles": {
-        "color": {
-          "Desktop": "#ffffff"
-        },
-        "backgroundColor": {
-          "Desktop": "#1f2e4500"
-        },
-        "margin": {
-          "Desktop": "0px 0px 0px 0px"
-        },
-        "borderRadius": {
-          "Desktop": "10px 10px 0px 0px !important"
-        }
-      }
-    },
-    "headerLabel": {
-      "options": {
-        "text": "Accordion Header",
-        "tag": "div",
-        "class": "accordion-header-label"
-      },
-      "styles": {
-        "width": {
-          "Desktop": "100%"
-        },
-        "backgroundColor": {
-          "Desktop": "#3eba89"
-        },
-        "padding": {
-          "Desktop": "10px 10px 10px 20px"
-        }
-      }
-    },
-    "labelCounter": {
-      "options": {
-        "enable": false,
-        "position": "left",
-        "tag": "div",
-        "class": "accordion-label-counter"
-      },
-      "styles": {
-        "width": {
-          "Desktop": "60px"
-        },
-        "backgroundClip": [],
-        "backgroundColor": {
-          "Desktop": "#3eba89 !important"
-        },
-        "padding": {
-          "Desktop": "10px 20px 10px 25px"
-        }
-      }
-    },
-    "labelIcon": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "",
-        "position": "",
-        "class": "accordion-label-icon"
-      },
-      "styles": {
-        "display": [],
-        "width": [],
-        "margin": {
-          "Desktop": "0px 10px 0px 0px"
-        }
-      }
-    },
-    "icon": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "fas fa-angle-down",
-        "position": "left",
-        "class": "accordion-icon"
-      },
-      "styles": {
-        "width": {
-          "Desktop": "60px"
-        },
-        "backgroundClip": [],
-        "backgroundColor": {
-          "Desktop": "#3eba89"
-        },
-        "padding": {
-          "Desktop": "10px 20px 10px 25px"
-        }
-      }
-    },
-    "iconToggle": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": " fas fa-angle-up",
-        "class": "accordion-icon-toggle"
-      },
-      "styles": {}
-    }
-  }
-}, {
-  label: "Template 03",
-  thumb: "https://pickplugins.com/wp-content/uploads/2024/12/accoridons-template-14.png",
-  isPro: true,
-  data: {
-    "wrapper": {
-      "options": {
-        "tag": "div",
-        "class": "accordions-wrapper"
-      },
-      "styles": {}
-    },
-    "content": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-content"
-      },
-      "styles": {
-        "padding": {
-          "Desktop": "20px 20px 20px 20px"
-        },
-        "backgroundColor": {
-          "Desktop": "#ffffff"
-        },
-        "borderRight": {
-          "Desktop": "1px solid #ededed"
-        },
-        "borderBottom": {
-          "Desktop": "1px solid #ededed"
-        },
-        "borderLeft": {
-          "Desktop": "1px solid #ededed"
-        },
-        "boxShadow": [],
-        "margin": {
-          "Desktop": "0px 0px 0px 76px"
-        }
-      }
-    },
-    "header": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-header"
-      },
-      "styles": {
-        "justifyContent": {
-          "Desktop": "start"
-        },
-        "backgroundColor": [],
-        "color": {
-          "Desktop": "#ffffff"
-        },
-        "padding": [],
-        "margin": {
-          "Desktop": "10px 0px 0px 0px"
-        },
-        "display": {
-          "Desktop": "flex"
-        },
-        "alignItems": {
-          "Desktop": "center"
-        },
-        "fontSize": {
-          "Desktop": "18px"
-        },
-        "fontFamily": {
-          "Desktop": "Poppins"
-        },
-        "fontWeight": {
-          "Desktop": "500"
-        },
-        "gap": {
-          "Desktop": "1em"
-        },
-        "borderRadius": [],
-        "borderLeft": [],
-        "cursor": {
-          "Desktop": "pointer"
-        },
-        "borderTop": [],
-        "boxShadow": [],
-        "borderRight": []
-      }
-    },
-    "headerActive": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-header-active"
-      },
-      "styles": {
-        "color": {
-          "Desktop": "#ffffff"
-        },
-        "backgroundColor": {
-          "Desktop": "#1f2e4500"
-        },
-        "margin": {
-          "Desktop": "0px 0px 0px 0px"
-        },
-        "borderRadius": {
-          "Desktop": "10px 10px 0px 0px !important"
-        }
-      }
-    },
-    "headerLabel": {
-      "options": {
-        "text": "Accordion Header",
-        "tag": "div",
-        "class": "accordion-header-label"
-      },
-      "styles": {
-        "width": {
-          "Desktop": "100%"
-        },
-        "backgroundColor": {
-          "Desktop": "#38a0c8"
-        },
-        "padding": {
-          "Desktop": "10px 10px 10px 20px"
-        }
-      }
-    },
-    "labelCounter": {
-      "options": {
-        "enable": false,
-        "position": "",
-        "tag": "div",
-        "class": "accordion-label-counter"
-      },
-      "styles": {}
-    },
-    "labelIcon": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "",
-        "position": "",
-        "class": "accordion-label-icon"
-      },
-      "styles": {
-        "display": [],
-        "width": [],
-        "margin": {
-          "Desktop": "0px 10px 0px 0px"
-        }
-      }
-    },
-    "icon": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "fas fa-angle-down",
-        "position": "left",
-        "class": "accordion-icon"
-      },
-      "styles": {
-        "display": [],
-        "height": [],
-        "lineHeight": [],
-        "width": {
-          "Desktop": "60px"
-        },
-        "backgroundColor": {
-          "Desktop": "#38a0c8"
-        },
-        "margin": [],
-        "color": {
-          "Desktop": "#ffffff"
-        },
-        "position": [],
-        "zIndex": [],
-        "padding": {
-          "Desktop": "10px 20px 10px 25px"
-        },
-        "borderRadius": [],
-        "textAlign": [],
-        "justifyContent": []
-      }
-    },
-    "iconToggle": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": " fas fa-angle-up",
-        "class": "accordion-icon-toggle"
-      },
-      "styles": {}
-    }
-  }
-}, {
-  label: "Template 04",
-  thumb: "https://pickplugins.com/wp-content/uploads/2024/12/accoridons-template-16.png",
-  isPro: false,
-  data: {
-    "wrapper": {
-      "options": {
-        "tag": "div",
-        "class": "accordions-wrapper"
-      },
-      "styles": {}
-    },
-    "content": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-content"
-      },
-      "styles": {
-        "padding": {
-          "Desktop": "20px 20px 20px 20px"
-        },
-        "backgroundColor": {
-          "Desktop": "#ffffff"
-        },
-        "borderRight": {
-          "Desktop": "1px solid #ededed"
-        },
-        "borderBottom": {
-          "Desktop": "1px solid #ededed"
-        },
-        "borderLeft": {
-          "Desktop": "1px solid #ededed"
-        },
-        "boxShadow": []
-      }
-    },
-    "header": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-header"
-      },
-      "styles": {
-        "justifyContent": {
-          "Desktop": "start"
-        },
-        "backgroundColor": {
-          "Desktop": "#ffffff"
-        },
-        "color": {
-          "Desktop": "#444444"
-        },
-        "padding": {
-          "Desktop": "10px 10px 10px 10px"
-        },
-        "margin": {
-          "Desktop": "10px 0px 0px 0px"
-        },
-        "display": {
-          "Desktop": "flex"
-        },
-        "alignItems": {
-          "Desktop": "center"
-        },
-        "fontSize": {
-          "Desktop": "18px"
-        },
-        "fontFamily": {
-          "Desktop": "Poppins"
-        },
-        "fontWeight": {
-          "Desktop": "500"
-        },
-        "gap": {
-          "Desktop": "1em"
-        },
-        "borderRadius": [],
-        "borderLeft": [],
-        "cursor": {
-          "Desktop": "pointer"
-        },
-        "borderTop": [],
-        "boxShadow": [],
-        "borderRight": [],
-        "borderBottom": {
-          "Desktop": "1px solid #bababa"
-        }
-      }
-    },
-    "headerActive": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-header-active"
-      },
-      "styles": {}
-    },
-    "headerLabel": {
-      "options": {
-        "text": "Accordion Header",
-        "tag": "div",
-        "class": "accordion-header-label"
-      },
-      "styles": {}
-    },
-    "labelCounter": {
-      "options": {
-        "enable": false,
-        "position": "",
-        "tag": "div",
-        "class": "accordion-label-counter"
-      },
-      "styles": {}
-    },
-    "labelIcon": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "",
-        "position": "",
-        "class": "accordion-label-icon"
-      },
-      "styles": {
-        "display": {
-          "Desktop": "inline-block"
-        },
-        "width": []
-      }
-    },
-    "icon": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "fas fa-angle-down",
-        "position": "left",
-        "class": "accordion-icon"
-      },
-      "styles": {
-        "display": [],
-        "height": [],
-        "lineHeight": [],
-        "width": [],
-        "backgroundColor": {
-          "Desktop": "#505050 !important"
-        },
-        "margin": [],
-        "color": {
-          "Desktop": "#ffffff !important"
-        },
-        "position": [],
-        "zIndex": [],
-        "padding": {
-          "Desktop": "5px 12px 5px 12px"
-        },
-        "borderRadius": [],
-        "fontSize": {
-          "Desktop": "16px"
-        }
-      }
-    },
-    "iconToggle": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": " fas fa-angle-up",
-        "class": "accordion-icon-toggle"
-      },
-      "styles": {}
-    }
-  }
-},
-// {
-// 	label: "Template 05",
-// 	thumb: "https://pickplugins.com/wp-content/uploads/2024/12/accoridons-template-17.png",
-// 	isPro: false,
-// 	data: {
-// 		"wrapper": { "options": { "tag": "div", "class": "accordions-wrapper" }, "styles": {} },
-// 		"content": { "options": { "tag": "div", "class": "accordion-content" }, "styles": { "padding": { "Desktop": "20px 20px 20px 20px" }, "backgroundColor": { "Desktop": "#ffffff" }, "borderRight": { "Desktop": "1px solid #ededed" }, "borderBottom": { "Desktop": "1px solid #ededed" }, "borderLeft": { "Desktop": "1px solid #ededed" }, "boxShadow": [] } },
-// 		"header": { "options": { "tag": "div", "class": "accordion-header" }, "styles": { "justifyContent": { "Desktop": "start" }, "backgroundColor": { "Desktop": "#ffffff" }, "color": { "Desktop": "#f571a6" }, "padding": [], "margin": { "Desktop": "10px 0px 0px 0px" }, "display": { "Desktop": "flex" }, "alignItems": { "Desktop": "center" }, "fontSize": { "Desktop": "18px" }, "fontFamily": { "Desktop": "Poppins" }, "fontWeight": { "Desktop": "500" }, "gap": { "Desktop": "1em" }, "borderRadius": [], "borderLeft": [], "cursor": { "Desktop": "pointer" }, "borderTop": [], "boxShadow": [], "borderRight": [], "borderBottom": { "Desktop": "1px solid #d74937" } } },
-// 		"headerActive": { "options": { "tag": "div", "class": "accordion-header-active" }, "styles": {} },
-// 		"headerLabel": { "options": { "text": "Accordion Header", "tag": "div", "class": "accordion-header-label" }, "styles": {} },
-// 		"labelCounter": { "options": { "enable": false, "position": "", "tag": "div", "class": "accordion-label-counter" }, "styles": { "display": [], "height": [], "lineHeight": [], "width": [], "margin": [], "position": [], "zIndex": [] } },
-// 		"labelIcon": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": "", "position": "", "class": "accordion-label-icon" }, "styles": { "display": { "Desktop": "inline-block" }, "width": [] } },
-// 		"icon": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": "fas fa-angle-down", "position": "left", "class": "accordion-icon" }, "styles": { "display": [], "height": [], "lineHeight": [], "width": [], "backgroundColor": { "Desktop": "#d74937 !important" }, "margin": [], "color": { "Desktop": "#ffffff !important" }, "position": [], "zIndex": [], "padding": { "Desktop": "10px 15px 10px 15px" }, "borderRadius": [], "fontSize": { "Desktop": "16px" } } },
-// 		"iconToggle": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": " fas fa-angle-up", "class": "accordion-icon-toggle" }, "styles": {} },
-// 	}
-// },
-
-// {
-// 	label: "Template 06",
-// 	thumb: "https://pickplugins.com/wp-content/uploads/2024/12/accoridons-template-9.png",
-// 	isPro: true,
-// 	data: {
-// 		"wrapper": { "options": { "tag": "div", "class": "accordions-wrapper" }, "styles": {} },
-// 		"content": { "options": { "tag": "div", "class": "accordion-content" }, "styles": { "padding": { "Desktop": "20px 20px 20px 20px" }, "backgroundColor": { "Desktop": "#ffffff" }, "borderRight": [], "borderBottom": [], "borderLeft": [] } },
-// 		"header": { "options": { "tag": "div", "class": "accordion-header" }, "styles": { "justifyContent": { "Desktop": "start" }, "backgroundColor": { "Desktop": "#c8c8c8 !important" }, "color": { "Desktop": "#444444" }, "padding": [], "margin": { "Desktop": "10px 0px 0px 0px" }, "display": { "Desktop": "flex" }, "alignItems": { "Desktop": "center" }, "fontSize": { "Desktop": "18px" }, "fontFamily": { "Desktop": "Poppins" }, "fontWeight": { "Desktop": "500" }, "gap": { "Desktop": "1em" }, "borderRadius": { "Desktop": "5px 5px 5px 5px" }, "cursor": { "Desktop": "pointer" } } },
-// 		"headerActive": { "options": { "tag": "div", "class": "accordion-header-active" }, "styles": {} },
-// 		"headerLabel": { "options": { "text": "Accordion Header", "tag": "div", "class": "accordion-header-label" }, "styles": { "margin": { "Desktop": "0px 0px 0px 10px" } } },
-// 		"labelCounter": { "options": { "enable": false, "position": "", "tag": "div", "class": "accordion-label-counter" }, "styles": { "display": [], "height": [], "lineHeight": [], "width": [], "position": [], "zIndex": [] } },
-// 		"labelIcon": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": "", "position": "", "class": "accordion-label-icon" }, "styles": { "display": { "Desktop": "inline-block" }, "width": [] } },
-// 		"icon": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": "fas fa-angle-down", "position": "left", "class": "accordion-icon" }, "styles": { "display": [], "height": [], "lineHeight": [], "width": [], "backgroundColor": { "Desktop": "#368ff7" }, "margin": [], "color": { "Desktop": "#ffffff" }, "position": { "Desktop": "relative" }, "zIndex": [], "padding": { "Desktop": "10px 7px 10px 20px" }, "borderRadius": { "Desktop": "5px 0px 0px 5px" } }, "after": { "zIndex": [], "position": { "Desktop": "absolute !important" }, "content": { "Desktop": "\"  \"" }, "height": { "Desktop": "0px" }, "width": { "Desktop": "0px" }, "top": { "Desktop": "0px" }, "backgroundColor": [], "left": { "Desktop": "37px" }, "borderTop": { "Desktop": "20px solid #3690f700" }, "borderRight": { "Desktop": "20px solid #368ff7" }, "borderBottom": { "Desktop": "20px solid #3690f700" }, "transform": { "Desktop": "rotate(180deg) " } } },
-// 		"iconToggle": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": " fas fa-angle-up", "class": "accordion-icon-toggle" }, "styles": {} },
-// 	}
-// },
-
-{
-  label: "Template 07",
-  thumb: "https://pickplugins.com/wp-content/uploads/2024/12/accoridons-template-10.png",
-  isPro: true,
-  data: {
-    "wrapper": {
-      "options": {
-        "tag": "div",
-        "class": "accordions-wrapper"
-      },
-      "styles": {}
-    },
-    "content": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-content"
-      },
-      "styles": {
-        "fontSize": [],
-        "fontFamily": [],
-        "fontWeight": [],
-        "padding": {
-          "Desktop": "10px 20px 20px 20px"
-        },
-        "borderRight": {
-          "Desktop": "1px solid #bf4f00"
-        },
-        "borderBottom": {
-          "Desktop": "1px solid #bf4f00"
-        },
-        "borderLeft": {
-          "Desktop": "1px solid #bf4f00"
-        },
-        "backgroundColor": {
-          "Desktop": "#ffffff"
-        },
-        "margin": {
-          "Desktop": "0px 0px 10px 0px"
-        }
-      }
-    },
-    "header": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-header"
-      },
-      "styles": {
-        "justifyContent": {
-          "Desktop": "start"
-        },
-        "backgroundColor": {
-          "Desktop": "#e6e6e6 !important"
-        },
-        "color": {
-          "Desktop": "#444444"
-        },
-        "padding": [],
-        "margin": {
-          "Desktop": "10px 0px 0px 0px"
-        },
-        "display": {
-          "Desktop": "flex"
-        },
-        "alignItems": {
-          "Desktop": "center"
-        },
-        "fontSize": {
-          "Desktop": "18px"
-        },
-        "fontFamily": {
-          "Desktop": "Poppins"
-        },
-        "fontWeight": {
-          "Desktop": "500"
-        },
-        "gap": {
-          "Desktop": "1em"
-        },
-        "borderRadius": {
-          "Desktop": "5px 5px 5px 5px"
-        },
-        "cursor": {
-          "Desktop": "pointer"
-        }
-      }
-    },
-    "headerActive": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-header-active"
-      },
-      "styles": {
-        "backgroundColor": {
-          "Desktop": "#efefef !important"
-        },
-        "margin": {
-          "Desktop": "0px 0px 0px 0px"
-        },
-        "borderRadius": {
-          "Desktop": "5px 5px 0px 0px"
-        },
-        "borderTop": [],
-        "borderBottom": {
-          "Desktop": "0px solid #000000 !important"
-        }
-      }
-    },
-    "headerLabel": {
-      "options": {
-        "text": "Accordion Header",
-        "tag": "div",
-        "class": "accordion-header-label"
-      },
-      "styles": {
-        "margin": {
-          "Desktop": "0px 0px 0px 15px"
-        }
-      }
-    },
-    "labelCounter": {
-      "options": {
-        "enable": false,
-        "position": "",
-        "tag": "div",
-        "class": "accordion-label-counter"
-      },
-      "styles": {
-        "display": [],
-        "height": [],
-        "lineHeight": [],
-        "width": [],
-        "position": [],
-        "zIndex": []
-      }
-    },
-    "labelIcon": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "",
-        "position": "",
-        "class": "accordion-label-icon"
-      },
-      "styles": {
-        "display": {
-          "Desktop": "inline-block"
-        },
-        "width": []
-      }
-    },
-    "icon": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "fas fa-angle-down",
-        "position": "left",
-        "class": "accordion-icon"
-      },
-      "styles": {
-        "display": [],
-        "height": [],
-        "lineHeight": [],
-        "width": [],
-        "backgroundColor": {
-          "Desktop": "#bf5000"
-        },
-        "color": {
-          "Desktop": "#ffffff"
-        },
-        "position": {
-          "Desktop": "relative"
-        },
-        "zIndex": [],
-        "padding": {
-          "Desktop": "15px 15px 15px 20px"
-        },
-        "borderRadius": {
-          "Desktop": "5px 0px 0px 5px"
-        }
-      },
-      "after": {
-        "zIndex": [],
-        "position": {
-          "Desktop": "absolute !important"
-        },
-        "content": {
-          "Desktop": "\"  \""
-        },
-        "height": {
-          "Desktop": "0px"
-        },
-        "width": {
-          "Desktop": "0px"
-        },
-        "top": {
-          "Desktop": "0px"
-        },
-        "backgroundColor": [],
-        "left": {
-          "Desktop": "46px"
-        },
-        "borderTop": {
-          "Desktop": "26px solid #3690f700"
-        },
-        "borderRight": {
-          "Desktop": "24px solid #bf5000"
-        },
-        "borderBottom": {
-          "Desktop": "24px solid #3690f700"
-        },
-        "transform": {
-          "Desktop": "rotate(180deg) "
-        }
-      }
-    },
-    "iconToggle": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": " fas fa-angle-up",
-        "class": "accordion-icon-toggle"
-      },
-      "styles": {}
-    }
-  }
-}, {
-  label: "Template 08",
-  thumb: "https://pickplugins.com/wp-content/uploads/2024/12/accoridons-template-5.png",
-  isPro: false,
-  data: {
-    "wrapper": {
-      "options": {
-        "tag": "div",
-        "class": "accordions-wrapper"
-      },
-      "styles": {}
-    },
-    "content": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-content"
-      },
-      "styles": {
-        "padding": {
-          "Desktop": "20px 20px 20px 20px"
-        },
-        "backgroundColor": {
-          "Desktop": "#ffffff"
-        },
-        "borderRight": [],
-        "borderBottom": [],
-        "borderLeft": []
-      }
-    },
-    "header": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-header"
-      },
-      "styles": {
-        "justifyContent": {
-          "Desktop": "start"
-        },
-        "backgroundColor": {
-          "Desktop": "#ffffff !important"
-        },
-        "color": {
-          "Desktop": "#444444"
-        },
-        "padding": {
-          "Desktop": "10px 10px 10px 10px"
-        },
-        "margin": {
-          "Desktop": "10px 0px 0px 0px"
-        },
-        "display": {
-          "Desktop": "flex"
-        },
-        "alignItems": {
-          "Desktop": "center"
-        },
-        "fontSize": {
-          "Desktop": "18px"
-        },
-        "fontFamily": {
-          "Desktop": "Poppins"
-        },
-        "fontWeight": {
-          "Desktop": "500"
-        },
-        "gap": {
-          "Desktop": "1em"
-        },
-        "borderRadius": [],
-        "borderLeft": {
-          "Desktop": "6px solid #48bf3a"
-        },
-        "cursor": {
-          "Desktop": "pointer"
-        }
-      }
-    },
-    "headerActive": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-header-active"
-      },
-      "styles": {
-        "backgroundColor": {
-          "Desktop": "#f7f7f7 !important"
-        }
-      }
-    },
-    "headerLabel": {
-      "options": {
-        "text": "Accordion Header",
-        "tag": "div",
-        "class": "accordion-header-label"
-      },
-      "styles": {
-        "width": {
-          "Desktop": "100%"
-        }
-      }
-    },
-    "labelCounter": {
-      "options": {
-        "enable": false,
-        "position": "",
-        "tag": "div",
-        "class": "accordion-label-counter"
-      },
-      "styles": {
-        "display": [],
-        "height": [],
-        "lineHeight": [],
-        "width": [],
-        "position": [],
-        "zIndex": []
-      }
-    },
-    "labelIcon": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "",
-        "position": "",
-        "class": "accordion-label-icon"
-      },
-      "styles": {
-        "display": {
-          "Desktop": "inline-block"
-        },
-        "width": []
-      }
-    },
-    "icon": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "fas fa-angle-down",
-        "position": "left",
-        "class": "accordion-icon"
-      },
-      "styles": {
-        "display": [],
-        "height": [],
-        "lineHeight": [],
-        "width": [],
-        "backgroundColor": {
-          "Desktop": "#9f84cf00"
-        },
-        "margin": [],
-        "color": {
-          "Desktop": "#48bf3a"
-        },
-        "position": [],
-        "zIndex": [],
-        "padding": [],
-        "borderRadius": []
-      },
-      "after": {
-        "display": [],
-        "height": [],
-        "lineHeight": [],
-        "width": [],
-        "margin": [],
-        "position": [],
-        "zIndex": [],
-        "padding": [],
-        "borderRadius": []
-      }
-    },
-    "iconToggle": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": " fas fa-angle-up",
-        "class": "accordion-icon-toggle"
-      },
-      "styles": {}
-    }
-  }
-}, {
-  label: "Template 13",
-  thumb: "https://pickplugins.com/wp-content/uploads/2024/12/accoridons-template-18.png",
-  isPro: true,
-  data: {
-    "wrapper": {
-      "options": {
-        "tag": "div",
-        "class": "accordions-wrapper"
-      },
-      "styles": {}
-    },
-    "content": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-content"
-      },
-      "styles": {
-        "padding": {
-          "Desktop": "20px 20px 20px 20px"
-        },
-        "backgroundColor": {
-          "Desktop": "#ffffff"
-        },
-        "borderTop": [],
-        "borderRight": {
-          "Desktop": "1px solid #ced8dc"
-        },
-        "borderBottom": {
-          "Desktop": "1px solid #ced8dc"
-        },
-        "borderLeft": {
-          "Desktop": "1px solid #ced8dc"
-        },
-        "borderRadius": {
-          "Desktop": "0px 0px 5px 5px"
-        }
-      }
-    },
-    "header": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-header"
-      },
-      "styles": {
-        "justifyContent": {
-          "Desktop": "start"
-        },
-        "backgroundColor": {
-          "Desktop": "#b2ebf2"
-        },
-        "color": {
-          "Desktop": "#444444"
-        },
-        "padding": {
-          "Desktop": "10px 10px 10px 10px"
-        },
-        "margin": {
-          "Desktop": "10px 0px 0px 0px"
-        },
-        "display": {
-          "Desktop": "flex"
-        },
-        "alignItems": {
-          "Desktop": "center"
-        },
-        "fontSize": {
-          "Desktop": "18px"
-        },
-        "fontFamily": {
-          "Desktop": "Poppins"
-        },
-        "fontWeight": {
-          "Desktop": "500"
-        },
-        "borderRadius": {
-          "Desktop": "5px 5px 5px 5px"
-        },
-        "cursor": {
-          "Desktop": "pointer"
-        }
-      }
-    },
-    "headerActive": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-header-active"
-      },
-      "styles": {
-        "color": {
-          "Desktop": "#ffffff"
-        },
-        "backgroundColor": {
-          "Desktop": "#ced8dc"
-        },
-        "margin": {
-          "Desktop": "0px 0px 0px 0px"
-        },
-        "borderRadius": {
-          "Desktop": "5px 5px 0px 0px"
-        }
-      }
-    },
-    "headerLabel": {
-      "options": {
-        "text": "Accordion Header",
-        "tag": "div",
-        "class": "accordion-header-label"
-      },
-      "styles": {
-        "width": {
-          "Desktop": "100%"
-        }
-      }
-    },
-    "labelCounter": {
-      "options": {
-        "enable": false,
-        "position": "",
-        "tag": "div",
-        "class": "accordion-label-counter"
-      },
-      "styles": {
-        "display": [],
-        "height": [],
-        "lineHeight": [],
-        "width": [],
-        "position": [],
-        "zIndex": []
-      }
-    },
-    "labelIcon": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "",
-        "position": "",
-        "class": "accordion-label-icon"
-      },
-      "styles": {
-        "display": {
-          "Desktop": "inline-block"
-        },
-        "width": []
-      }
-    },
-    "icon": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "fas fa-angle-down",
-        "position": "left",
-        "class": "accordion-icon"
-      },
-      "styles": {
-        "padding": [],
-        "backgroundColor": {
-          "Desktop": "#1d6064"
-        },
-        "borderTop": [],
-        "borderRight": [],
-        "borderBottom": [],
-        "borderLeft": [],
-        "left": [],
-        "top": [],
-        "display": {
-          "Desktop": "inline-block"
-        },
-        "position": [],
-        "zIndex": [],
-        "color": {
-          "Desktop": "#ffffff !important"
-        },
-        "textAlign": {
-          "Desktop": "center"
-        },
-        "margin": {
-          "Desktop": "0px 15px 0px 10px"
-        },
-        "fontWeight": [],
-        "width": {
-          "Desktop": "35px"
-        },
-        "height": {
-          "Desktop": "35px"
-        },
-        "lineHeight": {
-          "Desktop": "35px"
-        },
-        "borderRadius": {
-          "Desktop": "5px 5px 5px 5px"
-        },
-        "fontSize": {
-          "Desktop": "18px"
-        }
-      },
-      "after": {
-        "zIndex": [],
-        "backgroundColor": []
-      }
-    },
-    "iconToggle": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": " fas fa-angle-up",
-        "class": "accordion-icon-toggle"
-      },
-      "styles": {}
-    }
-  }
-}, {
-  label: "Template 14",
-  thumb: "https://pickplugins.com/wp-content/uploads/2024/12/accoridons-template-13.png",
-  isPro: true,
-  data: {
-    "wrapper": {
-      "options": {
-        "tag": "div",
-        "class": "accordions-wrapper"
-      },
-      "styles": {}
-    },
-    "content": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-content"
-      },
-      "styles": {
-        "padding": {
-          "Desktop": "20px 20px 20px 20px"
-        },
-        "backgroundColor": {
-          "Desktop": "#ffffff"
-        },
-        "borderRight": {
-          "Desktop": "1px solid #ededed"
-        },
-        "borderBottom": {
-          "Desktop": "1px solid #ededed"
-        },
-        "borderLeft": {
-          "Desktop": "1px solid #ededed"
-        },
-        "boxShadow": []
-      }
-    },
-    "header": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-header"
-      },
-      "styles": {
-        "justifyContent": {
-          "Desktop": "start"
-        },
-        "backgroundColor": {
-          "Desktop": "#fdeded"
-        },
-        "color": {
-          "Desktop": "#444444"
-        },
-        "padding": {
-          "Desktop": "10px 10px 10px 10px"
-        },
-        "margin": {
-          "Desktop": "10px 0px 0px 0px"
-        },
-        "display": {
-          "Desktop": "flex"
-        },
-        "alignItems": {
-          "Desktop": "center"
-        },
-        "fontSize": {
-          "Desktop": "18px"
-        },
-        "fontFamily": {
-          "Desktop": "Poppins"
-        },
-        "fontWeight": {
-          "Desktop": "500"
-        },
-        "gap": {
-          "Desktop": "1em"
-        },
-        "borderRadius": [],
-        "borderLeft": {
-          "Desktop": "1px solid #ededed"
-        },
-        "cursor": {
-          "Desktop": "pointer"
-        },
-        "borderTop": {
-          "Desktop": "4px solid #f45c5c"
-        },
-        "boxShadow": [],
-        "borderRight": {
-          "Desktop": "1px solid #ededed"
-        }
-      }
-    },
-    "headerActive": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-header-active"
-      },
-      "styles": {}
-    },
-    "headerLabel": {
-      "options": {
-        "text": "Accordion Header",
-        "tag": "div",
-        "class": "accordion-header-label"
-      },
-      "styles": {
-        "width": {
-          "Desktop": "100%"
-        }
-      }
-    },
-    "labelCounter": {
-      "options": {
-        "enable": false,
-        "position": "",
-        "tag": "div",
-        "class": "accordion-label-counter"
-      },
-      "styles": {
-        "display": [],
-        "height": [],
-        "lineHeight": [],
-        "width": [],
-        "position": [],
-        "zIndex": []
-      }
-    },
-    "labelIcon": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "",
-        "position": "",
-        "class": "accordion-label-icon"
-      },
-      "styles": {
-        "display": {
-          "Desktop": "inline-block"
-        },
-        "width": []
-      }
-    },
-    "icon": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "fas fa-angle-down",
-        "position": "left",
-        "class": "accordion-icon"
-      },
-      "styles": {
-        "display": [],
-        "height": [],
-        "lineHeight": [],
-        "width": [],
-        "backgroundColor": {
-          "Desktop": "#00000000"
-        },
-        "margin": [],
-        "color": {
-          "Desktop": "#000000"
-        },
-        "position": [],
-        "zIndex": [],
-        "padding": [],
-        "borderRadius": []
-      },
-      "after": {
-        "zIndex": [],
-        "backgroundColor": []
-      }
-    },
-    "iconToggle": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": " fas fa-angle-up",
-        "class": "accordion-icon-toggle"
-      },
-      "styles": {}
-    }
-  }
-}, {
-  label: "Template 15",
-  thumb: "https://pickplugins.com/wp-content/uploads/2024/12/accoridons-template-12.png",
-  isPro: false,
-  data: {
-    "wrapper": {
-      "options": {
-        "tag": "div",
-        "class": "accordions-wrapper"
-      },
-      "styles": {}
-    },
-    "content": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-content"
-      },
-      "styles": {
-        "padding": {
-          "Desktop": "20px 20px 20px 20px"
-        },
-        "backgroundColor": {
-          "Desktop": "#ffffff"
-        },
-        "borderRight": {
-          "Desktop": "1px solid #ededed"
-        },
-        "borderBottom": {
-          "Desktop": "1px solid #ededed"
-        },
-        "borderLeft": {
-          "Desktop": "1px solid #ededed"
-        },
-        "boxShadow": []
-      }
-    },
-    "header": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-header"
-      },
-      "styles": {
-        "justifyContent": {
-          "Desktop": "start"
-        },
-        "backgroundColor": {
-          "Desktop": "#f05994"
-        },
-        "color": {
-          "Desktop": "#ffffff"
-        },
-        "padding": {
-          "Desktop": "10px 20px 10px 20px"
-        },
-        "margin": {
-          "Desktop": "10px 0px 0px 0px"
-        },
-        "display": {
-          "Desktop": "flex"
-        },
-        "alignItems": {
-          "Desktop": "center"
-        },
-        "fontSize": {
-          "Desktop": "18px"
-        },
-        "fontFamily": {
-          "Desktop": "Poppins"
-        },
-        "fontWeight": {
-          "Desktop": "500"
-        },
-        "gap": {
-          "Desktop": "1em"
-        },
-        "borderRadius": {
-          "Desktop": "50px 50px 50px 50px"
-        },
-        "borderLeft": [],
-        "cursor": {
-          "Desktop": "pointer"
-        },
-        "borderTop": [],
-        "boxShadow": [],
-        "borderRight": []
-      }
-    },
-    "headerActive": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-header-active"
-      },
-      "styles": {
-        "color": {
-          "Desktop": "#ffffff"
-        },
-        "backgroundColor": {
-          "Desktop": "#1f2e45"
-        },
-        "margin": {
-          "Desktop": "0px 0px 0px 0px"
-        },
-        "borderRadius": {
-          "Desktop": "10px 10px 0px 0px !important"
-        }
-      }
-    },
-    "headerLabel": {
-      "options": {
-        "text": "Accordion Header",
-        "tag": "div",
-        "class": "accordion-header-label"
-      },
-      "styles": {
-        "width": {
-          "Desktop": "100%"
-        }
-      }
-    },
-    "labelCounter": {
-      "options": {
-        "enable": false,
-        "position": "",
-        "tag": "div",
-        "class": "accordion-label-counter"
-      },
-      "styles": {
-        "display": [],
-        "height": [],
-        "lineHeight": [],
-        "width": [],
-        "position": [],
-        "zIndex": []
-      }
-    },
-    "labelIcon": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "",
-        "position": "",
-        "class": "accordion-label-icon"
-      },
-      "styles": {
-        "display": {
-          "Desktop": "inline-block"
-        },
-        "width": []
-      }
-    },
-    "icon": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "fas fa-angle-down",
-        "position": "left",
-        "class": "accordion-icon"
-      },
-      "styles": {
-        "display": [],
-        "height": [],
-        "lineHeight": [],
-        "width": [],
-        "backgroundColor": {
-          "Desktop": "#00000000"
-        },
-        "margin": [],
-        "color": {
-          "Desktop": "#ffffff"
-        },
-        "position": [],
-        "zIndex": [],
-        "padding": [],
-        "borderRadius": []
-      },
-      "after": {
-        "zIndex": [],
-        "backgroundColor": []
-      }
-    },
-    "iconToggle": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": " fas fa-angle-up",
-        "class": "accordion-icon-toggle"
-      },
-      "styles": {}
-    }
-  }
-}, {
-  label: "Template 16",
-  thumb: "https://pickplugins.com/wp-content/uploads/2024/12/accoridons-template-20.png",
-  isPro: true,
-  data: {
-    "wrapper": {
-      "options": {
-        "tag": "div",
-        "class": "accordions-wrapper"
-      },
-      "styles": {}
-    },
-    "content": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-content"
-      },
-      "styles": {
-        "padding": {
-          "Desktop": "20px 20px 20px 20px"
-        },
-        "backgroundColor": {
-          "Desktop": "#ffffff"
-        },
-        "borderRight": {
-          "Desktop": "2px solid #f58117"
-        },
-        "borderBottom": {
-          "Desktop": "2px solid #f58117"
-        },
-        "borderLeft": {
-          "Desktop": "2px solid #f58117"
-        }
-      }
-    },
-    "header": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-header"
-      },
-      "styles": {
-        "justifyContent": {
-          "Desktop": "start"
-        },
-        "backgroundColor": {
-          "Desktop": "#ffffff"
-        },
-        "color": {
-          "Desktop": "#444444"
-        },
-        "padding": {
-          "Desktop": "10px 20px 10px 20px"
-        },
-        "margin": {
-          "Desktop": "10px 0px 0px 0px"
-        },
-        "display": {
-          "Desktop": "flex"
-        },
-        "alignItems": {
-          "Desktop": "center"
-        },
-        "fontSize": {
-          "Desktop": "18px"
-        },
-        "fontFamily": {
-          "Desktop": "Poppins"
-        },
-        "fontWeight": {
-          "Desktop": "500"
-        },
-        "gap": {
-          "Desktop": "1em"
-        },
-        "borderRadius": [],
-        "borderLeft": {
-          "Desktop": "2px solid #f58117"
-        },
-        "cursor": {
-          "Desktop": "pointer"
-        },
-        "borderBottom": {
-          "Desktop": "2px solid #f58117"
-        }
-      }
-    },
-    "headerActive": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-header-active"
-      },
-      "styles": {
-        "backgroundColor": {
-          "Desktop": "#f6e6d5 !important"
-        },
-        "margin": {
-          "Desktop": "0px 0px 0px 0px"
-        },
-        "borderRadius": {
-          "Desktop": "5px 5px 0px 0px"
-        },
-        "borderTop": {
-          "Desktop": "2px solid #f58117"
-        },
-        "borderRight": {
-          "Desktop": "2px solid #f58117"
-        },
-        "borderBottom": {
-          "Desktop": "0px solid #000000 !important"
-        }
-      }
-    },
-    "headerLabel": {
-      "options": {
-        "text": "Accordion Header",
-        "tag": "div",
-        "class": "accordion-header-label"
-      },
-      "styles": {}
-    },
-    "labelCounter": {
-      "options": {
-        "enable": false,
-        "position": "",
-        "tag": "div",
-        "class": "accordion-label-counter"
-      },
-      "styles": {}
-    },
-    "labelIcon": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "",
-        "position": "",
-        "class": "accordion-label-icon"
-      },
-      "styles": {}
-    },
-    "icon": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "fas fa-angle-down",
-        "position": "left",
-        "class": "accordion-icon"
-      },
-      "styles": {
-        "display": [],
-        "height": [],
-        "lineHeight": [],
-        "width": [],
-        "backgroundColor": {
-          "Desktop": "#9f84cf00"
-        },
-        "margin": [],
-        "color": {
-          "Desktop": "#f58117"
-        },
-        "position": [],
-        "zIndex": [],
-        "padding": [],
-        "borderRadius": []
-      }
-    },
-    "iconToggle": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": " fas fa-angle-up",
-        "class": "accordion-icon-toggle"
-      },
-      "styles": {}
-    }
-  }
-},
-// {
-// 	label: "Template 17",
-
-// 	thumb: "https://pickplugins.com/wp-content/uploads/2024/12/accoridons-template-20.png",
-// 	isPro: true,
-// 	data: {
-// 		"wrapper": { "options": { "tag": "div", "class": "accordions-wrapper" }, "styles": { "margin": [], "width": { "Desktop": "70%", "Mobile": "100%", "Tablet": "90%" }, "marginTop": { "Desktop": "50px" }, "marginRight": { "Desktop": "auto" }, "marginLeft": { "Desktop": "auto" } } },
-// 		"content": { "options": { "tag": "div", "class": "accordion-content" }, "styles": { "backgroundColor": { "Desktop": "#fffeee" }, "padding": { "Desktop": "10px 10px 30px 10px" }, "margin": { "Desktop": "0px 0px 10px 0px" } } },
-// 		"header": { "options": { "tag": "div", "class": "accordion-header" }, "styles": { "justifyContent": { "Desktop": "space-between" }, "backgroundColor": { "Desktop": "#18978f" }, "color": { "Desktop": "#454e6d" }, "padding": { "Desktop": "10px 10px 10px 10px" }, "margin": { "Desktop": "10px 0px 0px 0px" }, "display": { "Desktop": "flex" }, "alignItems": { "Desktop": "center" }, "borderBottom": { "Desktop": "1px dashed #454e6d" } } },
-// 		"headerActive": { "options": { "tag": "div", "class": "accordion-header-active" }, "styles": { "backgroundColor": { "Desktop": "#fffeee !important" } } },
-// 		"headerLabel": { "options": { "text": "Accordion Header", "tag": "a", "class": "accordion-header-label" }, "styles": { "fontSize": { "Desktop": "26px" }, "fontFamily": { "Desktop": "Mouse Memoirs" }, "fontStyle": { "Desktop": "normal" }, "fontWeight": { "Desktop": "400" }, "letterSpacing": { "Desktop": "3px" }, "color": { "Desktop": "#454e6d" }, "backgroundColor": { "Desktop": "#00000000" }, "display": { "Desktop": "flex" }, "alignItems": { "Desktop": "center" } } },
-// 		"labelCounter": { "options": { "enable": false, "position": "", "tag": "div", "class": "accordion-label-counter" }, "styles": { "display": [], "height": [], "lineHeight": [], "width": [], "backgroundColor": { "Desktop": "#2461ca" }, "margin": [], "color": { "Desktop": "#ffffff" }, "position": [], "zIndex": [], "padding": { "Desktop": "10px 20px 10px 20px" } } },
-// 		"labelIcon": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": "fas fa-star", "position": "beforeLabel", "class": "accordion-label-icon" }, "styles": { "display": { "Desktop": "inline-block" }, "width": [] } },
-// 		"icon": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": "fas fa-angle-down", "position": "right", "class": "accordion-icon" }, "styles": {} },
-// 		"iconToggle": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": " fas fa-angle-up", "class": "accordion-icon-toggle" }, "styles": [] },
-// 		"searchInput": { "options": { "placeholder": "", "class": "search-input", "enable": false }, "styles": [] },
-// 		"expandCollapseAll": { "options": { "enable": false, "class": "expand-collapse-all", "expandAllText": "Expand All", "collapseAllText": "Collapse All", "expandAllIcon": { "library": "fontAwesome", "srcType": "class", "iconSrc": " fas fa-angle-up" }, "collapseAllIcon": { "library": "fontAwesome", "srcType": "class", "iconSrc": " fas fa-angle-up" } }, "styles": { "backgroundColor": { "Desktop": "#774360" }, "padding": { "Desktop": "8px 20px 8px 20px" }, "borderRadius": { "Desktop": "3px 3px 3px 3px" }, "fontSize": { "Desktop": "16px" }, "color": { "Desktop": "#ffffff" }, "display": { "Desktop": "flex" }, "gap": { "Desktop": "1em" }, "alignItems": { "Desktop": "center" } } },
-// 		"topWrap": { "options": { "class": "top-wrap" }, "styles": { "display": { "Desktop": "flex" }, "justifyContent": { "Desktop": "start" }, "alignItems": { "Desktop": "center" }, "padding": { "Desktop": "20px 0px 20px 0px" }, "gap": { "Desktop": "1em" } } },
-// 	}
-
-// },
-// {
-// 	label: "Template 18",
-
-// 	thumb: "https://pickplugins.com/wp-content/uploads/2024/12/accoridons-template-20.png",
-// 	isPro: true,
-// 	data:
-// 	{
-// 		"wrapper": { "options": { "tag": "div", "class": "accordions-wrapper" }, "styles": { "margin": [], "width": { "Mobile": "100%", "Tablet": "90%" } } },
-// 		"content": { "options": { "tag": "div", "class": "accordion-content" }, "styles": { "fontSize": { "Desktop": "20px" }, "backgroundColor": { "Desktop": "#e1f1e4" }, "color": { "Desktop": "#000000" }, "fontFamily": { "Desktop": "Inter" }, "fontWeight": { "Desktop": "400" }, "padding": { "Desktop": "20px 20px 20px 50px" }, "margin": { "Desktop": "0px 0px 20px 0px" } } },
-// 		"header": { "options": { "tag": "div", "class": "accordion-header" }, "styles": { "justifyContent": { "Desktop": "start" }, "backgroundColor": { "Desktop": "#ffffff" }, "color": { "Desktop": "#000000" }, "padding": { "Desktop": "10px 10px 10px 10px" }, "margin": [], "display": { "Desktop": "flex" }, "alignItems": { "Desktop": "center" }, "fontSize": [] } },
-// 		"headerActive": { "options": { "tag": "div", "class": "accordion-header-active" }, "styles": { "backgroundColor": { "Desktop": "#e1f1e4" }, "color": { "Desktop": "#d92824" }, "margin": { "Desktop": "0px 0px 0px 0px" } } },
-// 		"headerLabel": { "options": { "text": "Accordion Header", "tag": "a", "class": "accordion-header-label" }, "styles": { "fontSize": { "Desktop": "24px" }, "margin": { "Desktop": "0px 0px 0px 30px" }, "backgroundColor": [], "color": [], "fontFamily": { "Desktop": "Inter" }, "fontWeight": { "Desktop": "700" } } },
-// 		"labelCounter": { "options": { "enable": false, "position": "", "tag": "div", "class": "accordion-label-counter" }, "styles": {} },
-// 		"labelIcon": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": "fas fa-star", "position": "", "class": "accordion-label-icon" }, "styles": { "width": [] } },
-// 		"icon": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": "fas fa-angle-down", "position": "left", "class": "accordion-icon" }, "styles": {} },
-// 		"iconToggle": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": " fas fa-angle-up", "class": "accordion-icon-toggle" }, "styles": [] },
-// 		"searchInput": { "options": { "placeholder": "", "class": "search-input", "enable": false }, "styles": [] },
-// 		"expandCollapseAll": { "options": { "enable": false, "class": "expand-collapse-all", "expandAllText": "Expand All", "collapseAllText": "Collapse All", "expandAllIcon": { "library": "fontAwesome", "srcType": "class", "iconSrc": " fas fa-angle-up" }, "collapseAllIcon": { "library": "fontAwesome", "srcType": "class", "iconSrc": " fas fa-angle-up" } }, "styles": { "backgroundColor": { "Desktop": "#774360" }, "padding": { "Desktop": "8px 20px 8px 20px" }, "borderRadius": { "Desktop": "3px 3px 3px 3px" }, "fontSize": { "Desktop": "16px" }, "color": { "Desktop": "#ffffff" }, "display": { "Desktop": "flex" }, "gap": { "Desktop": "1em" }, "alignItems": { "Desktop": "center" } } },
-// 		"topWrap": { "options": { "class": "top-wrap" }, "styles": { "display": { "Desktop": "flex" }, "justifyContent": { "Desktop": "start" }, "alignItems": { "Desktop": "center" }, "padding": { "Desktop": "20px 0px 20px 0px" }, "gap": { "Desktop": "1em" } } },
-// 	}
-
-// },
-// {
-// 	label: "Template 19",
-
-// 	thumb: "https://pickplugins.com/wp-content/uploads/2024/12/accoridons-template-20.png",
-// 	isPro: true,
-// 	data:
-// 	{
-// 		"wrapper": { "options": { "tag": "div", "class": "accordions-wrapper" }, "styles": { "margin": [], "width": { "Mobile": "100%", "Tablet": "90%" } } },
-// 		"content": { "options": { "tag": "div", "class": "accordion-content" }, "styles": { "padding": { "Desktop": "10px 20px 10px 20px" }, "boxShadow": { "Desktop": "0px 4px 4px 0px #00000040" }, "marginBottom": { "Desktop": "10px" }, "borderRadius": { "Desktop": "0px 0px 5px 5px" } } },
-// 		"header": { "options": { "tag": "div", "class": "accordion-header" }, "styles": { "justifyContent": { "Desktop": "space-between" }, "backgroundColor": { "Desktop": "#ffffff" }, "color": { "Desktop": "#000000" }, "padding": { "Desktop": "10px 25px 10px 25px" }, "margin": { "Desktop": "0px 0px 12px 0px" }, "display": { "Desktop": "flex" }, "alignItems": { "Desktop": "center" }, "fontSize": { "Desktop": "18px" }, "fontFamily": { "Desktop": "Inter" }, "fontStyle": { "Desktop": "normal" }, "fontWeight": { "Desktop": "400" }, "boxShadow": { "Desktop": "0px 4px 4px 0px #00000040" }, "borderRadius": { "Desktop": "5px 5px 5px 5px" }, "gap": { "Desktop": "2em" } } },
-// 		"headerActive": { "options": { "tag": "div", "class": "accordion-header-active" }, "styles": { "backgroundColor": { "Desktop": "#3300ff" }, "color": { "Desktop": "#ffffff" }, "margin": { "Desktop": "0px 0px 0px 0px" }, "boxShadow": { "Desktop": "0px 0px 0px 0px #50547d4f" }, "borderRadius": { "Desktop": "5px 5px 0px 0px" } } },
-// 		"headerLabel": { "options": { "text": "Accordion Header", "tag": "a", "class": "accordion-header-label" }, "styles": {} },
-// 		"labelCounter": { "options": { "enable": false, "position": "", "tag": "div", "class": "accordion-label-counter" }, "styles": {} },
-// 		"labelIcon": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": "fas fa-star", "position": "", "class": "accordion-label-icon" }, "styles": {} },
-// 		"icon": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": "fas fa-angle-down", "position": "right", "class": "accordion-icon" }, "styles": {} },
-// 		"iconToggle": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": " fas fa-angle-up", "class": "accordion-icon-toggle" }, "styles": [] },
-// 		"searchInput": { "options": { "placeholder": "", "class": "search-input", "enable": false }, "styles": [] },
-// 		"expandCollapseAll": { "options": { "enable": false, "class": "expand-collapse-all", "expandAllText": "Expand All", "collapseAllText": "Collapse All", "expandAllIcon": { "library": "fontAwesome", "srcType": "class", "iconSrc": " fas fa-angle-up" }, "collapseAllIcon": { "library": "fontAwesome", "srcType": "class", "iconSrc": " fas fa-angle-up" } }, "styles": { "backgroundColor": { "Desktop": "#774360" }, "padding": { "Desktop": "8px 20px 8px 20px" }, "borderRadius": { "Desktop": "3px 3px 3px 3px" }, "fontSize": { "Desktop": "16px" }, "color": { "Desktop": "#ffffff" }, "display": { "Desktop": "flex" }, "gap": { "Desktop": "1em" }, "alignItems": { "Desktop": "center" } } },
-// 		"topWrap": { "options": { "class": "top-wrap" }, "styles": { "display": { "Desktop": "flex" }, "justifyContent": { "Desktop": "start" }, "alignItems": { "Desktop": "center" }, "padding": { "Desktop": "20px 0px 20px 0px" }, "gap": { "Desktop": "1em" } } },
-// 	}
-
-// },
-// {
-// 	label: "Template 20",
-
-// 	thumb: "https://pickplugins.com/wp-content/uploads/2024/12/accoridons-template-20.png",
-// 	isPro: true,
-// 	data: {
-// 		"wrapper": { "options": { "tag": "div", "class": "accordions-wrapper" }, "styles": { "margin": [], "width": { "Mobile": "100%", "Tablet": "90%" } } },
-// 		"content": { "options": { "tag": "div", "class": "accordion-content" }, "styles": { "margin": { "Desktop": "0px 0px 20px 0px" }, "padding": { "Desktop": "20px 20px 20px 20px" }, "boxShadow": { "Desktop": "1px 3px 3px 1px #50547d30" }, "fontSize": { "Desktop": "20px" } } },
-// 		"header": { "options": { "tag": "div", "class": "accordion-header" }, "styles": { "justifyContent": { "Desktop": "start" }, "backgroundColor": { "Desktop": "#ffffff" }, "color": { "Desktop": "#010101" }, "padding": { "Desktop": "10px 10px 10px 10px" }, "margin": { "Desktop": "0px 0px 15px 0px" }, "display": { "Desktop": "flex" }, "alignItems": { "Desktop": "center" }, "fontSize": { "Desktop": "20px" }, "boxShadow": [], "border": { "Desktop": "1px solid #000000" } } },
-// 		"headerActive": { "options": { "tag": "div", "class": "accordion-header-active" }, "styles": { "backgroundColor": { "Desktop": "#48a7ff" }, "color": { "Desktop": "#ffffff" }, "margin": [], "border": { "Desktop": "1px solid #48a7ff" } } },
-// 		"headerLabel": { "options": { "text": "Accordion Header", "tag": "a", "class": "accordion-header-label" }, "styles": { "fontSize": [], "margin": { "Desktop": "0px 0px 0px 15px" }, "boxShadow": [] } },
-// 		"labelCounter": { "options": { "enable": false, "position": "", "tag": "div", "class": "accordion-label-counter" }, "styles": { "margin": [] } },
-// 		"labelIcon": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": "fas fa-star", "position": "", "class": "accordion-label-icon" }, "styles": {} },
-// 		"icon": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": "fas fa-angle-down", "position": "left", "class": "accordion-icon" }, "styles": { "margin": { "Desktop": "0px 15px 0px 0px" } } },
-// 		"iconToggle": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": " fas fa-angle-up", "class": "accordion-icon-toggle" }, "styles": [] },
-// 		"searchInput": { "options": { "placeholder": "", "class": "search-input", "enable": false }, "styles": [] },
-// 		"expandCollapseAll": { "options": { "enable": false, "class": "expand-collapse-all", "expandAllText": "Expand All", "collapseAllText": "Collapse All", "expandAllIcon": { "library": "fontAwesome", "srcType": "class", "iconSrc": " fas fa-angle-up" }, "collapseAllIcon": { "library": "fontAwesome", "srcType": "class", "iconSrc": " fas fa-angle-up" } }, "styles": { "backgroundColor": { "Desktop": "#774360" }, "padding": { "Desktop": "8px 20px 8px 20px" }, "borderRadius": { "Desktop": "3px 3px 3px 3px" }, "fontSize": { "Desktop": "16px" }, "color": { "Desktop": "#ffffff" }, "display": { "Desktop": "flex" }, "gap": { "Desktop": "1em" }, "alignItems": { "Desktop": "center" } } },
-// 		"topWrap": { "options": { "class": "top-wrap" }, "styles": { "display": { "Desktop": "flex" }, "justifyContent": { "Desktop": "start" }, "alignItems": { "Desktop": "center" }, "padding": { "Desktop": "20px 0px 20px 0px" }, "gap": { "Desktop": "1em" } } },
-// 	}
-
-// },
-// {
-// 	label: "Template 21",
-
-// 	thumb: "https://pickplugins.com/wp-content/uploads/2024/12/accoridons-template-20.png",
-// 	isPro: true,
-// 	data: {
-// 		"wrapper": { "options": { "tag": "div", "class": "accordions-wrapper" }, "styles": { "margin": [], "width": { "Mobile": "100%", "Tablet": "90%" } } },
-// 		"content": { "options": { "tag": "div", "class": "accordion-content" }, "styles": { "padding": { "Desktop": "10px 20px 10px 20px" }, "boxShadow": { "Desktop": "0px 4px 4px 0px #00000040" }, "marginBottom": { "Desktop": "10px" }, "borderRadius": { "Desktop": "0px 0px 5px 5px" } } },
-// 		"header": { "options": { "tag": "div", "class": "accordion-header" }, "styles": { "justifyContent": { "Desktop": "space-between" }, "backgroundColor": { "Desktop": "#ffffff" }, "color": { "Desktop": "#000000" }, "padding": { "Desktop": "10px 25px 10px 25px" }, "margin": { "Desktop": "0px 0px 12px 0px" }, "display": { "Desktop": "flex" }, "alignItems": { "Desktop": "center" }, "fontSize": { "Desktop": "18px" }, "fontFamily": { "Desktop": "Inter" }, "fontStyle": { "Desktop": "normal" }, "fontWeight": { "Desktop": "400" }, "boxShadow": { "Desktop": "0px 4px 4px 0px #00000040" }, "borderRadius": { "Desktop": "5px 5px 5px 5px" }, "gap": { "Desktop": "2em" } } },
-// 		"headerActive": { "options": { "tag": "div", "class": "accordion-header-active" }, "styles": { "backgroundColor": { "Desktop": "#3300ff !important" }, "color": { "Desktop": "#ffffff !important" }, "margin": { "Desktop": "0px 0px 0px 0px" }, "boxShadow": { "Desktop": "0px 0px 0px 0px #50547d4f" }, "borderRadius": { "Desktop": "5px 5px 0px 0px" } } },
-// 		"headerLabel": { "options": { "text": "Accordion Header", "tag": "a", "class": "accordion-header-label" }, "styles": {} },
-// 		"labelCounter": { "options": { "enable": false, "position": "", "tag": "div", "class": "accordion-label-counter" }, "styles": {} },
-// 		"labelIcon": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": "fas fa-star", "position": "", "class": "accordion-label-icon" }, "styles": {} },
-// 		"icon": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": "fas fa-angle-down", "position": "right", "class": "accordion-icon" }, "styles": {} },
-// 		"iconToggle": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": " fas fa-angle-up", "class": "accordion-icon-toggle" }, "styles": [] },
-// 		"searchInput": { "options": { "placeholder": "", "class": "search-input", "enable": false }, "styles": [] },
-// 		"expandCollapseAll": { "options": { "enable": false, "class": "expand-collapse-all", "expandAllText": "Expand All", "collapseAllText": "Collapse All", "expandAllIcon": { "library": "fontAwesome", "srcType": "class", "iconSrc": " fas fa-angle-up" }, "collapseAllIcon": { "library": "fontAwesome", "srcType": "class", "iconSrc": " fas fa-angle-up" } }, "styles": { "backgroundColor": { "Desktop": "#774360" }, "padding": { "Desktop": "8px 20px 8px 20px" }, "borderRadius": { "Desktop": "3px 3px 3px 3px" }, "fontSize": { "Desktop": "16px" }, "color": { "Desktop": "#ffffff" }, "display": { "Desktop": "flex" }, "gap": { "Desktop": "1em" }, "alignItems": { "Desktop": "center" } } },
-// 		"topWrap": { "options": { "class": "top-wrap" }, "styles": { "display": { "Desktop": "flex" }, "justifyContent": { "Desktop": "start" }, "alignItems": { "Desktop": "center" }, "padding": { "Desktop": "20px 0px 20px 0px" }, "gap": { "Desktop": "1em" } } },
-// 	}
-
-// },
-// {
-// 	label: "Template 22",
-
-// 	thumb: "https://pickplugins.com/wp-content/uploads/2024/12/accoridons-template-20.png",
-// 	isPro: true,
-// 	data:
-// 	{
-// 		"wrapper": { "options": { "tag": "div", "class": "accordions-wrapper" }, "styles": { "margin": [], "width": { "Mobile": "100%", "Tablet": "90%" } } },
-// 		"content": { "options": { "tag": "div", "class": "accordion-content" }, "styles": { "backgroundColor": { "Desktop": "#ffffff" }, "padding": { "Desktop": "30px 30px 30px 30px" }, "boxShadow": { "Desktop": "0px 2px 4px 1px #50547d4f" }, "margin": { "Desktop": "10px 0px 10px 0px" }, "fontSize": { "Desktop": "18px" }, "fontFamily": { "Desktop": "Inter" }, "fontWeight": { "Desktop": "300" } } },
-// 		"header": { "options": { "tag": "div", "class": "accordion-header" }, "styles": { "justifyContent": { "Desktop": "space-between" }, "backgroundColor": { "Desktop": "#ffffff" }, "color": { "Desktop": "#444444" }, "padding": { "Desktop": "10px 10px 10px 10px" }, "margin": { "Desktop": "0px 0px 10px 0px" }, "display": { "Desktop": "flex" }, "alignItems": { "Desktop": "center" }, "fontSize": { "Desktop": "20px" }, "fontWeight": { "Desktop": "400" }, "fontFamily": { "Desktop": "Inter" }, "borderBottom": { "Desktop": "2px solid #444444" }, "cursor": { "Desktop": "pointer" } } },
-// 		"headerActive": { "options": { "tag": "div", "class": "accordion-header-active" }, "styles": { "color": { "Desktop": "#ffffff !important" }, "backgroundColor": { "Desktop": "#4a93ff !important" }, "margin": { "Desktop": "0px 0px 0px 0px" }, "borderRadius": { "Desktop": "5px 5px 0px 0px" }, "borderBottom": { "Desktop": "0px solid #4a93ff !important" } } },
-// 		"headerLabel": { "options": { "text": "Accordion Header", "tag": "a", "class": "accordion-header-label" }, "styles": { "padding": [], "margin": [] } },
-// 		"labelCounter": { "options": { "enable": false, "position": "", "tag": "div", "class": "accordion-label-counter" }, "styles": {} },
-// 		"labelIcon": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": "fas fa-star", "position": "", "class": "accordion-label-icon" }, "styles": {} },
-// 		"icon": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": "fas fa-angle-down", "position": "right", "class": "accordion-icon" }, "styles": {} },
-// 		"iconToggle": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": " fas fa-angle-up", "class": "accordion-icon-toggle" }, "styles": [] },
-// 		"searchInput": { "options": { "placeholder": "", "class": "search-input", "enable": false }, "styles": [] },
-// 		"expandCollapseAll": { "options": { "enable": false, "class": "expand-collapse-all", "expandAllText": "Expand All", "collapseAllText": "Collapse All", "expandAllIcon": { "library": "fontAwesome", "srcType": "class", "iconSrc": " fas fa-angle-up" }, "collapseAllIcon": { "library": "fontAwesome", "srcType": "class", "iconSrc": " fas fa-angle-up" } }, "styles": { "backgroundColor": { "Desktop": "#774360" }, "padding": { "Desktop": "8px 20px 8px 20px" }, "borderRadius": { "Desktop": "3px 3px 3px 3px" }, "fontSize": { "Desktop": "16px" }, "color": { "Desktop": "#ffffff" }, "display": { "Desktop": "flex" }, "gap": { "Desktop": "1em" }, "alignItems": { "Desktop": "center" } } },
-// 		"topWrap": { "options": { "class": "top-wrap" }, "styles": { "display": { "Desktop": "flex" }, "justifyContent": { "Desktop": "start" }, "alignItems": { "Desktop": "center" }, "padding": { "Desktop": "20px 0px 20px 0px" }, "gap": { "Desktop": "1em" } } },
-// 	}
-
-// },
-// {
-// 	label: "Template 23",
-
-// 	thumb: "https://pickplugins.com/wp-content/uploads/2024/12/accoridons-template-20.png",
-// 	isPro: true,
-// 	data: {
-// 		"wrapper": { "options": { "tag": "div", "class": "accordions-wrapper" }, "styles": { "margin": [], "width": { "Mobile": "100%", "Tablet": "90%" } } },
-// 		"content": { "options": { "tag": "div", "class": "accordion-content" }, "styles": { "backgroundColor": { "Desktop": "#f5fbf8" }, "padding": { "Desktop": "10px 25px 10px 25px" }, "border": { "Desktop": "1px solid #e4e4e4" }, "marginBottom": { "Desktop": "10px" }, "borderRadius": { "Desktop": "8px 8px 8px 8px" } } },
-// 		"header": { "options": { "tag": "div", "class": "accordion-header" }, "styles": { "justifyContent": { "Desktop": "space-between" }, "backgroundColor": { "Desktop": "#fbfafe" }, "color": { "Desktop": "#000000" }, "padding": { "Desktop": "10px 25px 10px 25px" }, "margin": { "Desktop": "0px 0px 1px 0px" }, "display": { "Desktop": "flex" }, "alignItems": { "Desktop": "center" }, "fontSize": { "Desktop": "18px" }, "fontFamily": { "Desktop": "Montserrat" }, "fontStyle": { "Desktop": "normal" }, "fontWeight": { "Desktop": "400" }, "border": { "Desktop": "1px solid #e4e4e4" }, "marginBottom": { "Desktop": "10px" }, "borderRadius": { "Desktop": "8px 8px 8px 8px" }, "cursor": { "Desktop": "pointer" } } },
-// 		"headerActive": { "options": { "tag": "div", "class": "accordion-header-active" }, "styles": { "marginBottom": { "Desktop": "10px !important" } } },
-// 		"headerLabel": { "options": { "text": "Accordion Header", "tag": "a", "class": "accordion-header-label" }, "styles": { "padding": [], "margin": [] } },
-// 		"labelCounter": { "options": { "enable": false, "position": "", "tag": "div", "class": "accordion-label-counter" }, "styles": {} },
-// 		"labelIcon": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": "fas fa-star", "position": "", "class": "accordion-label-icon" }, "styles": {} },
-// 		"icon": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": "fas fa-plus", "position": "right", "class": "accordion-icon" }, "styles": {} },
-// 		"iconToggle": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": "fas fa-minus", "class": "accordion-icon-toggle" }, "styles": [] },
-// 		"searchInput": { "options": { "placeholder": "", "class": "search-input", "enable": false }, "styles": [] },
-// 		"expandCollapseAll": { "options": { "enable": false, "class": "expand-collapse-all", "expandAllText": "Expand All", "collapseAllText": "Collapse All", "expandAllIcon": { "library": "fontAwesome", "srcType": "class", "iconSrc": " fas fa-angle-up" }, "collapseAllIcon": { "library": "fontAwesome", "srcType": "class", "iconSrc": " fas fa-angle-up" } }, "styles": { "backgroundColor": { "Desktop": "#774360" }, "padding": { "Desktop": "8px 20px 8px 20px" }, "borderRadius": { "Desktop": "3px 3px 3px 3px" }, "fontSize": { "Desktop": "16px" }, "color": { "Desktop": "#ffffff" }, "display": { "Desktop": "flex" }, "gap": { "Desktop": "1em" }, "alignItems": { "Desktop": "center" } } },
-// 		"topWrap": { "options": { "class": "top-wrap" }, "styles": { "display": { "Desktop": "flex" }, "justifyContent": { "Desktop": "start" }, "alignItems": { "Desktop": "center" }, "padding": { "Desktop": "20px 0px 20px 0px" }, "gap": { "Desktop": "1em" } } },
-// 	}
-
-// },
-// {
-// 	label: "Template 24",
-
-// 	thumb: "https://pickplugins.com/wp-content/uploads/2024/12/accoridons-template-20.png",
-// 	isPro: true,
-// 	data:
-// 	{
-// 		"wrapper": { "options": { "tag": "div", "class": "accordions-wrapper" }, "styles": { "margin": [], "width": { "Mobile": "100%", "Tablet": "90%" } } },
-// 		"content": { "options": { "tag": "div", "class": "accordion-content" }, "styles": { "backgroundColor": { "Desktop": "#f5fbf8" }, "padding": { "Desktop": "10px 25px 10px 25px" }, "border": { "Desktop": "1px solid #e4e4e4" }, "marginBottom": { "Desktop": "10px" }, "borderRadius": { "Desktop": "8px 8px 8px 8px" } } },
-// 		"header": { "options": { "tag": "div", "class": "accordion-header" }, "styles": { "justifyContent": { "Desktop": "space-between" }, "backgroundColor": { "Desktop": "#ffffff" }, "color": { "Desktop": "#000000" }, "padding": { "Desktop": "10px 10px 10px 10px" }, "margin": { "Desktop": "0px 0px 1px 0px" }, "display": { "Desktop": "flex" }, "alignItems": { "Desktop": "center" }, "border": { "Desktop": "1px solid #000000" }, "borderRadius": { "Desktop": "5px 5px 5px 5px" }, "fontSize": { "Desktop": "1.15rem" }, "fontFamily": { "Desktop": "Inter" }, "fontStyle": { "Desktop": "normal" }, "fontWeight": { "Desktop": "500" }, "cursor": { "Desktop": "pointer" } } },
-// 		"headerActive": { "options": { "tag": "div", "class": "accordion-header-active" }, "styles": { "color": { "Desktop": "#ffffff !important" }, "backgroundColor": { "Desktop": "#DFBB9D !important" }, "margin": { "Desktop": "0px 0px 0px 0px !important" }, "borderRadius": { "Desktop": "5px 5px 0px 0px !important" } } },
-// 		"headerLabel": { "options": { "text": "Accordion Header", "tag": "a", "class": "accordion-header-label" }, "styles": {} },
-// 		"labelCounter": { "options": { "enable": false, "position": "", "tag": "div", "class": "accordion-label-counter" }, "styles": {} },
-// 		"labelIcon": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": "fas fa-star", "position": "", "class": "accordion-label-icon" }, "styles": {} },
-// 		"icon": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": "fas fa-angle-down", "position": "right", "class": "accordion-icon" }, "styles": {} },
-// 		"iconToggle": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": "fas fa-angle-up", "class": "accordion-icon-toggle" }, "styles": [] },
-// 		"searchInput": { "options": { "placeholder": "", "class": "search-input", "enable": false }, "styles": [] },
-// 		"expandCollapseAll": { "options": { "enable": false, "class": "expand-collapse-all", "expandAllText": "Expand All", "collapseAllText": "Collapse All", "expandAllIcon": { "library": "fontAwesome", "srcType": "class", "iconSrc": " fas fa-angle-up" }, "collapseAllIcon": { "library": "fontAwesome", "srcType": "class", "iconSrc": " fas fa-angle-up" } }, "styles": { "backgroundColor": { "Desktop": "#774360" }, "padding": { "Desktop": "8px 20px 8px 20px" }, "borderRadius": { "Desktop": "3px 3px 3px 3px" }, "fontSize": { "Desktop": "16px" }, "color": { "Desktop": "#ffffff" }, "display": { "Desktop": "flex" }, "gap": { "Desktop": "1em" }, "alignItems": { "Desktop": "center" } } },
-// 		"topWrap": { "options": { "class": "top-wrap" }, "styles": { "display": { "Desktop": "flex" }, "justifyContent": { "Desktop": "start" }, "alignItems": { "Desktop": "center" }, "padding": { "Desktop": "20px 0px 20px 0px" }, "gap": { "Desktop": "1em" } } },
-// 	}
-
-// },
-// {
-// 	label: "Template 25",
-
-// 	thumb: "https://pickplugins.com/wp-content/uploads/2024/12/accoridons-template-20.png",
-// 	isPro: true,
-// 	data:
-// 	{
-// 		"wrapper": { "options": { "tag": "div", "class": "accordions-wrapper" }, "styles": { "margin": [], "width": { "Mobile": "100%", "Tablet": "90%" } } },
-// 		"content": { "options": { "tag": "div", "class": "accordion-content" }, "styles": { "backgroundColor": { "Desktop": "#f9eeee" }, "padding": { "Desktop": "10px 10px 10px 10px" }, "marginBottom": { "Desktop": "10px" } } },
-// 		"header": { "options": { "tag": "div", "class": "accordion-header" }, "styles": { "justifyContent": { "Desktop": "space-between" }, "backgroundColor": { "Desktop": "#18978e" }, "color": { "Desktop": "#494949" }, "padding": { "Desktop": "10px 15px 10px 15px" }, "margin": [], "display": { "Desktop": "flex" }, "alignItems": { "Desktop": "center" }, "borderBottom": { "Desktop": "1px dashed #000000" }, "marginTop": { "Desktop": "10px" } } },
-// 		"headerActive": { "options": { "tag": "div", "class": "accordion-header-active" }, "styles": { "backgroundColor": { "Desktop": "#f9eeee !important" } } },
-// 		"headerLabel": { "options": { "text": "Accordion Header", "tag": "a", "class": "accordion-header-label" }, "styles": {} },
-// 		"labelCounter": { "options": { "enable": false, "position": "", "tag": "div", "class": "accordion-label-counter" }, "styles": {} },
-// 		"labelIcon": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": "fas fa-star", "position": "", "class": "accordion-label-icon" }, "styles": {} },
-// 		"icon": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": "fas fa-angle-down", "position": "right", "class": "accordion-icon" }, "styles": { "color": { "Desktop": "#494949" } } },
-// 		"iconToggle": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": "fas fa-angle-up", "class": "accordion-icon-toggle" }, "styles": [] },
-// 		"searchInput": { "options": { "placeholder": "", "class": "search-input", "enable": false }, "styles": [] },
-// 		"expandCollapseAll": { "options": { "enable": false, "class": "expand-collapse-all", "expandAllText": "Expand All", "collapseAllText": "Collapse All", "expandAllIcon": { "library": "fontAwesome", "srcType": "class", "iconSrc": " fas fa-angle-up" }, "collapseAllIcon": { "library": "fontAwesome", "srcType": "class", "iconSrc": " fas fa-angle-up" } }, "styles": { "backgroundColor": { "Desktop": "#774360" }, "padding": { "Desktop": "8px 20px 8px 20px" }, "borderRadius": { "Desktop": "3px 3px 3px 3px" }, "fontSize": { "Desktop": "16px" }, "color": { "Desktop": "#ffffff" }, "display": { "Desktop": "flex" }, "gap": { "Desktop": "1em" }, "alignItems": { "Desktop": "center" } } },
-// 		"topWrap": { "options": { "class": "top-wrap" }, "styles": { "display": { "Desktop": "flex" }, "justifyContent": { "Desktop": "start" }, "alignItems": { "Desktop": "center" }, "padding": { "Desktop": "20px 0px 20px 0px" }, "gap": { "Desktop": "1em" } } },
-// 	}
-
-// },
-// {
-// 	label: "Template 26",
-
-// 	thumb: "https://pickplugins.com/wp-content/uploads/2024/12/accoridons-template-20.png",
-// 	isPro: true,
-// 	data:
-// 	{
-// 		"wrapper": { "options": { "tag": "div", "class": "accordions-wrapper" }, "styles": { "display": { "Desktop": "block" }, "width": {} } },
-// 		"content": { "options": { "tag": "div", "class": "accordion-content" }, "styles": { "backgroundColor": { "Desktop": "#f1f7f9" }, "fontSize": { "Desktop": "16px" }, "fontFamily": { "Desktop": "Poppins" }, "fontStyle": { "Desktop": "normal" }, "fontWeight": { "Desktop": "400" }, "color": { "Desktop": "#1f2e45" }, "padding": { "Desktop": "10px 10px 10px 10px" }, "borderRadius": { "Desktop": "0px 0px 5px 5px" }, "margin": { "Desktop": "0px 0px 10px 0px" } } },
-// 		"header": { "options": { "tag": "div", "class": "accordion-header" }, "styles": { "color": { "Desktop": "#000000" }, "backgroundColor": { "Desktop": "#F1F7F9" }, "padding": { "Desktop": "10px 10px 10px 10px" }, "margin": { "Desktop": "0px 0px 10px 0px" }, "borderRadius": { "Desktop": "5px 5px 5px 5px" }, "display": { "Desktop": "flex" }, "alignItems": { "Desktop": "center" }, "border": {} } },
-// 		"headerActive": { "options": { "tag": "div", "class": "accordion-header-active" }, "styles": { "color": { "Desktop": "#ffffff !important" }, "backgroundColor": { "Desktop": "#1f2e45 !important" }, "margin": { "Desktop": "0px 0px 0px 0px !important" }, "borderRadius": { "Desktop": "5px 5px 0px 0px !important" } } },
-// 		"headerLabel": { "options": { "text": "Accordion Header", "tag": "a", "class": "accordion-header-label" }, "styles": {} },
-// 		"labelCounter": { "options": { "enable": false, "position": "", "tag": "div", "class": "accordion-label-counter" }, "styles": { "padding": { "Desktop": "0px 10px 0px 0px" } } },
-// 		"labelIcon": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": "fas fa-star", "position": "", "class": "accordion-label-icon" }, "styles": {} },
-// 		"icon": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": "fas fa-angle-down", "position": "left", "class": "accordion-icon" }, "styles": { "fontSize": { "Desktop": "16px" }, "padding": { "Desktop": "0px 10px 0px 10px" } } },
-// 		"iconToggle": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": "fas fa-angle-up", "class": "accordion-icon-toggle" }, "styles": [] },
-// 		"searchInput": { "options": { "placeholder": "", "class": "search-input", "enable": false }, "styles": [] },
-// 		"expandCollapseAll": { "options": { "enable": false, "class": "expand-collapse-all", "expandAllText": "Expand All", "collapseAllText": "Collapse All", "expandAllIcon": { "library": "fontAwesome", "srcType": "class", "iconSrc": " fas fa-angle-up" }, "collapseAllIcon": { "library": "fontAwesome", "srcType": "class", "iconSrc": " fas fa-angle-up" } }, "styles": { "backgroundColor": { "Desktop": "#774360" }, "padding": { "Desktop": "8px 20px 8px 20px" }, "borderRadius": { "Desktop": "3px 3px 3px 3px" }, "fontSize": { "Desktop": "16px" }, "color": { "Desktop": "#ffffff" }, "display": { "Desktop": "flex" }, "gap": { "Desktop": "1em" }, "alignItems": { "Desktop": "center" } } },
-// 		"topWrap": { "options": { "class": "top-wrap" }, "styles": { "display": { "Desktop": "flex" }, "justifyContent": { "Desktop": "start" }, "alignItems": { "Desktop": "center" }, "padding": { "Desktop": "20px 0px 20px 0px" }, "gap": { "Desktop": "1em" } } },
-// 	}
-
-// },
-// {
-// 	label: "Template 27",
-
-// 	thumb: "https://pickplugins.com/wp-content/uploads/2024/12/accoridons-template-20.png",
-// 	isPro: true,
-// 	data:
-// 	{
-// 		"wrapper": { "options": { "tag": "div", "class": "accordions-wrapper" }, "styles": { "display": { "Desktop": "block" }, "width": {} } },
-// 		"content": { "options": { "tag": "div", "class": "accordion-content" }, "styles": { "margin": { "Desktop": "0px 0px 5px 0px" }, "padding": { "Desktop": "10px 10px 10px 10px" } } },
-// 		"header": { "options": { "tag": "div", "class": "accordion-header" }, "styles": { "justifyContent": { "Desktop": "start" }, "backgroundColor": { "Desktop": "#ffffff" }, "color": { "Desktop": "#51557E" }, "padding": { "Desktop": "10px 10px 10px 10px" }, "margin": { "Desktop": "0px 0px 5px 0px" }, "display": { "Desktop": "flex" }, "alignItems": { "Desktop": "center" }, "boxShadow": {}, "border": { "Desktop": "1px solid #50547d4d" } } },
-// 		"headerActive": { "options": { "tag": "div", "class": "accordion-header-active" }, "styles": { "color": { "Desktop": "#ffffff !important" }, "backgroundColor": { "Desktop": "#1f2e45 !important" }, "margin": { "Desktop": "0px 0px 0px 0px !important" }, "borderRadius": { "Desktop": "5px 5px 0px 0px !important" } } },
-// 		"headerLabel": { "options": { "text": "Accordion Header", "tag": "a", "class": "accordion-header-label" }, "styles": {} },
-// 		"labelCounter": { "options": { "enable": false, "position": "", "tag": "div", "class": "accordion-label-counter" }, "styles": { "padding": { "Desktop": "0px 10px 0px 0px" } } },
-// 		"labelIcon": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": "fas fa-star", "position": "", "class": "accordion-label-icon" }, "styles": {} },
-// 		"icon": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": "fas fa-angle-down", "position": "left", "class": "accordion-icon" }, "styles": { "margin": { "Desktop": "0px 5px 0px 0px" } } },
-// 		"iconToggle": { "options": { "library": "fontAwesome", "srcType": "class", "iconSrc": "fas fa-angle-up", "class": "accordion-icon-toggle" }, "styles": [] },
-// 		"searchInput": { "options": { "placeholder": "", "class": "search-input", "enable": false }, "styles": [] },
-// 		"expandCollapseAll": { "options": { "enable": false, "class": "expand-collapse-all", "expandAllText": "Expand All", "collapseAllText": "Collapse All", "expandAllIcon": { "library": "fontAwesome", "srcType": "class", "iconSrc": " fas fa-angle-up" }, "collapseAllIcon": { "library": "fontAwesome", "srcType": "class", "iconSrc": " fas fa-angle-up" } }, "styles": { "backgroundColor": { "Desktop": "#774360" }, "padding": { "Desktop": "8px 20px 8px 20px" }, "borderRadius": { "Desktop": "3px 3px 3px 3px" }, "fontSize": { "Desktop": "16px" }, "color": { "Desktop": "#ffffff" }, "display": { "Desktop": "flex" }, "gap": { "Desktop": "1em" }, "alignItems": { "Desktop": "center" } } },
-// 		"topWrap": { "options": { "class": "top-wrap" }, "styles": { "display": { "Desktop": "flex" }, "justifyContent": { "Desktop": "start" }, "alignItems": { "Desktop": "center" }, "padding": { "Desktop": "20px 0px 20px 0px" }, "gap": { "Desktop": "1em" } } },
-// 	}
-
-// },
-{
-  label: "Template 28",
-  thumb: "https://pickplugins.com/wp-content/uploads/2024/12/accoridons-template-21.png",
-  isPro: true,
-  data: {
-    "wrapper": {
-      "options": {
-        "tag": "div",
-        "class": "accordions-wrapper"
-      },
-      "styles": {}
-    },
-    "content": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-content"
-      },
-      "styles": {
-        "padding": {
-          "Desktop": "20px 20px 20px 20px"
-        },
-        "backgroundColor": {
-          "Desktop": "#ffffff"
-        },
-        "borderRight": {
-          "Desktop": "1px solid #8a9ba5"
-        },
-        "borderBottom": {
-          "Desktop": "1px solid #8a9ba5"
-        },
-        "borderLeft": {
-          "Desktop": "1px solid #8a9ba5"
-        }
-      }
-    },
-    "header": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-header"
-      },
-      "styles": {
-        "justifyContent": {
-          "Desktop": "start"
-        },
-        "backgroundColor": {
-          "Desktop": "#8a9ba5"
-        },
-        "color": {
-          "Desktop": "#ffffff"
-        },
-        "padding": [],
-        "margin": {
-          "Desktop": "10px 0px 0px 0px"
-        },
-        "display": {
-          "Desktop": "flex"
-        },
-        "alignItems": {
-          "Desktop": "center"
-        },
-        "fontSize": {
-          "Desktop": "18px"
-        },
-        "fontFamily": {
-          "Desktop": "Courgette"
-        },
-        "fontWeight": {
-          "Desktop": "500"
-        },
-        "gap": {
-          "Desktop": "1em"
-        },
-        "cursor": {
-          "Desktop": "pointer"
-        }
-      }
-    },
-    "headerActive": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-header-active"
-      },
-      "styles": {}
-    },
-    "headerLabel": {
-      "options": {
-        "text": "Accordion Header",
-        "tag": "a",
-        "class": "accordion-header-label"
-      },
-      "styles": {
-        "width": {
-          "Desktop": "100%"
-        }
-      }
-    },
-    "labelCounter": {
-      "options": {
-        "enable": false,
-        "position": "",
-        "tag": "div",
-        "class": "accordion-label-counter"
-      },
-      "styles": {
-        "display": [],
-        "height": [],
-        "lineHeight": [],
-        "width": [],
-        "position": [],
-        "zIndex": []
-      }
-    },
-    "labelIcon": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "fas fa-star",
-        "position": "",
-        "class": "accordion-label-icon"
-      },
-      "styles": {
-        "display": {
-          "Desktop": "inline-block"
-        },
-        "width": []
-      }
-    },
-    "icon": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "fas fa-angle-down",
-        "position": "left",
-        "class": "accordion-icon"
-      },
-      "styles": {
-        "display": [],
-        "height": [],
-        "lineHeight": [],
-        "width": {
-          "Desktop": "24px"
-        },
-        "backgroundColor": {
-          "Desktop": "#546a77"
-        },
-        "margin": [],
-        "color": {
-          "Desktop": "#ffffff"
-        },
-        "position": {
-          "Desktop": "relative"
-        },
-        "zIndex": [],
-        "padding": {
-          "Desktop": "10px 20px 10px 20px"
-        }
-      },
-      "after": {
-        "zIndex": [],
-        "position": {
-          "Desktop": "absolute !important"
-        },
-        "content": {
-          "Desktop": "\" \""
-        },
-        "height": {
-          "Desktop": "0px"
-        },
-        "width": {
-          "Desktop": "0px"
-        },
-        "top": {
-          "Desktop": "0px"
-        },
-        "backgroundColor": [],
-        "left": {
-          "Desktop": "45px"
-        },
-        "borderRight": {
-          "Desktop": "30px solid #546a77"
-        },
-        "borderTop": {
-          "Desktop": "20px solid #556b7800"
-        },
-        "borderBottom": {
-          "Desktop": "18px solid #556b7800"
-        },
-        "transform": {
-          "Desktop": "rotate(180deg) "
-        }
-      }
-    },
-    "iconToggle": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "fas fa-angle-up",
-        "class": "accordion-icon-toggle"
-      },
-      "styles": {}
-    },
-    "searchInput": {
-      "options": {
-        "placeholder": "",
-        "class": "search-input",
-        "enable": false
-      },
-      "styles": []
-    },
-    "expandCollapseAll": {
-      "options": {
-        "enable": false,
-        "class": "expand-collapse-all",
-        "expandAllText": "Expand All",
-        "collapseAllText": "Collapse All",
-        "expandAllIcon": {
-          "library": "fontAwesome",
-          "srcType": "class",
-          "iconSrc": " fas fa-angle-up"
-        },
-        "collapseAllIcon": {
-          "library": "fontAwesome",
-          "srcType": "class",
-          "iconSrc": " fas fa-angle-up"
-        }
-      },
-      "styles": {
-        "backgroundColor": {
-          "Desktop": "#774360"
-        },
-        "padding": {
-          "Desktop": "8px 20px 8px 20px"
-        },
-        "borderRadius": {
-          "Desktop": "3px 3px 3px 3px"
-        },
-        "fontSize": {
-          "Desktop": "16px"
-        },
-        "color": {
-          "Desktop": "#ffffff"
-        },
-        "display": {
-          "Desktop": "flex"
-        },
-        "gap": {
-          "Desktop": "1em"
-        },
-        "alignItems": {
-          "Desktop": "center"
-        }
-      }
-    },
-    "topWrap": {
-      "options": {
-        "class": "top-wrap"
-      },
-      "styles": {
-        "display": {
-          "Desktop": "flex"
-        },
-        "justifyContent": {
-          "Desktop": "start"
-        },
-        "alignItems": {
-          "Desktop": "center"
-        },
-        "padding": {
-          "Desktop": "20px 0px 20px 0px"
-        },
-        "gap": {
-          "Desktop": "1em"
-        }
-      }
-    }
-  }
-}, {
-  label: "Template 29",
-  thumb: "https://pickplugins.com/wp-content/uploads/2024/12/accoridons-template-9.png",
-  isPro: true,
-  data: {
-    "wrapper": {
-      "options": {
-        "tag": "div",
-        "class": "accordions-wrapper"
-      },
-      "styles": {}
-    },
-    "content": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-content"
-      },
-      "styles": {
-        "padding": {
-          "Desktop": "20px 20px 20px 20px"
-        },
-        "backgroundColor": {
-          "Desktop": "#ffffff"
-        },
-        "borderRight": [],
-        "borderBottom": [],
-        "borderLeft": []
-      }
-    },
-    "header": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-header"
-      },
-      "styles": {
-        "justifyContent": {
-          "Desktop": "start"
-        },
-        "backgroundColor": {
-          "Desktop": "#c8c8c8 !important"
-        },
-        "color": {
-          "Desktop": "#444444"
-        },
-        "padding": [],
-        "margin": {
-          "Desktop": "10px 0px 0px 0px"
-        },
-        "display": {
-          "Desktop": "flex"
-        },
-        "alignItems": {
-          "Desktop": "center"
-        },
-        "fontSize": {
-          "Desktop": "18px"
-        },
-        "fontFamily": {
-          "Desktop": "Poppins"
-        },
-        "fontWeight": {
-          "Desktop": "500"
-        },
-        "gap": {
-          "Desktop": "1em"
-        },
-        "borderRadius": {
-          "Desktop": "5px 5px 5px 5px"
-        },
-        "cursor": {
-          "Desktop": "pointer"
-        }
-      }
-    },
-    "headerActive": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-header-active"
-      },
-      "styles": {}
-    },
-    "headerLabel": {
-      "options": {
-        "text": "Accordion Header",
-        "tag": "a",
-        "class": "accordion-header-label"
-      },
-      "styles": {
-        "margin": {
-          "Desktop": "0px 0px 0px 10px"
-        }
-      }
-    },
-    "labelCounter": {
-      "options": {
-        "enable": false,
-        "position": "",
-        "tag": "div",
-        "class": "accordion-label-counter"
-      },
-      "styles": {
-        "display": [],
-        "height": [],
-        "lineHeight": [],
-        "width": [],
-        "position": [],
-        "zIndex": []
-      }
-    },
-    "labelIcon": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "fas fa-star",
-        "position": "",
-        "class": "accordion-label-icon"
-      },
-      "styles": {
-        "display": {
-          "Desktop": "inline-block"
-        },
-        "width": []
-      }
-    },
-    "icon": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "fas fa-angle-down",
-        "position": "left",
-        "class": "accordion-icon"
-      },
-      "styles": {
-        "display": [],
-        "height": [],
-        "lineHeight": [],
-        "width": {
-          "Desktop": "24px"
-        },
-        "backgroundColor": {
-          "Desktop": "#368ff7"
-        },
-        "margin": [],
-        "color": {
-          "Desktop": "#ffffff"
-        },
-        "position": {
-          "Desktop": "relative"
-        },
-        "zIndex": [],
-        "padding": {
-          "Desktop": "10px 7px 10px 20px"
-        },
-        "borderRadius": {
-          "Desktop": "5px 0px 0px 5px"
-        }
-      },
-      "after": {
-        "zIndex": [],
-        "position": {
-          "Desktop": "absolute !important"
-        },
-        "content": {
-          "Desktop": "\"  \""
-        },
-        "height": {
-          "Desktop": "0px"
-        },
-        "width": {
-          "Desktop": "0px"
-        },
-        "top": {
-          "Desktop": "0px"
-        },
-        "backgroundColor": [],
-        "left": {
-          "Desktop": "40px"
-        },
-        "borderTop": {
-          "Desktop": "20px solid #3690f700"
-        },
-        "borderRight": {
-          "Desktop": "20px solid #368ff7"
-        },
-        "borderBottom": {
-          "Desktop": "20px solid #3690f700"
-        },
-        "transform": {
-          "Desktop": "rotate(180deg) "
-        }
-      }
-    },
-    "iconToggle": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "fas fa-angle-up",
-        "class": "accordion-icon-toggle"
-      },
-      "styles": {}
-    },
-    "searchInput": {
-      "options": {
-        "placeholder": "",
-        "class": "search-input",
-        "enable": false
-      },
-      "styles": []
-    },
-    "expandCollapseAll": {
-      "options": {
-        "enable": false,
-        "class": "expand-collapse-all",
-        "expandAllText": "Expand All",
-        "collapseAllText": "Collapse All",
-        "expandAllIcon": {
-          "library": "fontAwesome",
-          "srcType": "class",
-          "iconSrc": " fas fa-angle-up"
-        },
-        "collapseAllIcon": {
-          "library": "fontAwesome",
-          "srcType": "class",
-          "iconSrc": " fas fa-angle-up"
-        }
-      },
-      "styles": {
-        "backgroundColor": {
-          "Desktop": "#774360"
-        },
-        "padding": {
-          "Desktop": "8px 20px 8px 20px"
-        },
-        "borderRadius": {
-          "Desktop": "3px 3px 3px 3px"
-        },
-        "fontSize": {
-          "Desktop": "16px"
-        },
-        "color": {
-          "Desktop": "#ffffff"
-        },
-        "display": {
-          "Desktop": "flex"
-        },
-        "gap": {
-          "Desktop": "1em"
-        },
-        "alignItems": {
-          "Desktop": "center"
-        }
-      }
-    },
-    "topWrap": {
-      "options": {
-        "class": "top-wrap"
-      },
-      "styles": {
-        "display": {
-          "Desktop": "flex"
-        },
-        "justifyContent": {
-          "Desktop": "start"
-        },
-        "alignItems": {
-          "Desktop": "center"
-        },
-        "padding": {
-          "Desktop": "20px 0px 20px 0px"
-        },
-        "gap": {
-          "Desktop": "1em"
-        }
-      }
-    }
-  }
-}, {
-  label: "Template 30",
-  thumb: "https://pickplugins.com/wp-content/uploads/2024/12/accoridons-template-10.png",
-  isPro: true,
-  data: {
-    "wrapper": {
-      "options": {
-        "tag": "div",
-        "class": "accordions-wrapper"
-      },
-      "styles": {}
-    },
-    "content": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-content"
-      },
-      "styles": {
-        "fontSize": [],
-        "fontFamily": [],
-        "fontWeight": [],
-        "padding": {
-          "Desktop": "10px 20px 20px 20px"
-        },
-        "borderRight": {
-          "Desktop": "1px solid #bf4f00"
-        },
-        "borderBottom": {
-          "Desktop": "1px solid #bf4f00"
-        },
-        "borderLeft": {
-          "Desktop": "1px solid #bf4f00"
-        },
-        "backgroundColor": {
-          "Desktop": "#ffffff"
-        },
-        "margin": {
-          "Desktop": "0px 0px 10px 0px"
-        }
-      }
-    },
-    "header": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-header"
-      },
-      "styles": {
-        "justifyContent": {
-          "Desktop": "start"
-        },
-        "backgroundColor": {
-          "Desktop": "#e6e6e6 !important"
-        },
-        "color": {
-          "Desktop": "#444444"
-        },
-        "padding": [],
-        "margin": {
-          "Desktop": "10px 0px 0px 0px"
-        },
-        "display": {
-          "Desktop": "flex"
-        },
-        "alignItems": {
-          "Desktop": "center"
-        },
-        "fontSize": {
-          "Desktop": "18px"
-        },
-        "fontFamily": {
-          "Desktop": "Poppins"
-        },
-        "fontWeight": {
-          "Desktop": "500"
-        },
-        "gap": {
-          "Desktop": "1em"
-        },
-        "borderRadius": {
-          "Desktop": "5px 5px 5px 5px"
-        },
-        "cursor": {
-          "Desktop": "pointer"
-        }
-      }
-    },
-    "headerActive": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-header-active"
-      },
-      "styles": {
-        "backgroundColor": {
-          "Desktop": "#efefef !important"
-        },
-        "margin": {
-          "Desktop": "0px 0px 0px 0px"
-        },
-        "borderRadius": {
-          "Desktop": "5px 5px 0px 0px"
-        },
-        "borderTop": [],
-        "borderBottom": {
-          "Desktop": "0px solid #000000 !important"
-        }
-      }
-    },
-    "headerLabel": {
-      "options": {
-        "text": "Accordion Header",
-        "tag": "a",
-        "class": "accordion-header-label"
-      },
-      "styles": {
-        "margin": {
-          "Desktop": "0px 0px 0px 15px"
-        }
-      }
-    },
-    "labelCounter": {
-      "options": {
-        "enable": false,
-        "position": "",
-        "tag": "div",
-        "class": "accordion-label-counter"
-      },
-      "styles": {
-        "display": [],
-        "height": [],
-        "lineHeight": [],
-        "width": [],
-        "position": [],
-        "zIndex": []
-      }
-    },
-    "labelIcon": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "fas fa-star",
-        "position": "",
-        "class": "accordion-label-icon"
-      },
-      "styles": {
-        "display": {
-          "Desktop": "inline-block"
-        },
-        "width": []
-      }
-    },
-    "icon": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "fas fa-angle-down",
-        "position": "left",
-        "class": "accordion-icon"
-      },
-      "styles": {
-        "display": [],
-        "height": [],
-        "lineHeight": [],
-        "width": {
-          "Desktop": "20px"
-        },
-        "backgroundColor": {
-          "Desktop": "#bf5000"
-        },
-        "color": {
-          "Desktop": "#ffffff"
-        },
-        "position": {
-          "Desktop": "relative"
-        },
-        "zIndex": [],
-        "padding": {
-          "Desktop": "15px 15px 15px 20px"
-        },
-        "borderRadius": {
-          "Desktop": "5px 0px 0px 5px"
-        }
-      },
-      "after": {
-        "zIndex": [],
-        "position": {
-          "Desktop": "absolute !important"
-        },
-        "content": {
-          "Desktop": "\"  \""
-        },
-        "height": {
-          "Desktop": "0px"
-        },
-        "width": {
-          "Desktop": "0px"
-        },
-        "top": {
-          "Desktop": "0px"
-        },
-        "backgroundColor": [],
-        "left": {
-          "Desktop": "55px"
-        },
-        "borderTop": {
-          "Desktop": "27px solid #3690f700"
-        },
-        "borderRight": {
-          "Desktop": "22px solid #bf5000"
-        },
-        "borderBottom": {
-          "Desktop": "23px solid #3690f700"
-        },
-        "transform": {
-          "Desktop": "rotate(180deg) "
-        }
-      }
-    },
-    "iconToggle": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "fas fa-angle-up",
-        "class": "accordion-icon-toggle"
-      },
-      "styles": {}
-    },
-    "searchInput": {
-      "options": {
-        "placeholder": "",
-        "class": "search-input",
-        "enable": false
-      },
-      "styles": []
-    },
-    "expandCollapseAll": {
-      "options": {
-        "enable": false,
-        "class": "expand-collapse-all",
-        "expandAllText": "Expand All",
-        "collapseAllText": "Collapse All",
-        "expandAllIcon": {
-          "library": "fontAwesome",
-          "srcType": "class",
-          "iconSrc": " fas fa-angle-up"
-        },
-        "collapseAllIcon": {
-          "library": "fontAwesome",
-          "srcType": "class",
-          "iconSrc": " fas fa-angle-up"
-        }
-      },
-      "styles": {
-        "backgroundColor": {
-          "Desktop": "#774360"
-        },
-        "padding": {
-          "Desktop": "8px 20px 8px 20px"
-        },
-        "borderRadius": {
-          "Desktop": "3px 3px 3px 3px"
-        },
-        "fontSize": {
-          "Desktop": "16px"
-        },
-        "color": {
-          "Desktop": "#ffffff"
-        },
-        "display": {
-          "Desktop": "flex"
-        },
-        "gap": {
-          "Desktop": "1em"
-        },
-        "alignItems": {
-          "Desktop": "center"
-        }
-      }
-    },
-    "topWrap": {
-      "options": {
-        "class": "top-wrap"
-      },
-      "styles": {
-        "display": {
-          "Desktop": "flex"
-        },
-        "justifyContent": {
-          "Desktop": "start"
-        },
-        "alignItems": {
-          "Desktop": "center"
-        },
-        "padding": {
-          "Desktop": "20px 0px 20px 0px"
-        },
-        "gap": {
-          "Desktop": "1em"
-        }
-      }
-    }
-  }
-}, {
-  label: "Template 31",
-  thumb: "https://pickplugins.com/wp-content/uploads/2024/12/accoridons-template-11.png",
-  isPro: true,
-  data: {
-    "wrapper": {
-      "options": {
-        "tag": "div",
-        "class": "accordions-wrapper"
-      },
-      "styles": {}
-    },
-    "content": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-content"
-      },
-      "styles": {
-        "padding": {
-          "Desktop": "20px 20px 20px 20px"
-        },
-        "backgroundColor": {
-          "Desktop": "#ffffff"
-        },
-        "borderRight": {
-          "Desktop": "1px solid #f301a5"
-        },
-        "borderBottom": {
-          "Desktop": "1px solid #f301a5"
-        },
-        "borderLeft": {
-          "Desktop": "1px solid #f301a5"
-        }
-      }
-    },
-    "header": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-header"
-      },
-      "styles": {
-        "justifyContent": {
-          "Desktop": "start"
-        },
-        "backgroundColor": {
-          "Desktop": "#f4d0ed"
-        },
-        "color": {
-          "Desktop": "#000000"
-        },
-        "padding": [],
-        "margin": {
-          "Desktop": "10px 0px 0px 0px"
-        },
-        "display": {
-          "Desktop": "flex"
-        },
-        "alignItems": {
-          "Desktop": "center"
-        },
-        "fontSize": {
-          "Desktop": "18px"
-        },
-        "fontFamily": {
-          "Desktop": "Poppins"
-        },
-        "fontWeight": {
-          "Desktop": "500"
-        },
-        "gap": {
-          "Desktop": "2em"
-        },
-        "cursor": {
-          "Desktop": "pointer"
-        },
-        "border": {
-          "Desktop": "1px solid #f301a5"
-        }
-      }
-    },
-    "headerActive": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-header-active"
-      },
-      "styles": {}
-    },
-    "headerLabel": {
-      "options": {
-        "text": "Accordion Header",
-        "tag": "a",
-        "class": "accordion-header-label"
-      },
-      "styles": {
-        "width": {
-          "Desktop": "100%"
-        }
-      }
-    },
-    "labelCounter": {
-      "options": {
-        "enable": false,
-        "position": "",
-        "tag": "div",
-        "class": "accordion-label-counter"
-      },
-      "styles": {
-        "display": [],
-        "height": [],
-        "lineHeight": [],
-        "width": [],
-        "position": [],
-        "zIndex": []
-      }
-    },
-    "labelIcon": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "fas fa-star",
-        "position": "",
-        "class": "accordion-label-icon"
-      },
-      "styles": {
-        "display": {
-          "Desktop": "inline-block"
-        },
-        "width": []
-      }
-    },
-    "icon": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "fas fa-angle-down",
-        "position": "left",
-        "class": "accordion-icon"
-      },
-      "styles": {
-        "display": [],
-        "height": [],
-        "lineHeight": [],
-        "width": {
-          "Desktop": "22px"
-        },
-        "backgroundColor": {
-          "Desktop": "#f301a5"
-        },
-        "margin": [],
-        "color": {
-          "Desktop": "#ffffff"
-        },
-        "position": {
-          "Desktop": "relative"
-        },
-        "zIndex": [],
-        "padding": {
-          "Desktop": "10px 10px 10px 20px"
-        }
-      },
-      "after": {
-        "zIndex": [],
-        "position": {
-          "Desktop": "absolute !important"
-        },
-        "content": {
-          "Desktop": "\" \""
-        },
-        "height": {
-          "Desktop": "0px"
-        },
-        "width": {
-          "Desktop": "0px"
-        },
-        "top": {
-          "Desktop": "0px"
-        },
-        "backgroundColor": [],
-        "left": {
-          "Desktop": "50px"
-        },
-        "borderTop": {
-          "Desktop": "40px solid #3bada800"
-        },
-        "borderLeft": {
-          "Desktop": "28px solid #f301a5"
-        },
-        "borderBottom": {
-          "Desktop": "0px solid #3bada800"
-        }
-      }
-    },
-    "iconToggle": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "fas fa-angle-up",
-        "class": "accordion-icon-toggle"
-      },
-      "styles": {}
-    },
-    "searchInput": {
-      "options": {
-        "placeholder": "",
-        "class": "search-input",
-        "enable": false
-      },
-      "styles": []
-    },
-    "expandCollapseAll": {
-      "options": {
-        "enable": false,
-        "class": "expand-collapse-all",
-        "expandAllText": "Expand All",
-        "collapseAllText": "Collapse All",
-        "expandAllIcon": {
-          "library": "fontAwesome",
-          "srcType": "class",
-          "iconSrc": " fas fa-angle-up"
-        },
-        "collapseAllIcon": {
-          "library": "fontAwesome",
-          "srcType": "class",
-          "iconSrc": " fas fa-angle-up"
-        }
-      },
-      "styles": {
-        "backgroundColor": {
-          "Desktop": "#774360"
-        },
-        "padding": {
-          "Desktop": "8px 20px 8px 20px"
-        },
-        "borderRadius": {
-          "Desktop": "3px 3px 3px 3px"
-        },
-        "fontSize": {
-          "Desktop": "16px"
-        },
-        "color": {
-          "Desktop": "#ffffff"
-        },
-        "display": {
-          "Desktop": "flex"
-        },
-        "gap": {
-          "Desktop": "1em"
-        },
-        "alignItems": {
-          "Desktop": "center"
-        }
-      }
-    },
-    "topWrap": {
-      "options": {
-        "class": "top-wrap"
-      },
-      "styles": {
-        "display": {
-          "Desktop": "flex"
-        },
-        "justifyContent": {
-          "Desktop": "start"
-        },
-        "alignItems": {
-          "Desktop": "center"
-        },
-        "padding": {
-          "Desktop": "20px 0px 20px 0px"
-        },
-        "gap": {
-          "Desktop": "1em"
-        }
-      }
-    }
-  }
-}, {
-  label: "Template 32",
-  thumb: "https://pickplugins.com/wp-content/uploads/2024/12/accoridons-template-2.png",
-  isPro: true,
-  data: {
-    "wrapper": {
-      "options": {
-        "tag": "div",
-        "class": "accordions-wrapper"
-      },
-      "styles": {}
-    },
-    "content": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-content"
-      },
-      "styles": {
-        "padding": {
-          "Desktop": "20px 20px 20px 20px"
-        },
-        "backgroundColor": {
-          "Desktop": "#ffffff"
-        },
-        "borderRight": {
-          "Desktop": "1px solid #3baea8"
-        },
-        "borderBottom": {
-          "Desktop": "1px solid #3baea8"
-        },
-        "borderLeft": {
-          "Desktop": "1px solid #3baea8"
-        }
-      }
-    },
-    "header": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-header"
-      },
-      "styles": {
-        "justifyContent": {
-          "Desktop": "start"
-        },
-        "backgroundColor": {
-          "Desktop": "#cae8e7"
-        },
-        "color": {
-          "Desktop": "#000000"
-        },
-        "padding": [],
-        "margin": {
-          "Desktop": "10px 0px 0px 0px"
-        },
-        "display": {
-          "Desktop": "flex"
-        },
-        "alignItems": {
-          "Desktop": "center"
-        },
-        "fontSize": {
-          "Desktop": "18px"
-        },
-        "fontFamily": {
-          "Desktop": "Poppins"
-        },
-        "fontWeight": {
-          "Desktop": "500"
-        },
-        "gap": {
-          "Desktop": "1em"
-        },
-        "cursor": {
-          "Desktop": "pointer"
-        },
-        "border": {
-          "Desktop": "1px solid #3baea8"
-        }
-      }
-    },
-    "headerActive": {
-      "options": {
-        "tag": "div",
-        "class": "accordion-header-active"
-      },
-      "styles": {}
-    },
-    "headerLabel": {
-      "options": {
-        "text": "Accordion Header",
-        "tag": "a",
-        "class": "accordion-header-label"
-      },
-      "styles": {
-        "width": {
-          "Desktop": "100%"
-        }
-      }
-    },
-    "labelCounter": {
-      "options": {
-        "enable": false,
-        "position": "",
-        "tag": "div",
-        "class": "accordion-label-counter"
-      },
-      "styles": {
-        "display": [],
-        "height": [],
-        "lineHeight": [],
-        "width": [],
-        "position": [],
-        "zIndex": []
-      }
-    },
-    "labelIcon": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "fas fa-star",
-        "position": "",
-        "class": "accordion-label-icon"
-      },
-      "styles": {
-        "display": {
-          "Desktop": "inline-block"
-        },
-        "width": []
-      }
-    },
-    "icon": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "fas fa-angle-down",
-        "position": "left",
-        "class": "accordion-icon"
-      },
-      "styles": {
-        "display": [],
-        "height": [],
-        "lineHeight": [],
-        "width": {
-          "Desktop": "22px"
-        },
-        "backgroundColor": {
-          "Desktop": "#3baea8"
-        },
-        "margin": [],
-        "color": {
-          "Desktop": "#ffffff"
-        },
-        "position": {
-          "Desktop": "relative"
-        },
-        "zIndex": [],
-        "padding": {
-          "Desktop": "10px 10px 10px 15px"
-        }
-      },
-      "after": {
-        "zIndex": [],
-        "position": {
-          "Desktop": "absolute !important"
-        },
-        "content": {
-          "Desktop": "\" \""
-        },
-        "height": {
-          "Desktop": "0px"
-        },
-        "width": {
-          "Desktop": "0px"
-        },
-        "top": {
-          "Desktop": "0px"
-        },
-        "backgroundColor": [],
-        "left": {
-          "Desktop": "46px"
-        },
-        "borderTop": {
-          "Desktop": "0px solid #3bada800"
-        },
-        "borderLeft": {
-          "Desktop": "22px solid #3baea8"
-        },
-        "borderBottom": {
-          "Desktop": "40px solid #3bada800"
-        }
-      }
-    },
-    "iconToggle": {
-      "options": {
-        "library": "fontAwesome",
-        "srcType": "class",
-        "iconSrc": "fas fa-angle-up",
-        "class": "accordion-icon-toggle"
-      },
-      "styles": {}
-    },
-    "searchInput": {
-      "options": {
-        "placeholder": "",
-        "class": "search-input",
-        "enable": false
-      },
-      "styles": []
-    },
-    "expandCollapseAll": {
-      "options": {
-        "enable": false,
-        "class": "expand-collapse-all",
-        "expandAllText": "Expand All",
-        "collapseAllText": "Collapse All",
-        "expandAllIcon": {
-          "library": "fontAwesome",
-          "srcType": "class",
-          "iconSrc": " fas fa-angle-up"
-        },
-        "collapseAllIcon": {
-          "library": "fontAwesome",
-          "srcType": "class",
-          "iconSrc": " fas fa-angle-up"
-        }
-      },
-      "styles": {
-        "backgroundColor": {
-          "Desktop": "#774360"
-        },
-        "padding": {
-          "Desktop": "8px 20px 8px 20px"
-        },
-        "borderRadius": {
-          "Desktop": "3px 3px 3px 3px"
-        },
-        "fontSize": {
-          "Desktop": "16px"
-        },
-        "color": {
-          "Desktop": "#ffffff"
-        },
-        "display": {
-          "Desktop": "flex"
-        },
-        "gap": {
-          "Desktop": "1em"
-        },
-        "alignItems": {
-          "Desktop": "center"
-        }
-      }
-    },
-    "topWrap": {
-      "options": {
-        "class": "top-wrap"
-      },
-      "styles": {
-        "display": {
-          "Desktop": "flex"
-        },
-        "justifyContent": {
-          "Desktop": "start"
-        },
-        "alignItems": {
-          "Desktop": "center"
-        },
-        "padding": {
-          "Desktop": "20px 0px 20px 0px"
-        },
-        "gap": {
-          "Desktop": "1em"
-        }
-      }
-    }
-  }
-}];
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (accordionTemplates);
-
-/***/ }),
-
 /***/ "./src/components/dashboard/generate-css.js":
 /*!**************************************************!*\
   !*** ./src/components/dashboard/generate-css.js ***!
@@ -36099,6 +32582,7 @@ function Html(props) {
 
   var [styleObj, setstyleObj] = useState({}); // Using the hook.
 
+  var [globalOptions, setglobalOptions] = useState(accordionData.globalOptions); // Using the hook.
   var [wrapper, setwrapper] = useState(accordionData.wrapper); // Using the hook.
   var [content, setcontent] = useState(accordionData.content);
   var [accOptions, setaccOptions] = useState(accordionData.accOptions);
@@ -36117,7 +32601,14 @@ function Html(props) {
   }, [postData]);
   var blockClass = "#accordions-" + postData.ID;
   var wrapperSelector = blockClass + "";
-  var contentSelector = blockClass + " .accordion-content";
+  if (globalOptions.viewType == "imageAccordion") {
+    var contentSelector = blockClass + " .image-accordion-content";
+  } else {
+    var contentSelector = blockClass + " .accordion-content";
+  }
+  var itemActiveSelector = blockClass + " .image-accordion-item.active";
+  console.log(itemActiveSelector);
+  var itemsWrapSelector = blockClass + " .items";
   var headerSelector = blockClass + " .accordion-header";
   var headerActiveSelector = blockClass + " .accordion-header-active";
   var headerLabelSelector = blockClass + " .accordion-header-label";
@@ -36135,7 +32626,7 @@ function Html(props) {
   var panelWrapSelector = blockClass + " .tabs-panel";
   var panelWrapActiveSelector = blockClass + " .tabs-panel-active";
   var itemSelector = blockClass + " .image-accordion-item";
-  var contentWrapSelector = blockClass + " .image-accordion-content-wrap";
+  var overlaySelector = blockClass + " .image-accordion-overlay";
   var imageSelector = blockClass + " .image-accordion-image";
   var titleSelector = blockClass + " .image-accordion-title";
   function getElementSelector(sudoScource, mainSelector) {
@@ -36510,6 +33001,7 @@ function Html(props) {
   useEffect(() => {
     var reponsiveCss = generateBlockCss(styleObj);
     onChange(reponsiveCss);
+    console.log(reponsiveCss);
     var wpfooter = document.getElementById("wpfooter");
     var csswrappg = document.getElementById("css-block");
 
@@ -36526,6 +33018,7 @@ function Html(props) {
       csswrappg.innerHtml = reponsiveCss;
     } else {
       //csswrappg.insertAdjacentHTML("beforeend", reponsiveCss);
+
       csswrappg.innerHTML = reponsiveCss;
     }
   }, [styleObj]);
@@ -36545,6 +33038,12 @@ function Html(props) {
     });
     var headerCss = generateElementCss(accordionData.header, headerSelector);
     Object.entries(headerCss).map(selectors => {
+      var selector = selectors[0];
+      var selectorData = selectors[1];
+      styleObjX[selector] = selectorData;
+    });
+    var itemsWrapCss = generateElementCss(accordionData.itemsWrap, itemsWrapSelector);
+    Object.entries(itemsWrapCss).map(selectors => {
       var selector = selectors[0];
       var selectorData = selectors[1];
       styleObjX[selector] = selectorData;
@@ -36645,8 +33144,14 @@ function Html(props) {
       var selectorData = selectors[1];
       styleObjX[selector] = selectorData;
     });
-    var contentWrapCss = generateElementCss(accordionData.contentWrap, contentWrapSelector);
-    Object.entries(contentWrapCss).map(selectors => {
+    var itemActiveCss = generateElementCss(accordionData.itemActive, itemActiveSelector);
+    Object.entries(itemActiveCss).map(selectors => {
+      var selector = selectors[0];
+      var selectorData = selectors[1];
+      styleObjX[selector] = selectorData;
+    });
+    var overlayCss = generateElementCss(accordionData.overlay, overlaySelector);
+    Object.entries(overlayCss).map(selectors => {
       var selector = selectors[0];
       var selectorData = selectors[1];
       styleObjX[selector] = selectorData;
@@ -36663,6 +33168,7 @@ function Html(props) {
       var selectorData = selectors[1];
       styleObjX[selector] = selectorData;
     });
+    console.log(styleObjX);
     setstyleObj(styleObjX);
   }, [accordionData]);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -36913,6 +33419,14 @@ const imageAccordionDefaultData = {
       tag: "div",
       class: "image-accordion-wrapper"
     },
+    styles: {}
+  },
+  itemsWrap: {
+    options: {
+      content: "",
+      tag: "div",
+      class: "items"
+    },
     styles: {
       height: {
         Desktop: "70vh"
@@ -36970,8 +33484,11 @@ const imageAccordionDefaultData = {
       transition: {
         Desktop: "all 1s ease-in-out 0s"
       }
-    },
-    hover: {
+    }
+  },
+  itemActive: {
+    options: {},
+    styles: {
       flexBasis: {
         Desktop: "0%"
       },
@@ -36981,19 +33498,11 @@ const imageAccordionDefaultData = {
       flexShrink: {
         Desktop: "1"
       }
-    },
-    "hover div:nth-child(2)": {
-      transform: {
-        Desktop: "translateY(-50%) "
-      },
-      top: {
-        Desktop: "50%"
-      }
     }
   },
-  contentWrap: {
+  overlay: {
     options: {
-      class: "image-accordion-content-wrap"
+      class: "image-accordion-overlay"
     },
     styles: {
       backgroundColor: {
@@ -37023,7 +33532,7 @@ const imageAccordionDefaultData = {
     options: {
       content: "",
       tag: "div",
-      class: "accordion-content"
+      class: "image-accordion-content"
     },
     styles: {}
   },
@@ -37079,12 +33588,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/icon/index.js");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/close.js");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/cog.js");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/columns.js");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/brush.js");
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/category.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/icon/index.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/close.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/cog.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/columns.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/brush.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/category.js");
 /* harmony import */ var _input_select__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../input-select */ "./src/components/input-select/index.js");
 /* harmony import */ var _input_text__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../input-text */ "./src/components/input-text/index.js");
 /* harmony import */ var _dropdown__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../dropdown */ "./src/components/dropdown/index.js");
@@ -37100,11 +33609,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tabs_default_data__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./tabs-default-data */ "./src/components/dashboard/tabs-default-data.js");
 /* harmony import */ var _image_accordion_default_data__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./image-accordion-default-data */ "./src/components/dashboard/image-accordion-default-data.js");
 /* harmony import */ var _accordion_menu_default_data__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./accordion-menu-default-data */ "./src/components/dashboard/accordion-menu-default-data.js");
-/* harmony import */ var _accordion_templates__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./accordion-templates */ "./src/components/dashboard/accordion-templates.js");
-/* harmony import */ var _templates__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./templates */ "./src/components/dashboard/templates.js");
-/* harmony import */ var _generate_css__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./generate-css */ "./src/components/dashboard/generate-css.js");
-/* harmony import */ var _help__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./help */ "./src/components/dashboard/help.js");
-/* harmony import */ var _notify__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./notify */ "./src/components/dashboard/notify.js");
+/* harmony import */ var _templates__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./templates */ "./src/components/dashboard/templates.js");
+/* harmony import */ var _generate_css__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./generate-css */ "./src/components/dashboard/generate-css.js");
+/* harmony import */ var _help__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./help */ "./src/components/dashboard/help.js");
+/* harmony import */ var _notify__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./notify */ "./src/components/dashboard/notify.js");
 
 const {
   Component,
@@ -37130,8 +33638,6 @@ const {
 
 
 
-
-//import tabsTemplates from "./tabs-templates";
 
 
 
@@ -37178,14 +33684,9 @@ function Html(props) {
     },
     imageAccordion: {
       label: "Image Accordion",
-      value: "imageAccordion",
-      coming: true
-    },
-    accordionMenu: {
-      label: "Accordion Menu",
-      value: "accordionMenu",
-      coming: true
+      value: "imageAccordion"
     }
+    // accordionMenu: { label: "Accordion Menu", value: "accordionMenu", coming: true },
   };
   useEffect(() => {
     setaccordionData(postData.post_content);
@@ -37280,7 +33781,9 @@ function Html(props) {
     var accordionDataX = {
       ...accordionData
     };
-    accordionDataX.reponsiveCss = args;
+    console.log(escapeHTML(args));
+    accordionDataX.reponsiveCss = escapeHTML(args);
+    //accordionDataX.reponsiveCss = (args);
     setaccordionData(accordionDataX);
   }
   function onChangeAccordion(args) {
@@ -37294,7 +33797,11 @@ function Html(props) {
   }
   function onUpdateAccordion() {
     setisLoading(true);
-    var content = JSON.stringify(accordionData);
+    console.log(accordionData);
+    var content = accordionData;
+    //content = JSON.stringify(content);
+
+    console.log(content);
     _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
       path: "/accordions/v2/update_post_data",
       method: "POST",
@@ -37355,6 +33862,18 @@ function Html(props) {
       setisLoading(false);
     });
   }, []);
+  function escapeHTML(str) {
+    const map = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#039;'
+    };
+    return str.replace(/[&<>"']/g, function (match) {
+      return map[match];
+    });
+  }
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "pg-setting-input-text pg-dashboard"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -37378,12 +33897,12 @@ function Html(props) {
     onClick: ev => {
       settoggleSettings(!toggleSettings);
     }
-  }, isLoading && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Spinner, null), !isLoading && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, toggleSettings && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_24__["default"], {
+  }, isLoading && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Spinner, null), !isLoading && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, toggleSettings && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_23__["default"], {
+    fill: "#fff",
+    icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_24__["default"]
+  }), !toggleSettings && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_23__["default"], {
     fill: "#fff",
     icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_25__["default"]
-  }), !toggleSettings && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_24__["default"], {
-    fill: "#fff",
-    icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_26__["default"]
   }))))), toggleSettings && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "relative bg-white"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -37540,17 +34059,17 @@ function Html(props) {
     tabs: [{
       name: "accordions",
       title: "Accordions",
-      icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_27__["default"],
+      icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_26__["default"],
       className: "tab-disable-blocks"
     }, {
       name: "edit",
       title: "Edit",
-      icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_28__["default"],
+      icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_27__["default"],
       className: "tab-disable-blocks"
     }, {
       name: "templates",
       title: "Templates",
-      icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_29__["default"],
+      icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_28__["default"],
       className: "tab-disable-blocks"
     }]
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_tab__WEBPACK_IMPORTED_MODULE_12__["default"], {
@@ -37630,7 +34149,11 @@ function Html(props) {
     setHelp: setHelp
   })))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_tab__WEBPACK_IMPORTED_MODULE_12__["default"], {
     name: "templates"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_templates__WEBPACK_IMPORTED_MODULE_20__["default"], {
+  }, postData?.ID == null && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "py-3"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "my-3 bg-orange-400 p-3  text-white  text-center animate__animated animate__flash animate__repeat-2"
+  }, "Please select post from list.")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_templates__WEBPACK_IMPORTED_MODULE_19__["default"], {
     onChange: onChangeAccordion,
     addNotifications: addNotifications,
     postData: postData,
@@ -37641,7 +34164,7 @@ function Html(props) {
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "  relative"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "my-3 bg-orange-400 p-3 ml-5 text-white  text-center animate__animated animate__flash animate__repeat-2"
+    className: "my-3 hidden bg-orange-400 p-3 ml-5 text-white  text-center animate__animated animate__flash animate__repeat-2"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "text-xl"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("i", {
@@ -37663,12 +34186,12 @@ function Html(props) {
     id: activeAccordion,
     addNotifications: addNotifications,
     setHelp: setHelp
-  }), postData?.ID != null && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_generate_css__WEBPACK_IMPORTED_MODULE_21__["default"], {
+  }), postData?.ID != null && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_generate_css__WEBPACK_IMPORTED_MODULE_20__["default"], {
     postData: postData,
     onChange: onChangeStyle
-  })))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_notify__WEBPACK_IMPORTED_MODULE_23__["default"], {
+  })))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_notify__WEBPACK_IMPORTED_MODULE_22__["default"], {
     notifications: notifications
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_help__WEBPACK_IMPORTED_MODULE_22__["default"], {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_help__WEBPACK_IMPORTED_MODULE_21__["default"], {
     help: help
   }));
 }
@@ -38065,7 +34588,9 @@ function Html(props) {
       viewType: queryLayouts.viewType
     };
     requestData = JSON.stringify(requestData);
-    fetch("https://pickplugins.com/demo/accordions/wp-json/accordions/v2/get_posts_accordions", {
+    fetch("https://pickplugins.com/demo/accordions/wp-json/accordions/v2/get_posts_accordions",
+    // "http://localhost/wordpress/wp-json/accordions/v2/get_posts_accordions",
+    {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8"
@@ -38079,7 +34604,7 @@ function Html(props) {
           posts.map(item => {
             postsX.push({
               label: item.post_title,
-              thumb: "https://pickplugins.com/wp-content/uploads/2024/12/accoridons-template-1.png",
+              thumb: item.thumb,
               isPro: item?.is_pro == "yes" ? true : false,
               data: item.post_content
             });
@@ -39071,7 +35596,9 @@ function Html(props) {
   var [wrapper, setwrapper] = useState(accordionData.wrapper); // Using the hook.
   var [items, setitems] = useState(accordionData.items); // Using the hook.
   var [item, setitem] = useState(accordionData.item);
-  var [contentWrap, setcontentWrap] = useState(accordionData.contentWrap);
+  var [itemActive, setitemActive] = useState(accordionData.itemActive);
+  var [itemsWrap, setitemsWrap] = useState(accordionData.itemsWrap);
+  var [overlay, setoverlay] = useState(accordionData.overlay);
   var [content, setcontent] = useState(accordionData.content);
   var [title, settitle] = useState(accordionData.title);
   var [image, setimage] = useState(accordionData.image);
@@ -39102,11 +35629,11 @@ function Html(props) {
   const [taxonomiesObjects, setTaxonomiesObjects] = useState([]);
   var [customerData, setcustomerData] = useState(props.customerData);
   var [isProFeature, setisProFeature] = useState(true);
+  var [editActive, seteditActive] = useState(9999);
 
   // const gapValue = accOptions?.gap || "0px";
   // const [number, setNumber] = useState(parseInt(gapValue));
   // const [unit, setUnit] = useState(gapValue.replace(number, ""));
-  const [itemActive, setitemActive] = useState(99999);
   const [AIautoUpdate, setAIautoUpdate] = useState(false);
   var [AIWriter, setAIWriter] = useState(false); // Using the hook.
   var formattedPrompt = "Respond only with question answer as json array and no other text. Do not include any explanations, introductions, or concluding remarks.";
@@ -39198,9 +35725,23 @@ function Html(props) {
     var accordionDataX = {
       ...accordionData
     };
-    accordionDataX.contentWrap = contentWrap;
+    accordionDataX.overlay = overlay;
     setaccordionData(accordionDataX);
-  }, [contentWrap]);
+  }, [overlay]);
+  useEffect(() => {
+    var accordionDataX = {
+      ...accordionData
+    };
+    accordionDataX.itemActive = itemActive;
+    setaccordionData(accordionDataX);
+  }, [itemActive]);
+  useEffect(() => {
+    var accordionDataX = {
+      ...accordionData
+    };
+    accordionDataX.itemsWrap = itemsWrap;
+    setaccordionData(accordionDataX);
+  }, [itemsWrap]);
   useEffect(() => {
     var accordionDataX = {
       ...accordionData
@@ -40311,13 +36852,14 @@ function Html(props) {
       });
     }
   }, items?.map((item, index) => {
+    var _item$active;
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "",
       key: index
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "bg-slate-300 flex justify-between items-center p-3 py-2 my-2 cursor-pointer hover:bg-slate-400",
       onClick: ev => {
-        setitemActive(index == itemActive ? 999 : index);
+        seteditActive(index == editActive ? 999 : index);
       }
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, item?.title), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "flex items-center gap-2"
@@ -40373,7 +36915,7 @@ function Html(props) {
       size: "20",
       fill: "#fff",
       icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_24__["default"]
-    })))), itemActive == index && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    })))), editActive == index && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "py-2 w-full"
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "mb-3"
@@ -40399,7 +36941,7 @@ function Html(props) {
       placeholder: "Write Header Text...",
       editorId: `content-${index}-${generate3Digit()}`,
       className: `bg-slate-100 p-3 min-h-24 w-full`,
-      value: unescapeHTML(item?.contentText),
+      value: unescapeHTML(item?.content),
       onChange: content => {
         content = content.replace(/[\r\n]+/g, "");
         content = escapeHTML(content);
@@ -40410,7 +36952,7 @@ function Html(props) {
           const updatedItems = [...prevItems];
           updatedItems[index] = {
             ...updatedItems[index],
-            contentText: content
+            content: content
           };
           return updatedItems;
         });
@@ -40500,7 +37042,31 @@ function Html(props) {
           return updatedItems;
         });
       }
-    })))));
+    })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "mb-3"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelRow, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+      htmlFor: ""
+    }, "Active"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_input_toggle__WEBPACK_IMPORTED_MODULE_15__["default"], {
+      value: (_item$active = item?.active) !== null && _item$active !== void 0 ? _item$active : 0,
+      onChange: newVal => {
+        if (isProFeature) {
+          addNotifications({
+            title: "Opps its pro!",
+            content: "This feature only available in premium version",
+            type: "error"
+          });
+          return;
+        }
+        setitems(prevItems => {
+          const updatedItems = [...prevItems];
+          updatedItems[index] = {
+            ...updatedItems[index],
+            active: newVal
+          };
+          return updatedItems;
+        });
+      }
+    }))))));
   })))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
     className: "font-medium text-slate-900 ",
     title: "Settings",
@@ -40532,36 +37098,89 @@ function Html(props) {
     }
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelRow, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
     htmlFor: ""
-  }, "Active Event"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.SelectControl, {
-    className: "w-[140px]",
-    label: "",
-    value: globalOptions?.activeEvent,
-    options: [{
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Click", "accordions"),
-      value: "click"
-    }, {
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Mouseover", "accordions"),
-      value: "mouseover"
-    }],
-    onChange: newVal => {
-      var globalOptionsX = {
-        ...globalOptions
-      };
-      globalOptionsX.activeEvent = newVal;
-      setglobalOptions(globalOptionsX);
-    }
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelRow, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
-    htmlFor: ""
   }, "URL Hash"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_input_toggle__WEBPACK_IMPORTED_MODULE_15__["default"], {
     value: (_globalOptions$urlHas = globalOptions?.urlHash) !== null && _globalOptions$urlHas !== void 0 ? _globalOptions$urlHas : 0,
     onChange: newVal => {
+      if (isProFeature) {
+        addNotifications({
+          title: "Opps its pro!",
+          content: "This feature only avilable in premium version",
+          type: "error"
+        });
+        return;
+      }
       var globalOptionsX = {
         ...globalOptions
       };
       globalOptionsX.urlHash = newVal;
       setglobalOptions(globalOptionsX);
     }
-  })))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelRow, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    htmlFor: "",
+    className: "flex gap-2 items-center"
+  }, "Auto Play", (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "cursor-pointer",
+    title: "Click to know more",
+    onClick: () => {
+      setHelp({
+        id: "autoPlaySetting",
+        enable: true
+      });
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Icon, {
+    icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_19__["default"]
+  })), isProFeature && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "bg-amber-500 px-2 py-0.5 text-[11px]  no-underline rounded-sm  cursor-pointer text-white "
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Pro", "accordions"))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_input_toggle__WEBPACK_IMPORTED_MODULE_15__["default"], {
+    value: globalOptions?.autoPlay,
+    onChange: newVal => {
+      if (isProFeature) {
+        addNotifications({
+          title: "Opps its pro!",
+          content: "This feature only avilable in premium version",
+          type: "error"
+        });
+        return;
+      }
+      var globalOptionsX = {
+        ...globalOptions
+      };
+      globalOptionsX.autoPlay = newVal;
+      setglobalOptions(globalOptionsX);
+    }
+  })), globalOptions?.autoPlay && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelRow, {
+    className: "w-full"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    htmlFor: "",
+    className: "break-all"
+  }, "Auto Play Timeout"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_input_text__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    className: "!py-1 px-2 !border-2 !border-[#8c8f94] !border-solid max-w-[150px]",
+    label: "",
+    value: globalOptions?.autoPlayTimeout,
+    onChange: newVal => {
+      var globalOptionsX = {
+        ...globalOptions
+      };
+      globalOptionsX.autoPlayTimeout = newVal;
+      setglobalOptions(globalOptionsX);
+    }
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelRow, {
+    className: "w-full"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    htmlFor: "",
+    className: "break-all"
+  }, "Auto Play Delay"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_input_text__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    className: "!py-1 px-2 !border-2 !border-[#8c8f94] !border-solid max-w-[150px]",
+    label: "",
+    value: globalOptions?.autoPlayDelay,
+    onChange: newVal => {
+      var globalOptionsX = {
+        ...globalOptions
+      };
+      globalOptionsX.autoPlayDelay = newVal;
+      setglobalOptions(globalOptionsX);
+    }
+  }))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
     className: "font-medium text-slate-900 ",
     title: "Wrapper",
     initialOpen: false
@@ -40619,7 +37238,7 @@ function Html(props) {
     onBulkAdd: (sudoSource, cssObj) => onBulkAddStyle(sudoSource, cssObj, wrapper, setwrapper)
   })))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
     className: "font-medium text-slate-900 ",
-    title: "Content Wrapper",
+    title: "Items Wrapper",
     initialOpen: false
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_tabs__WEBPACK_IMPORTED_MODULE_18__["default"], {
     activeTab: "options",
@@ -40645,84 +37264,27 @@ function Html(props) {
     className: "",
     htmlFor: "emailVerification"
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Class", "accordions")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_input_text__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    value: contentWrap?.options?.class,
+    value: itemsWrap?.options?.class,
     className: "!py-1 px-2 !border-2 !border-[#8c8f94] !border-solid w-[210px]",
     onChange: newVal => {
       var optionsX = {
-        ...contentWrap,
+        ...itemsWrap,
         options: {
-          ...contentWrap?.options,
+          ...itemsWrap?.options,
           class: newVal
         }
       };
-      setcontentWrap(optionsX);
-    }
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelRow, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
-    htmlFor: "",
-    className: "flex gap-2 items-center"
-  }, "IN Animation"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_dropdown__WEBPACK_IMPORTED_MODULE_9__["default"], {
-    position: "bottom right",
-    variant: "secondary",
-    buttonTitle: _inAnimation__WEBPACK_IMPORTED_MODULE_13__.popupEntranceAnimateBasic[contentWrap?.options?.inAnimation] == undefined ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Choose", "accordions") : _inAnimation__WEBPACK_IMPORTED_MODULE_13__.popupEntranceAnimateBasic[contentWrap?.options?.inAnimation].label,
-    options: _inAnimation__WEBPACK_IMPORTED_MODULE_13__.popupEntranceAnimateBasic,
-    onChange: newVal => {
-      var optionsX = {
-        ...contentWrap,
-        options: {
-          ...contentWrap?.options,
-          inAnimation: newVal.value
-        }
-      };
-      setcontentWrap(optionsX);
-    },
-    values: ""
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelRow, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
-    htmlFor: "",
-    className: "flex gap-2 items-center"
-  }, "OUT Animation"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_dropdown__WEBPACK_IMPORTED_MODULE_9__["default"], {
-    position: "bottom right",
-    variant: "secondary",
-    buttonTitle: _outAnimation__WEBPACK_IMPORTED_MODULE_14__.popupCloseAnimateBasic[contentWrap?.options?.outAnimation] == undefined ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Choose", "accordions") : _outAnimation__WEBPACK_IMPORTED_MODULE_14__.popupCloseAnimateBasic[contentWrap?.options?.outAnimation].label,
-    options: _outAnimation__WEBPACK_IMPORTED_MODULE_14__.popupCloseAnimateBasic,
-    onChange: newVal => {
-      var optionsX = {
-        ...contentWrap,
-        options: {
-          ...contentWrap?.options,
-          outAnimation: newVal.value
-        }
-      };
-      setcontentWrap(optionsX);
-    },
-    values: ""
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "flex  my-5  justify-between items-center"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
-    className: "",
-    htmlFor: "emailVerification"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Animation duration", "accordions")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_input_text__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    value: contentWrap?.options?.animationDuration,
-    placeholder: "1000",
-    className: "!py-1 px-2 !border-2 !border-[#8c8f94] !border-solid w-full max-w-[200px]",
-    onChange: newVal => {
-      var optionsX = {
-        ...contentWrap,
-        options: {
-          ...contentWrap?.options,
-          animationDuration: newVal
-        }
-      };
-      setcontent(optionsX);
+      setitemsWrap(optionsX);
     }
   }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_tab__WEBPACK_IMPORTED_MODULE_17__["default"], {
     name: "styles"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_styles__WEBPACK_IMPORTED_MODULE_16__["default"], {
-    obj: contentWrap,
-    onChange: (sudoScource, newVal, attr) => onChangeStyle(sudoScource, newVal, attr, contentWrap, setcontentWrap),
-    onAdd: (sudoScource, key) => onAddStyle(sudoScource, key, contentWrap, setcontentWrap),
-    onRemove: (sudoScource, key) => onRemoveStyle(sudoScource, key, contentWrap, setcontentWrap),
-    onReset: sudoSources => onResetStyle(sudoSources, contentWrap, setcontentWrap),
-    onBulkAdd: (sudoSource, cssObj) => onBulkAddStyle(sudoSource, cssObj, contentWrap, setcontentWrap)
+    obj: itemsWrap,
+    onChange: (sudoScource, newVal, attr) => onChangeStyle(sudoScource, newVal, attr, itemsWrap, setitemsWrap),
+    onAdd: (sudoScource, key) => onAddStyle(sudoScource, key, itemsWrap, setitemsWrap),
+    onRemove: (sudoScource, key) => onRemoveStyle(sudoScource, key, itemsWrap, setitemsWrap),
+    onReset: sudoSources => onResetStyle(sudoSources, itemsWrap, setitemsWrap),
+    onBulkAdd: (sudoSource, cssObj) => onBulkAddStyle(sudoSource, cssObj, itemsWrap, setitemsWrap)
   })))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
     className: "font-medium text-slate-900 ",
     title: "Item",
@@ -40773,6 +37335,176 @@ function Html(props) {
     onReset: sudoSources => onResetStyle(sudoSources, item, setitem),
     onBulkAdd: (sudoSource, cssObj) => onBulkAddStyle(sudoSource, cssObj, item, setitem)
   })))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
+    className: "font-medium text-slate-900 ",
+    title: "Item Active",
+    initialOpen: false
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_tabs__WEBPACK_IMPORTED_MODULE_18__["default"], {
+    activeTab: "options",
+    orientation: "horizontal",
+    activeClass: "active-tab",
+    onSelect: tabName => {},
+    tabs: [{
+      name: "options",
+      title: "Options",
+      icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_26__["default"],
+      className: "tab-settings"
+    }, {
+      name: "styles",
+      title: "Styles",
+      icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_27__["default"],
+      className: "tab-style"
+    }]
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_tab__WEBPACK_IMPORTED_MODULE_17__["default"], {
+    name: "options"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "flex  my-5  justify-between items-center"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    className: "",
+    htmlFor: "emailVerification"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Class", "accordions")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_input_text__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    value: itemActive?.options?.class,
+    className: "!py-1 px-2 !border-2 !border-[#8c8f94] !border-solid w-[210px]",
+    onChange: newVal => {
+      var optionsX = {
+        ...itemActive,
+        options: {
+          ...itemActive?.options,
+          class: newVal
+        }
+      };
+      setitemActive(optionsX);
+    }
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_tab__WEBPACK_IMPORTED_MODULE_17__["default"], {
+    name: "styles"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_styles__WEBPACK_IMPORTED_MODULE_16__["default"], {
+    obj: itemActive,
+    onChange: (sudoScource, newVal, attr) => onChangeStyle(sudoScource, newVal, attr, itemActive, setitemActive),
+    onAdd: (sudoScource, key) => onAddStyle(sudoScource, key, itemActive, setitemActive),
+    onRemove: (sudoScource, key) => onRemoveStyle(sudoScource, key, itemActive, setitemActive),
+    onReset: sudoSources => onResetStyle(sudoSources, itemActive, setitemActive),
+    onBulkAdd: (sudoSource, cssObj) => onBulkAddStyle(sudoSource, cssObj, itemActive, setitemActive)
+  })))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
+    className: "font-medium text-slate-900 ",
+    title: "Overlay",
+    initialOpen: false
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_tabs__WEBPACK_IMPORTED_MODULE_18__["default"], {
+    activeTab: "options",
+    orientation: "horizontal",
+    activeClass: "active-tab",
+    onSelect: tabName => {},
+    tabs: [{
+      name: "options",
+      title: "Options",
+      icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_26__["default"],
+      className: "tab-settings"
+    }, {
+      name: "styles",
+      title: "Styles",
+      icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_27__["default"],
+      className: "tab-style"
+    }]
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_tab__WEBPACK_IMPORTED_MODULE_17__["default"], {
+    name: "options"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "flex  my-5  justify-between items-center"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    className: "",
+    htmlFor: "emailVerification"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Class", "accordions")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_input_text__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    value: overlay?.options?.class,
+    className: "!py-1 px-2 !border-2 !border-[#8c8f94] !border-solid w-[210px]",
+    onChange: newVal => {
+      var optionsX = {
+        ...overlay,
+        options: {
+          ...overlay?.options,
+          class: newVal
+        }
+      };
+      setoverlay(optionsX);
+    }
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelRow, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    htmlFor: "",
+    className: "flex gap-2 items-center"
+  }, "IN Animation"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_dropdown__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    position: "bottom right",
+    variant: "secondary",
+    buttonTitle: _inAnimation__WEBPACK_IMPORTED_MODULE_13__.popupEntranceAnimateBasic[overlay?.options?.inAnimation] == undefined ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Choose", "accordions") : _inAnimation__WEBPACK_IMPORTED_MODULE_13__.popupEntranceAnimateBasic[overlay?.options?.inAnimation].label,
+    options: _inAnimation__WEBPACK_IMPORTED_MODULE_13__.popupEntranceAnimateBasic,
+    onChange: newVal => {
+      if (isProFeature) {
+        addNotifications({
+          title: "Opps its pro!",
+          content: "This feature only avilable in premium version",
+          type: "error"
+        });
+        return;
+      }
+      var optionsX = {
+        ...overlay,
+        options: {
+          ...overlay?.options,
+          inAnimation: newVal.value
+        }
+      };
+      setoverlay(optionsX);
+    },
+    values: ""
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelRow, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    htmlFor: "",
+    className: "flex gap-2 items-center"
+  }, "OUT Animation"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_dropdown__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    position: "bottom right",
+    variant: "secondary",
+    buttonTitle: _outAnimation__WEBPACK_IMPORTED_MODULE_14__.popupCloseAnimateBasic[overlay?.options?.outAnimation] == undefined ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Choose", "accordions") : _outAnimation__WEBPACK_IMPORTED_MODULE_14__.popupCloseAnimateBasic[overlay?.options?.outAnimation].label,
+    options: _outAnimation__WEBPACK_IMPORTED_MODULE_14__.popupCloseAnimateBasic,
+    onChange: newVal => {
+      if (isProFeature) {
+        addNotifications({
+          title: "Opps its pro!",
+          content: "This feature only avilable in premium version",
+          type: "error"
+        });
+        return;
+      }
+      var optionsX = {
+        ...overlay,
+        options: {
+          ...overlay?.options,
+          outAnimation: newVal.value
+        }
+      };
+      setoverlay(optionsX);
+    },
+    values: ""
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "flex  my-5  justify-between items-center"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    className: "",
+    htmlFor: "emailVerification"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Animation duration", "accordions")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_input_text__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    value: overlay?.options?.animationDuration,
+    placeholder: "1000",
+    className: "!py-1 px-2 !border-2 !border-[#8c8f94] !border-solid w-full max-w-[200px]",
+    onChange: newVal => {
+      if (isProFeature) {
+        addNotifications({
+          title: "Opps its pro!",
+          content: "This feature only avilable in premium version",
+          type: "error"
+        });
+        return;
+      }
+      var optionsX = {
+        ...overlay,
+        options: {
+          ...overlay?.options,
+          animationDuration: newVal
+        }
+      };
+      setoverlay(optionsX);
+    }
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
     className: "font-medium text-slate-900 ",
     title: "Title",
     initialOpen: false
@@ -40870,6 +37602,15 @@ function Html(props) {
     onRemove: (sudoScource, key) => onRemoveStyle(sudoScource, key, content, setcontent),
     onReset: sudoSources => onResetStyle(sudoSources, content, setcontent),
     onBulkAdd: (sudoSource, cssObj) => onBulkAddStyle(sudoSource, cssObj, content, setcontent)
+  }))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_tab__WEBPACK_IMPORTED_MODULE_17__["default"], {
+    name: "styles"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_styles__WEBPACK_IMPORTED_MODULE_16__["default"], {
+    obj: overlay,
+    onChange: (sudoScource, newVal, attr) => onChangeStyle(sudoScource, newVal, attr, overlay, setoverlay),
+    onAdd: (sudoScource, key) => onAddStyle(sudoScource, key, overlay, setoverlay),
+    onRemove: (sudoScource, key) => onRemoveStyle(sudoScource, key, overlay, setoverlay),
+    onReset: sudoSources => onResetStyle(sudoSources, overlay, setoverlay),
+    onBulkAdd: (sudoSource, cssObj) => onBulkAddStyle(sudoSource, cssObj, overlay, setoverlay)
   })))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
     className: "font-medium text-slate-900 ",
     title: "Image",
@@ -43767,6 +40508,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/link.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/icon/index.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/close.js");
 /* harmony import */ var _fontawesome_classes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./fontawesome-classes */ "./src/components/icon-picker/fontawesome-classes.js");
 /* harmony import */ var _iconfont_classes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./iconfont-classes */ "./src/components/icon-picker/iconfont-classes.js");
 /* harmony import */ var _bootstrap_icons__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./bootstrap-icons */ "./src/components/icon-picker/bootstrap-icons.js");
@@ -43825,10 +40568,8 @@ function Html(props) {
     }
   }, iconSrc?.length == 0 && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Button, {
     icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_7__["default"]
-    // className="w-8 h-8 text-lg border cursor-pointer hover:bg-gray-200 border-gray-500 text-center"
   }), iconSrc?.length == undefined && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Button, {
     icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_7__["default"]
-    // className="w-8 h-8 text-lg border cursor-pointer hover:bg-gray-200 border-gray-500 text-center"
   }), iconSrc?.length > 0 && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)("div", {
     className: "w-8  text-lg  text-center"
     // className="w-8 h-8 text-lg !border cursor-pointer hover:bg-gray-200 border-gray-500 text-center"
@@ -43849,7 +40590,9 @@ function Html(props) {
     className: "w-72 p-2 pg-setting-input-text  custom-scrollbar relative "
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)("div", {
     className: "w-[calc(100%_-_8px)] fixed top-0 left-0  p-1 bg-white "
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(_dropdown__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)("div", {
+    className: "flex gap-1 items-center"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(_dropdown__WEBPACK_IMPORTED_MODULE_6__["default"], {
     position: "bottom right",
     variant: "secondary",
     buttonTitle: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Choose", "accordions"),
@@ -43880,7 +40623,18 @@ function Html(props) {
       });
     },
     values: ""
-  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.__experimentalInputControl, {
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)("span", {
+    className: "bg-red-500 px-1 py-1",
+    onClick: ev => {
+      props.onChange({
+        iconSrc: "",
+        library: "",
+        srcType: ""
+      });
+    }
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(_wordpress_icons__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_9__["default"]
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_2__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.__experimentalInputControl, {
     placeholder: "Search for icons",
     value: iconData.keyword,
     onChange: newVal => {
