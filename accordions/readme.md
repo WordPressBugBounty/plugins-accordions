@@ -1,10 +1,10 @@
-=== Accordions - AI FAQ, Accordion, Tabs, Image Accordion ,Product FAQ, FAQ Builder, ===
+=== Accordion - AI FAQ, Accordion, Tabs, Image Accordion, Product FAQ, FAQ Builder, FAQ Grid ===
 	Contributors: PickPlugins, nafismahmudayon
 	Donate link: https://www.pickplugins.com/demo/accordions/
 	Tags: Accordion, Tabs, AI FAQ, WooCommerce FAQ Tab, Image Accordion
 	Requires at least: 5.0
 	Tested up to: 6.7
-	Stable tag: 2.3.8
+	Stable tag: 2.3.9
 	License: GPLv2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,10 +18,6 @@ Transform the way you present content on your WordPress site with our React-base
 
 * [Accordions - Premium &raquo;](https://pickplugins.com/accordions/)
 * [Live Demo &raquo;](https://www.pickplugins.com/demo/accordions/)
-* [Support &raquo;](https://www.pickplugins.com/support/)
-* [Documentation &raquo;](https://www.pickplugins.com/documentation/accordions/)
-
-
 
 
 ### Key Features
@@ -46,12 +42,26 @@ Transform the way you present content on your WordPress site with our React-base
 *   **Content Editor**: Effortlessly manage your accordion content with features like sortable items, duplication, and copy-paste between accordions.
 *   **OpenAI Integration**: Generate FAQs and other content in seconds using AI-powered tools, streamlining the content creation process.
 
-#### **Tabs and Image Accordion Builder**
+### **Tabs Features**
 
-Expand your options with built-in support for:
+*   **Lazyload**: Optimize page load times with lazy-loading tabs.
+*   **URL Hash Support**: Link directly to specific tabs for easier navigation.
+*   **Auto Play**: Cycle through tabs automatically.
+*   **Interactive Navigation**: Customizable icons, counters, and animations for navigation labels.
+*   **Advanced Content Support**: Embed media, use shortcodes, and add in-out animations for engaging tab content.
+*   **Content Editor**: Sort, duplicate, copy-paste, and generate FAQs with OpenAI integration.
 
-*   **Tabs Builder**: Create elegant tabbed content layouts for better organization.
-*   **Image Accordion Builder**: Add interactive, image-based accordions to enhance your visual storytelling.
+### **Image Accordion Features**
+
+*   **Lazyload**: Improve performance by lazy-loading images.
+*   **URL Hash Support**: Link directly to specific image accordion items.
+*   **Auto Play**: Enable automatic cycling through images.
+*   **Hover Effects**: Add overlay animations for a modern, interactive experience.
+*   **Media Library Integration**: Easily select images directly from the WordPress Media Library.
+
+### Why Choose the Accordions Builder Plugin?
+
+This plugin is designed to help you create stunning, interactive content elements effortlessly. With advanced styling options, smooth animations, and built-in AI support, you can deliver a polished, professional user experience on your WordPress site.
 
 ### Perfect for Every Use Case
 
@@ -95,6 +105,9 @@ then paste this shortcode anywhere in your page to display accordions<br />
 
 
 
+	= 2.3.9 =
+    * 2024-01-16 - add - Accordions Builder - FAQ Grid view added.
+    * 
 	= 2.3.8 =
     * 2024-01-07 - fix - Accordions Builder - Image accordion added.
 
