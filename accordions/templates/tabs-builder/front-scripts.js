@@ -42,18 +42,33 @@ document.addEventListener("DOMContentLoaded", function () {
 					var iconIdle = tab.querySelector(".nav-icon-idle");
 
 					if (tabIndex == index) {
-						iconToggle.style.display = "inline-block";
-						iconIdle.style.display = "none";
+						if (iconToggle != null) {
+							iconToggle.style.display = "inline-block";
+						}
+						if (iconIdle != null) {
+							iconIdle.style.display = "none";
+						}
+
+
+
 						tab.classList.add("nav-item-active");
 						tabPanels[index].setAttribute('hidden', false);
 
 					} else {
 
+						if (tabPanels[index] != undefined) {
+							tabPanels[index].setAttribute('hidden', true);
+						}
 
-						tabPanels[index].setAttribute('hidden', true);
 
-						iconToggle.style.display = "none";
-						iconIdle.style.display = "inline-block";
+
+						if (iconToggle != null) {
+							iconToggle.style.display = "none";
+						}
+						if (iconIdle != null) {
+							iconIdle.style.display = "inline-block";
+						}
+
 					}
 
 				});
@@ -91,8 +106,6 @@ document.addEventListener("DOMContentLoaded", function () {
 			if (hash.length == 0) return;
 			var hashWrap = document.querySelector('[href="' + hash + '"]');
 
-			console.log(hashWrap);
-
 
 			if (hashWrap != null) {
 				var index = hashWrap.getAttribute("index")
@@ -116,14 +129,43 @@ document.addEventListener("DOMContentLoaded", function () {
 				var iconIdle = item.querySelector(".nav-icon-idle");
 
 				if (this.navActiveIndex == index) {
-					iconToggle.style.display = "inline-block";
-					iconIdle.style.display = "none";
-					tabPanels[index].setAttribute('hidden', false);
+
+
+					if (iconToggle != null) {
+						iconToggle.style.display = "inline-block";
+					}
+					if (iconIdle != null) {
+						iconIdle.style.display = "none";
+					}
+
+
+					if (tabPanels[index] != undefined) {
+						tabPanels[index].setAttribute('hidden', false);
+					}
+
+
 
 				} else {
-					iconToggle.style.display = "none";
-					iconIdle.style.display = "inline-block";
-					tabPanels[index].setAttribute('hidden', true);
+
+
+					if (iconToggle != null) {
+						iconToggle.style.display = "none";
+					}
+					if (iconIdle != null) {
+						iconIdle.style.display = "inline-block";
+					}
+
+
+
+
+
+					if (tabPanels[index] != undefined) {
+						tabPanels[index].setAttribute('hidden', true);
+					}
+
+
+
+
 
 				}
 

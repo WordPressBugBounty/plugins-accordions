@@ -25,3 +25,7 @@ function accordions_global_json_ld()
         }
     }
 }
+
+
+
+function extract_font_families($elemenets) {}

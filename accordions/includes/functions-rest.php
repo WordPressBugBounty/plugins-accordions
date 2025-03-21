@@ -498,6 +498,11 @@ class AccordionsRest
 
 		$name = isset($request['name']) ? sanitize_text_field($request['name']) : '';
 		$value = isset($request['value']) ? accordions_recursive_sanitize_arr($request['value']) : '';
+
+
+		//error_log($value);
+
+
 		$message = "";
 		if (!empty($value)) {
 			$status = update_option($name, $value);
@@ -801,10 +806,18 @@ class AccordionsRest
 			$response["id_missing"] = __("Post Id should not empty");
 		}
 
-		$content = json_encode($content);
-		$content = wp_kses_post($content); // Sanitizes content for safe HTML output
-
+		//error_log("######serialize######");
 		error_log($content);
+
+		//$content = json_encode($content);
+		//error_log("######json_encode######");
+
+		//error_log(($content));
+
+		$content = wp_kses_post($content); // Sanitizes content for safe HTML output
+		//error_log("######wp_kses_post######");
+
+		//error_log($content);
 
 		$my_post = array(
 			'ID'           => $postId,

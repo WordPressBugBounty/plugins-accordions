@@ -8,6 +8,7 @@ function accordions_builder_faqGrid($post_id, $accordionData)
 
     global $accordionsSchema;
     global $accordionsBuilderCss;
+    global $accordionsCssFontsFamilies;
 
 
     $globalOptions = isset($accordionData["globalOptions"]) ? $accordionData["globalOptions"] : [];
@@ -157,7 +158,9 @@ function accordions_builder_faqGrid($post_id, $accordionData)
     $iconIdleHtml = !empty($iconSrc) ? '<span class="accordion-icon-idle ' . $iconSrc . '"></span>' : '';
 
 
-
+    $accordionsCssFontsFamilies[] = isset($wrapper['styles']['fontFamily']) ? $wrapper['styles']['fontFamily']['Desktop'] : '';
+    $accordionsCssFontsFamilies[] = isset($headerLabel['styles']['fontFamily']) ? $headerLabel['styles']['fontFamily']['Desktop'] : '';
+    $accordionsCssFontsFamilies[] = isset($content['styles']['fontFamily']) ? $content['styles']['fontFamily']['Desktop'] : '';
 
 
     if ($iconLibrary == 'fontAwesome') {
@@ -285,15 +288,6 @@ function accordions_builder_faqGrid($post_id, $accordionData)
                     //         $contentText = str_replace('[accordions_builder', '**<a target="_blank" href="https://pickplugins.com/accordions/"> <strong>Please buy pro to create nested accordion</strong></a>**', $contentText);
                     //     }
                     // }
-
-
-
-
-
-
-
-
-
 
 
                     $contentText = do_shortcode($contentText);

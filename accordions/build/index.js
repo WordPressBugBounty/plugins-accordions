@@ -6193,12 +6193,12 @@ function Html(props) {
   var activeAccordion = props.activeAccordion;
   var addNotifications = props.addNotifications;
   var setHelp = props.setHelp;
-  var [searchPrams, setsearchPrams] = useState({
-    search: ""
-  }); // Using the hook.
+  var listQueryPrams = props.listQueryPrams;
+  var setlistQueryPrams = props.setlistQueryPrams;
+  var [searchPrams, setsearchPrams] = useState(listQueryPrams); // Using the hook.
   var [posts, setPosts] = useState(null); // Using the hook.
   var [pagination, setPagination] = useState({
-    currentPage: 1
+    currentPage: listQueryPrams.page
   }); // Using the hook.
   var [dataLoaded, setdataLoaded] = useState(false); // Using the hook.
   var [isLoading, setisLoading] = useState(false); // Using the hook.
@@ -6565,6 +6565,10 @@ function Html(props) {
         setPagination({
           currentPage: currentPage
         });
+        setlistQueryPrams({
+          ...listQueryPrams,
+          page: currentPage
+        });
       }
     }
   }, "Prev"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -6573,6 +6577,10 @@ function Html(props) {
       var currentPage = pagination.currentPage + 1;
       setPagination({
         currentPage: currentPage
+      });
+      setlistQueryPrams({
+        ...listQueryPrams,
+        page: currentPage
       });
     }
   }, "Next")));
@@ -6603,6 +6611,8 @@ class BuilderTabList extends Component {
       selectAccordion,
       activeAccordion,
       setHelp,
+      listQueryPrams,
+      setlistQueryPrams,
       addNotifications
     } = this.props;
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Html, {
@@ -6611,7 +6621,9 @@ class BuilderTabList extends Component {
       warn: this.state.showWarning,
       isLoaded: this.state.isLoaded,
       setHelp: setHelp,
-      addNotifications: addNotifications
+      addNotifications: addNotifications,
+      listQueryPrams: listQueryPrams,
+      setlistQueryPrams: setlistQueryPrams
     });
   }
 }
@@ -7751,7 +7763,6 @@ function Html(props) {
   useEffect(() => {
     var reponsiveCss = generateBlockCss(styleObj);
     onChange(reponsiveCss);
-    console.log(reponsiveCss);
     var wpfooter = document.getElementById("wpfooter");
     var csswrappg = document.getElementById("css-block");
 
@@ -8418,6 +8429,10 @@ function Html(props) {
   });
   var [accordionData, setaccordionData] = useState(postData?.post_content);
   var [globalOptions, setglobalOptions] = useState(accordionData.globalOptions); // Using the hook.
+  var [listQueryPrams, setlistQueryPrams] = useState({
+    page: 1,
+    search: ""
+  }); // Using the hook.
 
   var [isLoading, setisLoading] = useState(false);
   var [pleaseUpdate, setpleaseUpdate] = useState(false);
@@ -8587,14 +8602,14 @@ function Html(props) {
   function onUpdateAccordion() {
     setisLoading(true);
     var content = accordionData;
-    //content = JSON.stringify(content);
-
+    console.log(content);
+    console.log(JSON.stringify(content));
     _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
       path: "/accordions/v2/update_post_data",
       method: "POST",
       data: {
         postId: activeAccordion,
-        content: content,
+        content: JSON.stringify(content),
         _wpnonce: accordions_builder_js._wpnonce
       }
     }).then(res => {
@@ -8869,7 +8884,9 @@ function Html(props) {
     addNotifications: addNotifications,
     selectAccordion: selectAccordion,
     activeAccordion: activeAccordion,
-    setHelp: setHelp
+    setHelp: setHelp,
+    listQueryPrams: listQueryPrams,
+    setlistQueryPrams: setlistQueryPrams
   }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_tab__WEBPACK_IMPORTED_MODULE_14__["default"], {
     name: "edit"
   }, postData?.ID == null && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -18295,7 +18312,7 @@ function Html(props) {
   const [customFonts, setCustomFonts] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)([]);
   const [fontFaceCSS, setFontFaceCSS] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)("");
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useEffect)(() => {
-    if (window.postGridBlockEditor.customFonts !== undefined && window.postGridBlockEditor.customFonts.length != 0) {
+    if (window?.postGridBlockEditor?.customFonts !== undefined && window?.postGridBlockEditor?.customFonts.length != 0) {
       setCustomFonts(window.postGridBlockEditor.customFonts);
     }
   }, [window.postGridBlockEditor]);
@@ -35061,6 +35078,7 @@ const {
 
 
 
+// import WPEditor from "../input-wp-editor";
 
 
 
@@ -36486,14 +36504,13 @@ function Html(props) {
       className: "mb-3"
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_input_wp_editor__WEBPACK_IMPORTED_MODULE_14__["default"], {
       placeholder: "Write content...",
-      editorId: `content-${index}-${generate3Digit()}`,
+      id: `content-${index}-${generate3Digit()}`,
       className: `bg-slate-100 p-3 min-h-24 w-full`,
       value: unescapeHTML(item?.contentText),
       onChange: content => {
         content = content.replace(/[\r\n]+/g, '');
-        content = escapeHTML(content);
+        //content = escapeHTML(content);
 
-        //var content = JSON.stringify(content);
         console.log(content);
         setitems(prevItems => {
           const updatedItems = [...prevItems];
@@ -46747,58 +46764,75 @@ function Html(props) {
   if (!props.warn) {
     return null;
   }
-  const editorRef = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
-  var editorId = props.editorId;
-  var onChange = props.onChange;
-  var value = props.value;
+  const [content, setContent] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useState)('');
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
-    // Initialize WordPress editor
-    wp.editor.initialize(editorId, {
+    //tinymce.execCommand('mceAddEditor', true, props.id);
+
+    wp.editor.initialize(props.id, {
       tinymce: {
+        wpautop: true,
         toolbar1: "bold italic underline strikethrough | bullist numlist | blockquote hr wp_more | alignleft aligncenter alignright | link unlink | fullscreen | wp_adv",
-        toolbar2: "formatselect alignjustify forecolor | pastetext removeformat charmap | outdent indent | undo redo | wp_help"
+        toolbar2: "formatselect alignjustify forecolor | pastetext removeformat charmap | outdent indent | undo redo | wp_help",
+        setup: editor => {
+          editor.on("change", e => {
+            const newContent = editor.getContent(); // Get the updated content
+            console.log(newContent);
+            props.onChange(newContent);
+          });
+        }
       },
       quicktags: true,
       mediaButtons: true
     });
 
-    // Wait for TinyMCE to load
-    const setupEditor = () => {
-      const instance = tinymce.get(editorId);
-      if (instance) {
-        editorRef.current = instance;
-        if (value) {
-          instance.setContent(value);
-        }
+    // Function to capture content change
+    // const updateContent = () => {
+    //   const newContent = wp.editor.getContent(props.id);
 
-        // Attach change event listener
-        instance.on("change", () => {
-          const content = instance.getContent();
-          if (onChange) {
-            onChange(content);
-          }
-        });
-      }
-    };
+    //   setContent(newContent);
+    // };
 
-    // Use a slight delay to ensure the editor is ready
-    const timer = setTimeout(setupEditor, 500);
-    return () => {
-      clearTimeout(timer);
+    // // Listen for changes in the content
+    // document.getElementById(props.id).addEventListener('input', updateContent);
 
-      // Cleanup WordPress editor on unmount
-      if (editorRef.current) {
-        editorRef.current.destroy();
-        editorRef.current = null;
-      }
-      wp.editor.remove(editorId);
-    };
+    // Cleanup on unmount
+    // return () => {
+    //   document.getElementById(props.id).removeEventListener('input', updateContent);
+    // };
+
+    // tinymce.init({
+    //   selector: "#" + props.id,
+    //   toolbar:
+    //     "undo redo print spellcheckdialog formatpainter | blocks fontfamily fontsize | bold italic underline forecolor backcolor | link image | alignleft aligncenter alignright alignjustify lineheight | checklist bullist numlist indent outdent | removeformat code",
+    //   advcode_inline: true,
+    //   height: "500px",
+    //   menubar: false,
+    //   setup: (editor) => {
+    //     editor.on("change", (e) => {
+    //       const newContent = editor.getContent(); // Get the updated content
+    //       props.onChange(newContent);
+    //     });
+    //   },
+    // });
   }, []);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("textarea", {
-    id: editorId
-  });
+    className: props.className,
+    id: props.id,
+    value: props.value,
+    type: "text",
+    size: props.size,
+    name: props.name,
+    placeholder: props.placeholder,
+    minlength: props.minlength,
+    maxlength: props.maxlength,
+    required: props.required,
+    disabled: props.disabled,
+    onChange: e => {
+      props.onChange(e.target.value);
+    }
+  }, props.value);
 }
-class WPEditor extends Component {
+class PGinputWPEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -46813,19 +46847,35 @@ class WPEditor extends Component {
   }
   render() {
     var {
-      editorId,
-      onChange,
-      value
+      value,
+      placeholder,
+      className,
+      id,
+      name,
+      size,
+      minlength,
+      maxlength,
+      required,
+      disabled,
+      onChange
     } = this.props;
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Html, {
       value: value,
-      editorId: editorId,
+      name: name,
+      id: id,
+      size: size,
+      placeholder: placeholder,
+      className: className,
+      minlength: minlength,
+      maxlength: maxlength,
+      required: required,
+      disabled: disabled,
       onChange: onChange,
       warn: this.state.showWarning
     });
   }
 }
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (WPEditor);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PGinputWPEditor);
 
 /***/ }),
 

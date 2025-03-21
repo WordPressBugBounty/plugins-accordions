@@ -7,6 +7,7 @@ function accordions_builder_tabs($post_id, $accordionData)
 {
 
     global $accordionsBuilderCss;
+    global $accordionsCssFontsFamilies;
 
 
     $globalOptions = isset($accordionData["globalOptions"]) ? $accordionData["globalOptions"] : [];
@@ -62,6 +63,9 @@ function accordions_builder_tabs($post_id, $accordionData)
     $wrapperTag = !empty($wrapperOptions["tag"]) ? $wrapperOptions["tag"] : "div";
     $wrapperClass = isset($wrapperOptions["class"]) ? $wrapperOptions["class"] : "";
 
+
+    $navItem = isset($accordionData["navItem"]) ? $accordionData["navItem"] : [];
+
     $panelWrap = isset($accordionData["panelWrap"]) ? $accordionData["panelWrap"] : [];
     $panelWrapOptions = isset($panelWrap["options"]) ? $panelWrap["options"] : [];
     $panelWrapTag = !empty($panelWrapOptions["tag"]) ? $panelWrapOptions["tag"] : "div";
@@ -77,6 +81,8 @@ function accordions_builder_tabs($post_id, $accordionData)
 
 
 
+    $navsWrap = isset($accordionData["navsWrap"]) ? $accordionData["navsWrap"] : [];
+
     $header = isset($accordionData["header"]) ? $accordionData["header"] : [];
     $headerOptions = isset($header["options"]) ? $header["options"] : [];
     $headerTag = isset($headerOptions["tag"]) ? $headerOptions["tag"] : "div";
@@ -86,6 +92,8 @@ function accordions_builder_tabs($post_id, $accordionData)
     $headerLabelOptions = isset($headerLabel["options"]) ? $headerLabel["options"] : [];
     $headerLabelTag = !empty($headerLabelOptions["tag"]) ? $headerLabelOptions["tag"] : "div";
     $headerLabelClass = isset($headerLabelOptions["class"]) ? $headerLabelOptions["class"] : "";
+
+    //var_dump($navsWrap);
 
     $labelCounter = isset($accordionData["labelCounter"]) ? $accordionData["labelCounter"] : [];
     $labelCounterOptions = isset($labelCounter["options"]) ? $labelCounter["options"] : [];
@@ -131,6 +139,14 @@ function accordions_builder_tabs($post_id, $accordionData)
     $iconToggleSrcType = isset($iconToggleOptions['srcType']) ? $iconToggleOptions['srcType'] : "";
     $iconToggleSrc = !empty($iconToggleOptions['iconSrc']) ? $iconToggleOptions['iconSrc'] : "";
     $iconToggleHtml = !empty($iconToggleSrc) ? '<span  class="nav-icon-toggle ' . $iconToggleSrc . '"></span>' : '';
+
+    $accordionsCssFontsFamilies[] = isset($wrapper['styles']['fontFamily']) ? $wrapper['styles']['fontFamily']['Desktop'] : '';
+    $accordionsCssFontsFamilies[] = isset($navsWrap['styles']['fontFamily']) ? $navsWrap['styles']['fontFamily']['Desktop'] : '';
+    $accordionsCssFontsFamilies[] = isset($navItem['styles']['fontFamily']) ? $navItem['styles']['fontFamily']['Desktop'] : '';
+    $accordionsCssFontsFamilies[] = isset($panelWrap['styles']['fontFamily']) ? $panelWrap['styles']['fontFamily']['Desktop'] : '';
+
+
+    // echo "<pre>" . var_export($accordionsCssFontsFamilies, true) . "</pre>";
 
 
     if ($iconLibrary == 'fontAwesome') {
@@ -218,6 +234,9 @@ function accordions_builder_tabs($post_id, $accordionData)
             ?>
                 <div id="pg<?php echo esc_attr($index); ?><?php echo esc_attr($index); ?>" aria-controls="pg<?php echo esc_attr($index); ?>" class="<?php echo ($index == $navActiveIndex) ? ' nav-item  nav-item-active' : 'nav-item ' ?>" role="tab" tabIndex="<?php echo ($index == $navActiveIndex) ? '0' : '-1' ?>" aria-controls="tabs-<?php echo esc_attr($index); ?>" aria-selected="false" aria-expanded="false" index="<?php echo esc_attr($index); ?>" aria-labelledby="ui-id-<?php echo esc_attr($index); ?>">
 
+                    <?php if ($labelCounterPosition == 'left'): ?>
+                        <span class="label-counter"><?php echo esc_html($index + 1); ?></span>
+                    <?php endif; ?>
 
                     <?php if ($iconPosition == 'before') : ?>
                         <span class="nav-icon">
@@ -245,7 +264,7 @@ function accordions_builder_tabs($post_id, $accordionData)
 
 
                     <a href="#<?php echo  esc_attr($headerLabelSlug) ?>" class="nav-label" index="<?php echo esc_attr($index); ?>">
-                        <?php if ($labelCounterEnable): ?>
+                        <?php if ($labelCounterPosition == 'beforeLabelText'): ?>
                             <span class="label-counter"><?php echo esc_html($index + 1); ?></span>
                         <?php endif; ?>
 
@@ -266,6 +285,10 @@ function accordions_builder_tabs($post_id, $accordionData)
                                 <span class="accordion-label-icon <?php echo "$labelIconClass $itemLabelIconSrc"; ?>"></span>
                             <?php endif; ?>
                         <?php endif; ?>
+
+                        <?php if ($labelCounterPosition == 'afterLabelText'): ?>
+                            <span class="label-counter"><?php echo esc_html($index + 1); ?></span>
+                        <?php endif; ?>
                     </a>
                     <?php if ($labelIconPosition == 'afterLabel') : ?>
                         <?php if (empty($itemLabelIconSrc)): ?>
@@ -279,6 +302,9 @@ function accordions_builder_tabs($post_id, $accordionData)
                             <?php echo wp_kses_post($iconIdleHtml); ?>
                             <?php echo wp_kses_post($iconToggleHtml); ?>
                         </span>
+                    <?php endif; ?>
+                    <?php if ($labelCounterPosition == 'right'): ?>
+                        <span class="label-counter"><?php echo esc_html($index + 1); ?></span>
                     <?php endif; ?>
                 </div>
             <?php

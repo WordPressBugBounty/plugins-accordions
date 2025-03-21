@@ -1,6 +1,10 @@
 <?php
 if (!defined('ABSPATH')) exit;  // if direct access
 
+
+
+
+
 function accordions_all_user_roles()
 {
 
@@ -666,7 +670,9 @@ function accordions_recursive_sanitize_arr($array)
         if (is_array($value)) {
             $value = accordions_recursive_sanitize_arr($value);
         } else {
-            $value = wp_unslash(_wp_specialchars($value, ENT_QUOTES));
+            // $value = wp_unslash(_wp_specialchars($value, ENT_QUOTES));
+            //$value = wp_kses_post($value);
+            $value = wp_kses_post(($value));
         }
     }
 
@@ -777,7 +783,7 @@ function accordions_global_scripts()
     </script>
 
 
-<?php
+    <?php
 
 }
 
@@ -787,11 +793,34 @@ function accordions_builder_global_scripts()
 {
 
     global $accordionsBuilderCss;
+    global $accordionsCssFontsFamilies;
 
     $accordionsBuilderCss = str_replace("&quot;", '"', $accordionsBuilderCss);
 
+    $fonts = is_array($accordionsCssFontsFamilies) ? implode(',', array_filter($accordionsCssFontsFamilies)) : '';
+    $fonts = explode(',', $fonts);
+    //var_dump($fonts);
 
-?>
+    $fontsArr = [];
+    $fontsStr = '';
+    foreach ($fonts as $font) {
+        $fontsStr .= $font . ',';
+        if (!in_array($font, $fontsArr)) {
+            $fontsArr[] =  str_replace(" ", "+", $font) . ':wght@100;200;300;400;500;600;700;800;900';
+        }
+    }
+
+    $fontsArrStr = implode('&family=', $fontsArr);
+
+    //var_dump($fontsArr);
+    if (!empty($fontsArr)) {
+    ?>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=<?php echo esc_html($fontsArrStr); ?>&display=swap" />
+    <?php
+    }
+
+    ?>
+
     <style>
         <?php echo wp_strip_all_tags($accordionsBuilderCss); ?>
     </style>

@@ -6,6 +6,7 @@ add_action('accordions_builder_imageAccordion', 'accordions_builder_imageAccordi
 function accordions_builder_imageAccordion($post_id, $accordionData)
 {
 
+    global $accordionsCssFontsFamilies;
 
 
     $globalOptions = isset($accordionData["globalOptions"]) ? $accordionData["globalOptions"] : [];
@@ -65,8 +66,8 @@ function accordions_builder_imageAccordion($post_id, $accordionData)
     $wrapperClass = isset($wrapperOptions["class"]) ? $wrapperOptions["class"] : "";
 
 
-
-
+    $accordionsCssFontsFamilies[] = isset($wrapper['styles']['fontFamily']) ? $wrapper['styles']['fontFamily']['Desktop'] : '';
+    $accordionsCssFontsFamilies[] = isset($overlay['styles']['fontFamily']) ? $overlay['styles']['fontFamily']['Desktop'] : '';
 
     $blockId = "accordions-" . $post_id;
 
@@ -119,7 +120,7 @@ function accordions_builder_imageAccordion($post_id, $accordionData)
                     $imageId = isset($image["id"]) ? $image["id"] : "";
                     $imageUrl = isset($image["url"]) ? $image["url"] : "";
                     $imageAltText = isset($image["altText"]) ? $image["altText"] : "";
-
+                    $content = wp_kses_post($content);
 
                     // if ($panelWrapAutoembed) {
                     //     $WP_Embed = new WP_Embed();
@@ -141,7 +142,7 @@ function accordions_builder_imageAccordion($post_id, $accordionData)
                     // }
 
 
-
+                    //var_dump($content);
 
 
             ?>
@@ -150,7 +151,10 @@ function accordions_builder_imageAccordion($post_id, $accordionData)
                     <img src="<?php echo esc_url($imageUrl); ?>" class="image-accordion-image" />
                     <div class="image-accordion-overlay" style="display: none;">
                         <div class="image-accordion-title"><?php echo wp_kses_post($title); ?></div>
-                        <div class="image-accordion-content"><?php echo wp_kses_post($content); ?></div>
+                        <div class="image-accordion-content">
+                            <?php echo wp_unslash(wp_specialchars_decode($content, ENT_QUOTES)) ?>
+
+                        </div>
                     </div>
                 </div>
             <?php

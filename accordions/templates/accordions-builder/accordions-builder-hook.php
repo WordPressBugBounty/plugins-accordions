@@ -8,7 +8,7 @@ function accordions_builder_accordion($post_id, $accordionData)
 
     global $accordionsSchema;
     global $accordionsBuilderCss;
-
+    global $accordionsCssFontsFamilies;
 
     $globalOptions = isset($accordionData["globalOptions"]) ? $accordionData["globalOptions"] : [];
     $lazyLoad = isset($globalOptions["lazyLoad"]) ? $globalOptions["lazyLoad"] : false;
@@ -19,8 +19,6 @@ function accordions_builder_accordion($post_id, $accordionData)
     $autoPlayDelay = isset($globalOptions["autoPlayDelay"]) ? $globalOptions["autoPlayDelay"] : 2000;
     $autoPlayOrder = isset($globalOptions["autoPlayOrder"]) ? $globalOptions["autoPlayOrder"] : "topToBottom";
     $itemSource = isset($globalOptions["itemSource"]) ? $globalOptions["itemSource"] : "topToBottom";
-
-    //var_dump($globalOptions);
 
     $keepExpandOther = isset($globalOptions["keepExpandOther"]) ? $globalOptions["keepExpandOther"] : false;
     $activeEvent = isset($globalOptions["activeEvent"]) ? $globalOptions["activeEvent"] : "";
@@ -44,14 +42,8 @@ function accordions_builder_accordion($post_id, $accordionData)
         $items = accordions_easy_accordion_query_item($itemQueryArgs);
     }
 
-
-
-
     $expandCollapseAll = isset($accordionData["expandCollapseAll"]) ? $accordionData["expandCollapseAll"] : [];
     $expandCollapseAllOptions = isset($expandCollapseAll["options"]) ? $expandCollapseAll["options"] : [];
-
-
-
     $expandCollapseAllEnable = isset($expandCollapseAllOptions["enable"]) ? $expandCollapseAllOptions["enable"] : false;
 
     $expandAllText = isset($expandCollapseAllOptions["expandAllText"]) ? $expandCollapseAllOptions["expandAllText"] : "";
@@ -65,18 +57,12 @@ function accordions_builder_accordion($post_id, $accordionData)
 
     $expandAllIconHtml = !empty($expandAllIconSrc) ? '<span class="' . $expandAllIconSrc . '"></span>' : '';
 
-
-
     $collapseAllIcon = isset($expandCollapseAllOptions["collapseAllIcon"]) ? $expandCollapseAllOptions["collapseAllIcon"] : [];
     $collapseAllIconLibrary = isset($collapseAllIcon["library"]) ? $collapseAllIcon["library"] : "";
     $collapseAllIconSrcType = isset($collapseAllIcon["srcType"]) ? $collapseAllIcon["srcType"] : "";
     $collapseAllIconSrc = isset($collapseAllIcon["iconSrc"]) ? $collapseAllIcon["iconSrc"] : "";
 
     $collapseAllIconHtml = !empty($collapseAllIconSrc) ? '<span class="' . $collapseAllIconSrc . '"></span>' : '';
-
-
-
-
 
     $icon = isset($accordionData["icon"]) ? $accordionData["icon"] : [];
     $iconOptions = isset($icon["options"]) ? $icon["options"] : [];
@@ -87,12 +73,10 @@ function accordions_builder_accordion($post_id, $accordionData)
 
     $accordionsBuilderCss .= $reponsiveCss;
 
-
     $searchInput = isset($accordionData["searchInput"]) ? $accordionData["searchInput"] : [];
     $searchInputOptions = isset($searchInput["options"]) ? $searchInput["options"] : [];
     $searchInputEnable = !empty($searchInputOptions["enable"]) ? $searchInputOptions["enable"] : false;
     $searchInputPlaceholder = !empty($searchInputOptions["placeholder"]) ? $searchInputOptions["placeholder"] : "";
-
 
     $wrapper = isset($accordionData["wrapper"]) ? $accordionData["wrapper"] : [];
     $wrapperOptions = isset($wrapper["options"]) ? $wrapper["options"] : [];
@@ -112,7 +96,6 @@ function accordions_builder_accordion($post_id, $accordionData)
     $contentShortcodes = isset($contentOptions["shortcodes"]) ? $contentOptions["shortcodes"] : true;
     $contentWpautop = isset($contentOptions["wpautop"]) ? $contentOptions["wpautop"] : true;
 
-
     $header = isset($accordionData["header"]) ? $accordionData["header"] : [];
     $headerOptions = isset($header["options"]) ? $header["options"] : [];
     $headerTag = isset($headerOptions["tag"]) ? $headerOptions["tag"] : "div";
@@ -122,6 +105,7 @@ function accordions_builder_accordion($post_id, $accordionData)
     $headerLabelOptions = isset($headerLabel["options"]) ? $headerLabel["options"] : [];
     $headerLabelTag = !empty($headerLabelOptions["tag"]) ? $headerLabelOptions["tag"] : "div";
     $headerLabelClass = isset($headerLabelOptions["class"]) ? $headerLabelOptions["class"] : "";
+
 
     $labelCounter = isset($accordionData["labelCounter"]) ? $accordionData["labelCounter"] : [];
     $labelCounterOptions = isset($labelCounter["options"]) ? $labelCounter["options"] : [];
@@ -150,13 +134,10 @@ function accordions_builder_accordion($post_id, $accordionData)
     $iconOutAnimation = isset($iconOptions["outAnimation"]) ? $iconOptions["outAnimation"] : "";
     $iconAnimationDuration = isset($iconOptions["animationDuration"]) ? $iconOptions["animationDuration"] : 0;
 
-
     $iconLibrary = isset($iconOptions['library']) ? $iconOptions['library'] : "fontAwesome";
     $iconSrcType = isset($iconOptions['srcType']) ? $iconOptions['srcType'] : "";
     $iconSrc = !empty($iconOptions['iconSrc']) ? $iconOptions['iconSrc'] : "";
     $iconIdleHtml = !empty($iconSrc) ? '<span class="accordion-icon-idle ' . $iconSrc . '"></span>' : '';
-
-
 
     $iconToggle = isset($accordionData["iconToggle"]) ? $accordionData["iconToggle"] : [];
     $iconToggleOptions = isset($iconToggle["options"]) ? $iconToggle["options"] : [];
@@ -169,6 +150,18 @@ function accordions_builder_accordion($post_id, $accordionData)
     $iconToggleHtml = !empty($iconToggleSrc) ? '<span class="accordion-icon-toggle ' . $iconToggleSrc . '"></span>' : '';
 
 
+
+    $accordionsCssFontsFamilies[] = isset($wrapper['styles']['fontFamily']) ? $wrapper['styles']['fontFamily']['Desktop'] : '';
+    $accordionsCssFontsFamilies[] = isset($header['styles']['fontFamily']) ? $header['styles']['fontFamily']['Desktop'] : '';
+    $accordionsCssFontsFamilies[] = isset($headerLabel['styles']['fontFamily']) ? $headerLabel['styles']['fontFamily']['Desktop'] : '';
+    $accordionsCssFontsFamilies[] = isset($content['styles']['fontFamily']) ? $content['styles']['fontFamily']['Desktop'] : '';
+    $accordionsCssFontsFamilies[] = isset($searchInput['styles']['fontFamily']) ? $searchInput['styles']['fontFamily']['Desktop'] : '';
+    $accordionsCssFontsFamilies[] = isset($expandCollapseAll['styles']['fontFamily']) ? $expandCollapseAll['styles']['fontFamily']['Desktop'] : '';
+
+
+
+
+
     if ($iconLibrary == 'fontAwesome') {
         wp_enqueue_style('fontawesome-icons');
     } else if ($iconLibrary == 'iconFont') {
@@ -176,6 +169,7 @@ function accordions_builder_accordion($post_id, $accordionData)
     } else if ($iconLibrary == 'bootstrap') {
         wp_enqueue_style('bootstrap-icons');
     }
+
     if ($iconToggleLibrary == 'fontAwesome') {
         wp_enqueue_style('fontawesome-icons');
     } else if ($iconToggleLibrary == 'iconFont') {
@@ -199,6 +193,7 @@ function accordions_builder_accordion($post_id, $accordionData)
     } else if ($expandAllIconLibrary == 'bootstrap') {
         wp_enqueue_style('bootstrap-icons');
     }
+
     if ($collapseAllIconLibrary == 'fontAwesome') {
         wp_enqueue_style('fontawesome-icons');
     } else if ($collapseAllIconLibrary == 'iconFont') {
@@ -220,7 +215,6 @@ function accordions_builder_accordion($post_id, $accordionData)
 
     $blockId = "accordions-" . $post_id;
 
-    //var_dump($activeIndex);
 
 
     $accordionDataAttr = [
@@ -301,20 +295,26 @@ function accordions_builder_accordion($post_id, $accordionData)
 
 
 
-
-
-
-
-
-
-
-
                 $contentText = do_shortcode($contentText);
             }
 
             if ($contentWpautop) {
-                //$contentText = wpautop($contentText);
+                $contentText = wpautop($contentText);
             }
+
+
+            //$contentText = str_replace("\r\n", "", $contentText);
+            $contentText = wp_unslash(wp_specialchars_decode($contentText, ENT_QUOTES));
+
+            //echo $contentText;
+
+            //$contentText = wp_specialchars_decode($contentText, ENT_HTML5);
+            //$contentText = html_entity_decode($contentText, ENT_NOQUOTES);
+
+            //echo mb_convert_encoding($contentText, ENT_NOQUOTES, 'UTF-8'); // Output: ৳
+            // echo json_decode($contentText);
+            //echo mb_convert_encoding($contentText, 'UTF-8', 'auto'); // Output: ৳
+
 
             $itemLabelIcon = isset($item["labelIcon"]) ? $item["labelIcon"] : [];
             $itemLabelIconOptions = isset($itemLabelIcon["options"]) ? $itemLabelIcon["options"] : [];
@@ -389,11 +389,10 @@ function accordions_builder_accordion($post_id, $accordionData)
                 <?php endif; ?>
             </<?php echo tag_escape($headerTag); ?>>
             <<?php echo tag_escape($contentTag); ?> class="<?php echo esc_attr($contentClass); ?>" id="ui-id-<?php echo esc_attr((int)$count + 2); ?>" aria-labelledby="ui-id-<?php echo esc_attr((int)$count + 1); ?>" role="tabpanel" aria-hidden="false">
-                <?php //echo wp_kses_post($contentText); 
+
+                <?php //echo wp_unslash(wp_specialchars_decode($contentText, ENT_QUOTES)) 
                 ?>
-                <?php echo wp_unslash(wp_specialchars_decode($contentText, ENT_QUOTES)) ?>
-                <?php //echo ($contentText); 
-                ?>
+                <?php echo wp_kses_post($contentText);                ?>
             </<?php echo tag_escape($contentTag); ?>>
 
         <?php

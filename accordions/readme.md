@@ -4,7 +4,7 @@
 	Tags: Accordion, Tabs, AI FAQ, WooCommerce FAQ Tab, Image Accordion
 	Requires at least: 5.0
 	Tested up to: 6.7
-	Stable tag: 2.3.9
+	Stable tag: 2.3.10
 	License: GPLv2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -104,6 +104,8 @@ then paste this shortcode anywhere in your page to display accordions<br />
 == Changelog ==
 
 
+	= 2.3.10 =
+    * 2024-03-21 - fix - Font family issue fixed for Accordion Builder.
 
 	= 2.3.9 =
     * 2024-01-16 - add - Accordions Builder - FAQ Grid view added.
