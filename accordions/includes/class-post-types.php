@@ -19,13 +19,11 @@ class accordions_post_types
 
 		$user_roles = isset($accordions_settings['user_roles']) ? $accordions_settings['user_roles'] : array("administrator");
 
-		//error_log(serialize($user_roles));
 
 		$wp_roles = new WP_Roles();
 		$roles = $wp_roles->get_names();
 
 
-		//error_log(serialize($roles));
 
 
 		if (!empty($roles)) {
@@ -77,19 +75,30 @@ class accordions_post_types
 					'name' 					=> $plural,
 					'singular_name' 		=> $singular,
 					'menu_name'             => $singular,
+					/* translators: Post Type name in plural */
 					'all_items'             => sprintf(__('All %s', 'accordions'), $plural),
 					'add_new' 				=> __('Add New', 'accordions'),
+					/* translators: Post Type name */
 					'add_new_item' 			=> sprintf(__('Add %s', 'accordions'), $singular),
 					'edit' 					=> __('Edit', 'accordions'),
+					/* translators: Post Type name */
 					'edit_item' 			=> sprintf(__('Edit %s', 'accordions'), $singular),
+					/* translators: Post Type name */
 					'new_item' 				=> sprintf(__('New %s', 'accordions'), $singular),
+					/* translators: Post Type name */
 					'view' 					=> sprintf(__('View %s', 'accordions'), $singular),
+					/* translators: Post Type name */
 					'view_item' 			=> sprintf(__('View %s', 'accordions'), $singular),
+					/* translators: Post Type name in plural */
 					'search_items' 			=> sprintf(__('Search %s', 'accordions'), $plural),
+					/* translators: Post Type name in plural */
 					'not_found' 			=> sprintf(__('No %s found', 'accordions'), $plural),
+					/* translators: Post Type name in plural */
 					'not_found_in_trash' 	=> sprintf(__('No %s found in trash', 'accordions'), $plural),
+					/* translators: Post Type name */
 					'parent' 				=> sprintf(__('Parent %s', 'accordions'), $singular)
 				),
+				/* translators: Post Type name in plural */
 				'description' => sprintf(__('This is where you can create and manage %s.', 'accordions'), $plural),
 				'public' 				=> false,
 				'show_ui' 				=> true,

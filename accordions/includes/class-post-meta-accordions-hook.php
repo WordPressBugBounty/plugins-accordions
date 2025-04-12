@@ -19,8 +19,8 @@ function accordions_metabox_content_shortcode($post_id)
 
 ?>
     <div class="section">
-        <div class="section-title"><?php echo __('Shortcodes', 'accordions'); ?></div>
-        <p class="description section-description"><?php echo __('Simply copy these shortcode and user under content', 'accordions'); ?></p>
+        <div class="section-title"><?php esc_html_e('Shortcodes', 'accordions'); ?></div>
+        <p class="description section-description"><?php esc_html_e('Simply copy these shortcode and user under content', 'accordions'); ?></p>
 
 
         <?php
@@ -35,23 +35,23 @@ function accordions_metabox_content_shortcode($post_id)
         ?>
 
         <div class="copy-to-clipboard">
-            <input type="text" value="[accordions id='<?php echo esc_attr($post_id);  ?>']"> <span class="copied"><?php echo __('Copied', 'accordions'); ?></span>
-            <p class="description"><?php echo __('You can use this shortcode under post content', 'accordions'); ?></p>
+            <input type="text" value="[accordions id='<?php echo esc_attr($post_id);  ?>']"> <span class="copied"><?php esc_html_e('Copied', 'accordions'); ?></span>
+            <p class="description"><?php esc_html_e('You can use this shortcode under post content', 'accordions'); ?></p>
         </div>
 
         <div class="copy-to-clipboard">
-            <input type="text" value="[accordions_pplugins id='<?php echo esc_attr($post_id);  ?>']"> <span class="copied"><?php echo __('Copied', 'accordions'); ?></span>
-            <p class="description"><?php echo __('To avoid conflict with 3rd party shortcode also used same <code>[accordions]</code>You can use this shortcode under post content.', 'accordions'); ?></p>
+            <input type="text" value="[accordions_pplugins id='<?php echo esc_attr($post_id);  ?>']"> <span class="copied"><?php esc_html_e('Copied', 'accordions'); ?></span>
+            <p class="description"><?php esc_html_e('To avoid conflict with 3rd party shortcode also used same <code>[accordions]</code>You can use this shortcode under post content.', 'accordions'); ?></p>
         </div>
 
         <div class="copy-to-clipboard">
-            <textarea cols="50" rows="2" style="background:#bfefff" onClick="this.select();"><?php echo esc_textarea($shortcode); ?></textarea> <span class="copied"><?php echo __('Copied', 'accordions'); ?></span>
-            <p class="description"><?php echo __('PHP Code, you can use under theme .php files.', 'accordions'); ?></p>
+            <textarea cols="50" rows="2" style="background:#bfefff" onClick="this.select();"><?php echo esc_textarea($shortcode); ?></textarea> <span class="copied"><?php esc_html_e('Copied', 'accordions'); ?></span>
+            <p class="description"><?php esc_html_e('PHP Code, you can use under theme .php files.', 'accordions'); ?></p>
         </div>
 
         <div class="copy-to-clipboard">
-            <textarea cols="50" rows="2" style="background:#bfefff" onClick="this.select();"><?php echo esc_textarea($shortcode2); ?></textarea> <span class="copied"><?php echo __('Copied', 'accordions'); ?></span>
-            <p class="description"><?php echo __('To avoid conflict, PHP code you can use under theme .php files.', 'accordions'); ?></p>
+            <textarea cols="50" rows="2" style="background:#bfefff" onClick="this.select();"><?php echo esc_textarea($shortcode2); ?></textarea> <span class="copied"><?php esc_html_e('Copied', 'accordions'); ?></span>
+            <p class="description"><?php esc_html_e('To avoid conflict, PHP code you can use under theme .php files.', 'accordions'); ?></p>
         </div>
 
 
@@ -84,23 +84,23 @@ function accordions_metabox_content_shortcode($post_id)
         ?>
 
         <div class="copy-to-clipboard">
-            <input type="text" value="[accordions_tabs id='<?php echo esc_attr($post_id);  ?>']"> <span class="copied"><?php echo __('Copied', 'accordions'); ?></span>
-            <p class="description"><?php echo __('You can use this shortcode under post content', 'accordions'); ?></p>
+            <input type="text" value="[accordions_tabs id='<?php echo esc_attr($post_id);  ?>']"> <span class="copied"><?php esc_html_e('Copied', 'accordions'); ?></span>
+            <p class="description"><?php esc_html_e('You can use this shortcode under post content', 'accordions'); ?></p>
         </div>
 
         <div class="copy-to-clipboard">
-            <input type="text" value="[accordions_tabs_pplugins id='<?php echo esc_attr($post_id);  ?>']"> <span class="copied"><?php echo __('Copied', 'accordions'); ?></span>
-            <p class="description"><?php echo __('To avoid conflict with 3rd party shortcode also used same <code>[accordions_tabs]</code>You can use this shortcode under post content', 'accordions'); ?></p>
+            <input type="text" value="[accordions_tabs_pplugins id='<?php echo esc_attr($post_id);  ?>']"> <span class="copied"><?php esc_html_e('Copied', 'accordions'); ?></span>
+            <p class="description"><?php esc_html_e('To avoid conflict with 3rd party shortcode also used same <code>[accordions_tabs]</code>You can use this shortcode under post content', 'accordions'); ?></p>
         </div>
 
         <div class="copy-to-clipboard">
-            <textarea cols="50" rows="2" style="background:#bfefff" onClick="this.select();"><?php echo esc_textarea($shortcode); ?></textarea> <span class="copied"><?php echo __('Copied', 'accordions'); ?></span>
-            <p class="description"><?php echo __('PHP Code, you can use under theme .php files.', 'accordions'); ?></p>
+            <textarea cols="50" rows="2" style="background:#bfefff" onClick="this.select();"><?php echo esc_textarea($shortcode); ?></textarea> <span class="copied"><?php esc_html_e('Copied', 'accordions'); ?></span>
+            <p class="description"><?php esc_html_e('PHP Code, you can use under theme .php files.', 'accordions'); ?></p>
         </div>
 
         <div class="copy-to-clipboard">
-            <textarea cols="50" rows="2" style="background:#bfefff" onClick="this.select();"><?php echo esc_textarea($shortcode); ?></textarea> <span class="copied"><?php echo __('Copied', 'accordions'); ?></span>
-            <p class="description"><?php echo __('To avoid conflict, PHP code you can use under theme .php files.', 'accordions'); ?></p>
+            <textarea cols="50" rows="2" style="background:#bfefff" onClick="this.select();"><?php echo esc_textarea($shortcode); ?></textarea> <span class="copied"><?php esc_html_e('Copied', 'accordions'); ?></span>
+            <p class="description"><?php esc_html_e('To avoid conflict, PHP code you can use under theme .php files.', 'accordions'); ?></p>
         </div>
 
 
@@ -194,8 +194,8 @@ function accordions_metabox_content_general($post_id)
 ?>
 
     <div class="section">
-        <div class="section-title"><?php echo __('General options', 'accordions'); ?></div>
-        <p class="description section-description"><?php echo __('Some general options', 'accordions'); ?></p>
+        <div class="section-title"><?php esc_html_e('General options', 'accordions'); ?></div>
+        <p class="description section-description"><?php esc_html_e('Some general options', 'accordions'); ?></p>
 
         <?php
         $args = array(
@@ -353,8 +353,8 @@ function accordions_metabox_content_accordion_options($post_id)
 ?>
 
     <div class="section">
-        <div class="section-title"><?php echo __('Accordion options', 'accordions'); ?></div>
-        <p class="description section-description"><?php echo __('Some general setting for accordion', 'accordions'); ?></p>
+        <div class="section-title"><?php esc_html_e('Accordion options', 'accordions'); ?></div>
+        <p class="description section-description"><?php esc_html_e('Some general setting for accordion', 'accordions'); ?></p>
 
         <?php
         $args = array(
@@ -450,8 +450,8 @@ function accordions_metabox_content_tabs_options($post_id)
 ?>
 
     <div class="section">
-        <div class="section-title"><?php echo __('Tabs options', 'accordions'); ?></div>
-        <p class="description section-description"><?php echo __('Settings for tabs', 'accordions'); ?></p>
+        <div class="section-title"><?php esc_html_e('Tabs options', 'accordions'); ?></div>
+        <p class="description section-description"><?php esc_html_e('Settings for tabs', 'accordions'); ?></p>
 
 
         <?php
@@ -562,8 +562,8 @@ function accordions_metabox_content_style($post_id)
 
 ?>
     <div class="section">
-        <div class="section-title"><?php echo __('Accordion icons', 'accordions'); ?></div>
-        <p class="description section-description"><?php echo __('Customize accordion icons.', 'accordions'); ?></p>
+        <div class="section-title"><?php esc_html_e('Accordion icons', 'accordions'); ?></div>
+        <p class="description section-description"><?php esc_html_e('Customize accordion icons.', 'accordions'); ?></p>
 
         <?php
 
@@ -699,8 +699,8 @@ function accordions_metabox_content_style($post_id)
 
 
     <div class="section">
-        <div class="section-title"><?php echo __('Accordion header style', 'accordions'); ?></div>
-        <p class="description section-description"><?php echo __('Customize accordion header.', 'accordions'); ?></p>
+        <div class="section-title"><?php esc_html_e('Accordion header style', 'accordions'); ?></div>
+        <p class="description section-description"><?php esc_html_e('Customize accordion header.', 'accordions'); ?></p>
         <?php
 
         $args = array(
@@ -833,8 +833,8 @@ function accordions_metabox_content_style($post_id)
     </div>
 
     <div class="section">
-        <div class="section-title"><?php echo __('Accordions content style', 'accordions'); ?></div>
-        <p class="description section-description"><?php echo __('Customize accordion content.', 'accordions'); ?></p>
+        <div class="section-title"><?php esc_html_e('Accordions content style', 'accordions'); ?></div>
+        <p class="description section-description"><?php esc_html_e('Customize accordion content.', 'accordions'); ?></p>
 
         <?php
 
@@ -948,8 +948,8 @@ function accordions_metabox_content_style($post_id)
     </div>
 
     <div class="section">
-        <div class="section-title"><?php echo __('Container style', 'accordions'); ?></div>
-        <p class="description section-description"><?php echo __('Customize container style optons.', 'accordions'); ?></p>
+        <div class="section-title"><?php esc_html_e('Container style', 'accordions'); ?></div>
+        <p class="description section-description"><?php esc_html_e('Customize container style optons.', 'accordions'); ?></p>
 
         <?php
 
@@ -1097,8 +1097,8 @@ function accordions_metabox_content_content($post_id)
 ?>
 
     <div class="section">
-        <div class="section-title"><?php echo __('Accordions content', 'accordions'); ?></div>
-        <p class="description section-description"><?php echo __('Add you accordion content here.', 'accordions'); ?></p>
+        <div class="section-title"><?php esc_html_e('Accordions content', 'accordions'); ?></div>
+        <p class="description section-description"><?php esc_html_e('Add you accordion content here.', 'accordions'); ?></p>
 
         <?php
 
@@ -1178,8 +1178,8 @@ function accordions_metabox_content_content($post_id)
         $args = array(
             'id'        => 'content',
             'parent'        => 'accordions_options',
-            'title'        => __('Accordion content', 'text-domain'),
-            'details'    => __('Set accordion content & title here.', 'text-domain'),
+            'title'        => __('Accordion content', 'accordions'),
+            'details'    => __('Set accordion content & title here.', 'accordions'),
             'collapsible' => true,
             'type'        => 'repeatable',
             'limit'        => 10,
@@ -1222,8 +1222,8 @@ function accordions_metabox_content_custom_scripts($post_id)
 
 ?>
     <div class="section">
-        <div class="section-title"><?php echo __('Accordions Scripts', 'accordions'); ?></div>
-        <p class="description section-description"><?php echo __('Add your own CSS & Scripts.', 'accordions'); ?></p>
+        <div class="section-title"><?php esc_html_e('Accordions Scripts', 'accordions'); ?></div>
+        <p class="description section-description"><?php esc_html_e('Add your own CSS & Scripts.', 'accordions'); ?></p>
 
         <?php
         $args = array(
@@ -1270,8 +1270,8 @@ if (!function_exists('accordions_metabox_content_help_support')) {
     ?>
         <div class="section">
 
-            <div class="section-title"><?php echo __('Get support', 'accordions'); ?></div>
-            <p class="description section-description"><?php echo __('Use following to get help and support from our expert team.', 'accordions'); ?></p>
+            <div class="section-title"><?php esc_html_e('Get support', 'accordions'); ?></div>
+            <p class="description section-description"><?php esc_html_e('Use following to get help and support from our expert team.', 'accordions'); ?></p>
 
             <?php
 
@@ -1279,14 +1279,14 @@ if (!function_exists('accordions_metabox_content_help_support')) {
             ob_start();
             ?>
 
-            <p><?php echo __('Ask question for free on our forum and get quick reply from our expert team members.', 'accordions'); ?></p>
-            <a class="button" href="https://www.pickplugins.com/create-support-ticket/"><?php echo __('Create support ticket', 'accordions'); ?></a>
+            <p><?php esc_html_e('Ask question for free on our forum and get quick reply from our expert team members.', 'accordions'); ?></p>
+            <a class="button" href="https://www.pickplugins.com/create-support-ticket/"><?php esc_html_e('Create support ticket', 'accordions'); ?></a>
 
-            <p><?php echo __('Read our documentation before asking your question.', 'accordions'); ?></p>
-            <a class="button" href="https://www.pickplugins.com/documentation/accordions/"><?php echo __('Documentation', 'accordions'); ?></a>
+            <p><?php esc_html_e('Read our documentation before asking your question.', 'accordions'); ?></p>
+            <a class="button" href="https://www.pickplugins.com/documentation/accordions/"><?php esc_html_e('Documentation', 'accordions'); ?></a>
 
-            <p><?php echo __('Watch video tutorials.', 'accordions'); ?></p>
-            <a class="button" href="https://www.youtube.com/playlist?list=PL0QP7T2SN94ZPeQ83jOnteDDrOeDLBuFD"><i class="fab fa-youtube"></i> <?php echo __('All tutorials', 'accordions'); ?></a>
+            <p><?php esc_html_e('Watch video tutorials.', 'accordions'); ?></p>
+            <a class="button" href="https://www.youtube.com/playlist?list=PL0QP7T2SN94ZPeQ83jOnteDDrOeDLBuFD"><i class="fab fa-youtube"></i> <?php esc_html_e('All tutorials', 'accordions'); ?></a>
 
             <ul>
                 <li><i class="far fa-dot-circle"></i> <a href="https://www.youtube.com/watch?v=4ZGMA6hOoxs">Accordions - data migration</a></li>
@@ -1363,6 +1363,6 @@ add_action('accordions_post_meta_save', 'accordions_post_meta_save');
 function accordions_post_meta_save($job_id)
 {
 
-    $accordions_options = isset($_POST['accordions_options']) ? accordions_recursive_sanitize_arr($_POST['accordions_options']) : '';
+    $accordions_options = isset($_POST['accordions_options']) ? accordions_recursive_sanitize_arr(wp_unslash($_POST['accordions_options'])) : '';
     update_post_meta($job_id, 'accordions_options', $accordions_options);
 }

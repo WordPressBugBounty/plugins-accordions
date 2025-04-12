@@ -16,7 +16,7 @@ function accordions_duplicate_post_as_draft()
 	/*
 	 * Nonce verification
 	 */
-	if (!isset($_GET['duplicate_nonce']) || !wp_verify_nonce($_GET['duplicate_nonce'], basename(__FILE__)))
+	if (!isset($_GET['duplicate_nonce']) || !wp_verify_nonce(wp_unslash($_GET['duplicate_nonce']), basename(__FILE__)))
 		return;
 
 	/*
@@ -119,7 +119,7 @@ function accordions_duplicate_post_as_draft()
 		wp_redirect(admin_url('post.php?action=edit&post=' . $new_post_id));
 		exit;
 	} else {
-		wp_die('Post creation failed, could not find original post: ' . $post_id);
+		wp_die('Post creation failed, could not find original post: ' . esc_html($post_id));
 	}
 }
 add_action('admin_action_accordions_duplicate_post_as_draft', 'accordions_duplicate_post_as_draft');

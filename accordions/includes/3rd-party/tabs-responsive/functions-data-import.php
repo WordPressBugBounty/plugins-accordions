@@ -1,5 +1,5 @@
 <?php
-if ( ! defined('ABSPATH')) exit;  // if direct access
+if (! defined('ABSPATH')) exit;  // if direct access
 
 
 
@@ -10,21 +10,22 @@ add_shortcode('accordions_import_cron_tabs_responsive', 'accordions_import_cron_
 add_action('accordions_import_cron_tabs_responsive', 'accordions_import_cron_tabs_responsive');
 
 
-function accordions_import_cron_tabs_responsive(){
+function accordions_import_cron_tabs_responsive()
+{
     $accordions_plugin_info = get_option('accordions_plugin_info');
 
     $meta_query = array();
 
-        $meta_query[] = array(
+    $meta_query[] = array(
         'key' => 'import_done',
         'compare' => 'NOT EXISTS'
     );
 
     $args = array(
-        'post_type'=>'tabs_responsive',
-        'post_status'=>'publish',
-        'posts_per_page'=> 1,
-        'meta_query'=> $meta_query,
+        'post_type' => 'tabs_responsive',
+        'post_status' => 'publish',
+        'posts_per_page' => 1,
+        'meta_query' => $meta_query,
     );
 
 
@@ -33,18 +34,18 @@ function accordions_import_cron_tabs_responsive(){
     $wp_query = new WP_Query($args);
 
 
-    if ( $wp_query->have_posts() ) :
-        while ( $wp_query->have_posts() ) : $wp_query->the_post();
+    if ($wp_query->have_posts()) :
+        while ($wp_query->have_posts()) : $wp_query->the_post();
 
             $post_id = get_the_id();
             $post_title = get_the_title();
             $accordions_options = array();
 
-            $wpsm_tabs_r_data       = get_post_meta( $post_id, 'wpsm_tabs_r_data', true );
-            $wpsm_tabs_r_data       = unserialize( $wpsm_tabs_r_data );
+            $wpsm_tabs_r_data       = get_post_meta($post_id, 'wpsm_tabs_r_data', true);
+            $wpsm_tabs_r_data       = unserialize($wpsm_tabs_r_data);
 
-            $Tabs_R_Settings = get_post_meta( $post_id, 'Tabs_R_Settings', true);
-            $Tabs_R_Settings       = unserialize( $Tabs_R_Settings );
+            $Tabs_R_Settings = get_post_meta($post_id, 'Tabs_R_Settings', true);
+            $Tabs_R_Settings       = unserialize($Tabs_R_Settings);
 
 
             $title_size = isset($Tabs_R_Settings['title_size']) ? $Tabs_R_Settings['title_size'] : '18';
@@ -78,15 +79,15 @@ function accordions_import_cron_tabs_responsive(){
             $accordions_icons_minus = 'minus';
 
 
-            $accordions_icons_plus = !empty($accordions_icons_plus) ? '<i class="fa fa-'.$accordions_icons_plus.'"></i>' : '<i class="fa fa-plus"></i>';
-            $accordions_icons_minus = !empty($accordions_icons_minus) ? '<i class="fa fa-'.$accordions_icons_minus.'"></i>' : '<i class="fa fa-minus"></i>';
+            $accordions_icons_plus = !empty($accordions_icons_plus) ? '<i class="fa fa-' . $accordions_icons_plus . '"></i>' : '<i class="fa fa-plus"></i>';
+            $accordions_icons_minus = !empty($accordions_icons_minus) ? '<i class="fa fa-' . $accordions_icons_minus . '"></i>' : '<i class="fa fa-minus"></i>';
 
             $accordions_options['icon']['active'] = $accordions_icons_plus;
             $accordions_options['icon']['inactive'] = $accordions_icons_minus;
             $accordions_options['icon']['position'] = $show_tabs_icon_align;
             $accordions_options['icon']['color'] = $tabs_title_icon_clr;
             $accordions_options['icon']['color_hover'] = '';
-            $accordions_options['icon']['font_size'] = $title_size.'px';
+            $accordions_options['icon']['font_size'] = $title_size . 'px';
             $accordions_options['icon']['background_color'] = '';
             $accordions_options['icon']['padding'] = '';
 
@@ -99,13 +100,13 @@ function accordions_import_cron_tabs_responsive(){
             $accordions_options['header']['background_opacity'] = '';
             $accordions_options['header']['color'] = '';
             $accordions_options['header']['color_hover'] = '';
-            $accordions_options['header']['font_size'] = $title_size.'px';
+            $accordions_options['header']['font_size'] = $title_size . 'px';
             $accordions_options['header']['font_family'] = $font_family;
             $accordions_options['header']['padding'] = '';
             $accordions_options['header']['margin'] = '';
 
 
-            $accordions_options['body']['class'] = ($enable_tabs_border == 'yes') ? 'border-2px' :'';
+            $accordions_options['body']['class'] = ($enable_tabs_border == 'yes') ? 'border-2px' : '';
 
             $accordions_options['body']['active_background_color'] = '';
             $accordions_options['body']['background_color'] = '';
@@ -125,7 +126,7 @@ function accordions_import_cron_tabs_responsive(){
             $accordions_options['view_type'] = 'tabs';
 
             $accordions_options['hide_edit'] = '';
-            $accordions_options['accordion']['collapsible'] =  'true' ;
+            $accordions_options['accordion']['collapsible'] =  'true';
             $accordions_options['accordion']['expanded_other'] = 'yes';
             $accordions_options['accordion']['height_style'] = 'content';
             $accordions_options['accordion']['active_event'] = 'click';
@@ -147,8 +148,8 @@ function accordions_import_cron_tabs_responsive(){
 
             $i = 0;
 
-            if(!empty($wpsm_tabs_r_data))
-                foreach ($wpsm_tabs_r_data as $index => $accordion_single_data){
+            if (!empty($wpsm_tabs_r_data))
+                foreach ($wpsm_tabs_r_data as $index => $accordion_single_data) {
 
                     $tabs_title = $accordion_single_data['tabs_title'];
                     $tabs_title_icon = $accordion_single_data['tabs_title_icon'];
@@ -158,7 +159,7 @@ function accordions_import_cron_tabs_responsive(){
 
 
 
-                    $accordions_options['content'][$index]['header'] = ($show_tabs_title_icon =='yes') ? (($enable_single_icon == 'yes') ? '<i class="fa '.$tabs_title_icon.'"></i> '.$tabs_title : $tabs_title) : $tabs_title;
+                    $accordions_options['content'][$index]['header'] = ($show_tabs_title_icon == 'yes') ? (($enable_single_icon == 'yes') ? '<i class="fa ' . $tabs_title_icon . '"></i> ' . $tabs_title : $tabs_title) : $tabs_title;
 
                     $accordions_options['content'][$index]['body'] = $tabs_desc;
                     $accordions_options['content'][$index]['hide'] = 'no';
@@ -168,8 +169,8 @@ function accordions_import_cron_tabs_responsive(){
                     $accordions_options['content'][$index]['is_active'] =  'yes';
 
 
-                    $active_icon = !empty($accordions_section_icon_plus[$index]) ? '<i class="fa '.$enable_single_icon.'"></i>' : '';
-                    $inactive_icon = !empty($accordions_section_icon_minus[$index]) ? '<i class="fa '.$accordions_section_icon_minus[$index].'"></i>' : '';
+                    $active_icon = !empty($accordions_section_icon_plus[$index]) ? '<i class="fa ' . $enable_single_icon . '"></i>' : '';
+                    $inactive_icon = !empty($accordions_section_icon_minus[$index]) ? '<i class="fa ' . $accordions_section_icon_minus[$index] . '"></i>' : '';
 
                     $accordions_options['content'][$index]['active_icon'] = $active_icon;
                     $accordions_options['content'][$index]['inactive_icon'] = $inactive_icon;
@@ -185,7 +186,7 @@ function accordions_import_cron_tabs_responsive(){
                     'post_title'    => $post_title,
                     'post_content'  => '',
                     'post_status'   => 'publish',
-                    'post_type'   	=> 'accordions',
+                    'post_type'       => 'accordions',
                     'post_author'   => 1,
                 )
             );
@@ -196,7 +197,7 @@ function accordions_import_cron_tabs_responsive(){
 
 
 
-            wp_reset_query();
+            wp_reset_postdata();
             wp_reset_postdata();
         endwhile;
     else:
@@ -208,10 +209,4 @@ function accordions_import_cron_tabs_responsive(){
 
 
     endif;
-
-
 }
-
-
-		
-		

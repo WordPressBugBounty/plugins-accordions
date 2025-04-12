@@ -1,5 +1,5 @@
 <?php
-if ( ! defined('ABSPATH')) exit;  // if direct access
+if (! defined('ABSPATH')) exit;  // if direct access
 
 
 
@@ -10,7 +10,8 @@ add_shortcode('accordions_import_cron_responsive_tabs', 'accordions_import_cron_
 add_action('accordions_import_cron_responsive_tabs', 'accordions_import_cron_responsive_tabs');
 
 
-function accordions_import_cron_responsive_tabs(){
+function accordions_import_cron_responsive_tabs()
+{
     $accordions_plugin_info = get_option('accordions_plugin_info');
 
     $meta_query = array();
@@ -22,10 +23,10 @@ function accordions_import_cron_responsive_tabs(){
     );
 
     $args = array(
-        'post_type'=>'rtbs_tabs',
-        'post_status'=>'publish',
-        'posts_per_page'=> 1,
-        'meta_query'=> $meta_query,
+        'post_type' => 'rtbs_tabs',
+        'post_status' => 'publish',
+        'posts_per_page' => 1,
+        'meta_query' => $meta_query,
 
     );
 
@@ -33,14 +34,14 @@ function accordions_import_cron_responsive_tabs(){
     $wp_query = new WP_Query($args);
 
 
-    if ( $wp_query->have_posts() ) :
-        while ( $wp_query->have_posts() ) : $wp_query->the_post();
+    if ($wp_query->have_posts()) :
+        while ($wp_query->have_posts()) : $wp_query->the_post();
 
             $post_id = get_the_id();
             $post_title = get_the_title();
             $accordions_options = array();
 
-            $_rtbs_tabs_head       = get_post_meta( $post_id, '_rtbs_tabs_head', true );
+            $_rtbs_tabs_head       = get_post_meta($post_id, '_rtbs_tabs_head', true);
 
 
 
@@ -52,8 +53,8 @@ function accordions_import_cron_responsive_tabs(){
             $accordions_icons_minus = 'minus';
 
 
-            $accordions_icons_plus = !empty($accordions_icons_plus) ? '<i class="fa fa-'.$accordions_icons_plus.'"></i>' : '<i class="fa fa-plus"></i>';
-            $accordions_icons_minus = !empty($accordions_icons_minus) ? '<i class="fa fa-'.$accordions_icons_minus.'"></i>' : '<i class="fa fa-minus"></i>';
+            $accordions_icons_plus = !empty($accordions_icons_plus) ? '<i class="fa fa-' . $accordions_icons_plus . '"></i>' : '<i class="fa fa-plus"></i>';
+            $accordions_icons_minus = !empty($accordions_icons_minus) ? '<i class="fa fa-' . $accordions_icons_minus . '"></i>' : '<i class="fa fa-minus"></i>';
 
             $accordions_options['icon']['active'] = $accordions_icons_plus;
             $accordions_options['icon']['inactive'] = $accordions_icons_minus;
@@ -129,8 +130,8 @@ function accordions_import_cron_responsive_tabs(){
 
             $i = 0;
 
-            if(!empty($_rtbs_tabs_head))
-                foreach ($_rtbs_tabs_head as $index => $accordion_single_data){
+            if (!empty($_rtbs_tabs_head))
+                foreach ($_rtbs_tabs_head as $index => $accordion_single_data) {
 
                     $_rtbs_title = $accordion_single_data['_rtbs_title'];
                     $_rtbs_content = $accordion_single_data['_rtbs_content'];
@@ -165,7 +166,7 @@ function accordions_import_cron_responsive_tabs(){
                 'post_title'    => $post_title,
                 'post_content'  => '',
                 'post_status'   => 'publish',
-                'post_type'   	=> 'accordions',
+                'post_type'       => 'accordions',
                 'post_author'   => 1,
             );
 
@@ -177,7 +178,7 @@ function accordions_import_cron_responsive_tabs(){
 
 
 
-            wp_reset_query();
+            wp_reset_postdata();
             wp_reset_postdata();
         endwhile;
     else:
@@ -189,10 +190,4 @@ function accordions_import_cron_responsive_tabs(){
 
 
     endif;
-
-
 }
-
-
-		
-		

@@ -3,7 +3,7 @@
 Plugin Name: Accordions - By PickPlugins
 Plugin URI: https://pickplugins.com/accordions/
 Description: Fully responsive and mobile ready accordion grid for wordpress.
-Version: 2.3.10
+Version: 2.3.11
 Author: PickPlugins
 Author URI: http://pickplugins.com
 Text Domain: accordions
@@ -23,8 +23,8 @@ class Accordions
 
     define('accordions_plugin_url', plugins_url('/', __FILE__));
     define('accordions_plugin_dir', plugin_dir_path(__FILE__));
-    define('accordions_version', '2.3.10');
-    define('accordions_plugin_name', 'Combo Accordion');
+    define('accordions_version', '2.3.11');
+    define('accordions_plugin_name', 'Accordions');
     define('accordions_plugin_basename', plugin_basename(__FILE__));
 
     $accordionsCss = '';
@@ -164,7 +164,7 @@ class Accordions
 
   public function _front_scripts()
   {
-    wp_register_style('accordions_animate', accordions_plugin_url . 'assets/css/animate.min.css');
+    wp_register_style('accordions_animate', accordions_plugin_url . 'assets/css/animate.min.css', [], '4.1.1');
 
 
     wp_register_script('accordions_front_scripts', accordions_plugin_url . 'templates/accordions-builder/front-scripts.js', array('jquery'), '20181018');
@@ -172,18 +172,18 @@ class Accordions
     wp_register_script('image_accordion_front_scripts', accordions_plugin_url . 'templates/image-accordion/front-scripts.js', array('jquery'), '20181018');
 
     wp_register_script('accordions_js', accordions_plugin_url . 'assets/frontend/js/scripts.js', array('jquery'), time(), true);
-    wp_register_style('accordions-style', accordions_plugin_url . 'assets/frontend/css/style.css');
-    wp_register_style('style-tabs', accordions_plugin_url . 'assets/global/css/style-tabs.css');
+    wp_register_style('accordions-style', accordions_plugin_url . 'assets/frontend/css/style.css', [], '2.3.10');
+    wp_register_style('style-tabs', accordions_plugin_url . 'assets/global/css/style-tabs.css', [], '2.3.10');
 
-    wp_register_style('accordions-tabs', accordions_plugin_url . 'assets/global/css/themesTabs.style.css');
-    wp_register_style('fontawesome-5',  accordions_plugin_url . 'assets/global/css/font-awesome-5.css');
-    wp_register_style('fontawesome-4',  accordions_plugin_url . 'assets/global/css/font-awesome-4.css');
-    wp_register_style('jquery-ui',  accordions_plugin_url . 'assets/frontend/css/jquery-ui.css');
-    wp_register_style('accordions-themes',  accordions_plugin_url . 'assets/global/css/themes.style.css');
+    wp_register_style('accordions-tabs', accordions_plugin_url . 'assets/global/css/themesTabs.style.css', [], '2.3.10');
+    wp_register_style('fontawesome-5',  accordions_plugin_url . 'assets/global/css/font-awesome-5.css', [], '5.12.0');
+    wp_register_style('fontawesome-4',  accordions_plugin_url . 'assets/global/css/font-awesome-4.css', [], '4.7.0');
+    wp_register_style('jquery-ui',  accordions_plugin_url . 'assets/frontend/css/jquery-ui.css', [], '1.12.1');
+    wp_register_style('accordions-themes',  accordions_plugin_url . 'assets/global/css/themes.style.css', [], '1.0.0');
 
-    wp_register_style('bootstrap-icons', accordions_plugin_url . 'assets/css/bootstrap-icons/bootstrap-icons.css');
-    wp_register_style('fontawesome-icons', accordions_plugin_url . 'assets/css/fontawesome/css/all.min.css');
-    wp_register_style('icofont-icons', accordions_plugin_url . 'assets/css/icofont/icofont.min.css');
+    wp_register_style('bootstrap-icons', accordions_plugin_url . 'assets/css/bootstrap-icons/bootstrap-icons.css', [], '1.11.3');
+    wp_register_style('fontawesome-icons', accordions_plugin_url . 'assets/css/fontawesome/css/all.min.css', [], '6.1.2');
+    wp_register_style('icofont-icons', accordions_plugin_url . 'assets/css/icofont/icofont.min.css', [], '1.0.1');
   }
 
   public function _admin_scripts()
@@ -192,17 +192,19 @@ class Accordions
 
     //var_dump($screen);
 
-    wp_register_style('accordions_animate', accordions_plugin_url . 'assets/css/animate.min.css');
-
+    wp_register_style('accordions_animate', accordions_plugin_url . 'assets/css/animate.min.css', [], '4.1.1');
+    wp_register_style('icofont-icons', accordions_plugin_url . 'assets/css/icofont/icofont.min.css', [], '1.0.1');
+    wp_register_style('bootstrap-icons', accordions_plugin_url . 'assets/css/bootstrap-icons/bootstrap-icons.css', [], '1.11.3');
+    wp_register_style('fontawesome-icons', accordions_plugin_url . 'assets/css/fontawesome/css/all.min.css', [], '6.1.2');
 
     wp_enqueue_script('accordions_admin_js', accordions_plugin_url . 'assets/admin/js/scripts.js', array('jquery'), '20181018');
     wp_localize_script('accordions_admin_js', 'accordions_ajax', array('accordions_ajaxurl' => admin_url('admin-ajax.php'), 'nonce' => wp_create_nonce('accordions_nonce')));
 
-    wp_register_style('settings-tabs', accordions_plugin_url . 'assets/settings-tabs/settings-tabs.css');
-    wp_register_script('settings-tabs', accordions_plugin_url . 'assets/settings-tabs/settings-tabs.js', array('jquery'));
+    wp_register_style('settings-tabs', accordions_plugin_url . 'assets/settings-tabs/settings-tabs.css', [], '1.0.0');
+    wp_register_script('settings-tabs', accordions_plugin_url . 'assets/settings-tabs/settings-tabs.js', array('jquery'), '20181018');
 
-    wp_register_style('font-awesome-4', accordions_plugin_url . 'assets/global/css/font-awesome-4.css');
-    wp_register_style('font-awesome-5', accordions_plugin_url . 'assets/global/css/font-awesome-5.css');
+    wp_register_style('font-awesome-4', accordions_plugin_url . 'assets/global/css/font-awesome-4.css', [], '4.7.0');
+    wp_register_style('font-awesome-5', accordions_plugin_url . 'assets/global/css/font-awesome-5.css', [], '5.12.0');
 
     if ($screen->id == 'accordions' || $screen->id == 'accordions_page_accordions-settings') {
       $settings_tabs_field = new settings_tabs_field();

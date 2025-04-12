@@ -1,5 +1,5 @@
-<?php	
-if ( ! defined('ABSPATH')) exit;  // if direct access
+<?php
+if (! defined('ABSPATH')) exit;  // if direct access
 
 $accordions_plugin_info = get_option('accordions_plugin_info');
 $accordions_settings_upgrade = isset($accordions_plugin_info['settings_upgrade']) ? $accordions_plugin_info['settings_upgrade'] : '';
@@ -7,38 +7,45 @@ $accordions_upgrade = isset($accordions_plugin_info['accordions_upgrade']) ? $ac
 
 wp_enqueue_style('font-awesome-5');
 
-$url = admin_url().'edit.php?post_type=accordions&page=upgrade_status';
+$url = admin_url() . 'edit.php?post_type=accordions&page=upgrade_status';
 
 ?>
 <?php
 
 ?>
 <div class="wrap">
-	<div id="icon-tools" class="icon32"><br></div><h2><?php echo sprintf(__('%s Settings - Update', 'accordions'), accordions_plugin_name)?></h2>
-    <p>accordions settings and accordions options data should automatic upgrade. please wait until all update completed. each loop will take 1 minute to completed, based on your accordions it will take take few minutes to completed.</p>
+    <div id="icon-tools" class="icon32"><br></div>
+    <h2><?php
+
+        echo wp_kses_post(sprintf(
+            /* translators: Plugin Name */
+            __('%s Settings - Update', 'accordions'),
+            accordions_plugin_name
+        ));
+        ?></h2>
+    <p>Accordions settings and accordions options data should automatic upgrade. please wait until all update completed. each loop will take 1 minute to completed, based on your accordions it will take take few minutes to completed.</p>
     <p>If you have any issue please <a href="https://www.pickplugins.com/forum/">create support ticket</a> on our forum</p>
     <p>Don't panic while updating, your old data still saved on database and you can downgrade plugin any time, please <a href="https://wordpress.org/plugins/woocommerce-products-slider/advanced/#plugin-download-history-stats">download from here</a> old version and reinstall.</p>
 
 
     <script>
-        setTimeout(function(){
-            window.location.href = '<?php echo esc_url_raw($url); ?>';
-        }, 1000*50);
-
+        setTimeout(function() {
+            window.location.href = '<?php echo esc_url($url); ?>';
+        }, 1000 * 50);
     </script>
 
     <h3>Accordions settings upgrade status</h3>
 
     <?php
 
-    if(!empty($accordions_settings_upgrade)){
-        ?>
+    if (!empty($accordions_settings_upgrade)) {
+    ?>
         <p>Completed</p>
-        <?php
-    }else{
-        ?>
+    <?php
+    } else {
+    ?>
         <p>Pending</p>
-        <?php
+    <?php
     }
 
     ?>
@@ -58,41 +65,41 @@ $url = admin_url().'edit.php?post_type=accordions&page=upgrade_status';
     );
 
     $args = array(
-        'post_type'=>'accordions',
-        'post_status'=>'any',
-        'posts_per_page'=> -1,
-        'meta_query'=> $meta_query,
+        'post_type' => 'accordions',
+        'post_status' => 'any',
+        'posts_per_page' => -1,
+        'meta_query' => $meta_query,
 
     );
 
     $wp_query = new WP_Query($args);
 
-    if ( $wp_query->have_posts() ) :
-        ?>
+    if ($wp_query->have_posts()) :
+    ?>
         <ul>
-        <?php
-        while ( $wp_query->have_posts() ) : $wp_query->the_post();
+            <?php
+            while ($wp_query->have_posts()) : $wp_query->the_post();
 
-            $accordions_id = get_the_id();
-            $accordions_title = get_the_title();
+                $accordions_id = get_the_id();
+                $accordions_title = get_the_title();
             ?>
-            <li><?php echo esc_html($accordions_title); ?> - Done</li>
+                <li><?php echo esc_html($accordions_title); ?> - Done</li>
             <?php
 
-        endwhile;
-        ?>
+            endwhile;
+            ?>
         </ul>
-        <?php
+    <?php
 
     else:
-        ?>
+    ?>
         <p>Pending</p>
-        <?php
+    <?php
     endif;
 
 
-    if($accordions_upgrade == 'done'){
-        wp_safe_redirect(esc_url_raw(admin_url().'edit.php?post_type=accordions'));
+    if ($accordions_upgrade == 'done') {
+        wp_safe_redirect(esc_url(admin_url() . 'edit.php?post_type=accordions'));
     }
 
 
@@ -100,7 +107,7 @@ $url = admin_url().'edit.php?post_type=accordions&page=upgrade_status';
 
 
 
-    <p><a class="button" href="<?php echo esc_url_raw(admin_url().'edit.php?post_type=accordions&page=upgrade_status'); ?>">Refresh</a> to check Migration stats. <i class="fas fa-spin fa-spinner"></i></p>
+    <p><a class="button" href="<?php echo esc_url(admin_url() . 'edit.php?post_type=accordions&page=upgrade_status'); ?>">Refresh</a> to check Migration stats. <i class="fas fa-spin fa-spinner"></i></p>
 
 
 

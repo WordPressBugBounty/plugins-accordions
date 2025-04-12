@@ -19,7 +19,7 @@ class WidgetAccordions extends WP_Widget
 		$accordion_id	= isset($instance['accordion_id']) ? $instance['accordion_id'] : '';
 
 		echo wp_kses_post($args['before_widget']);
-		if (!empty($title)) echo $args['before_title'] . $title . $args['after_title'];
+		if (!empty($title)) echo wp_kses_post($args['before_title'] . $title . $args['after_title']);
 		echo do_shortcode("[accordions id='$accordion_id']");
 		echo wp_kses_post($args['after_widget']);
 	}
@@ -34,12 +34,12 @@ class WidgetAccordions extends WP_Widget
 ?>
 
 		<p>
-			<label for=<?php echo esc_attr($this->get_field_id('title')); ?>><?php echo __('Title', 'accordions'); ?> : </label>
+			<label for=<?php echo esc_attr($this->get_field_id('title')); ?>><?php esc_html_e('Title', 'accordions'); ?> : </label>
 			<input class='widefat' id=<?php echo esc_attr($this->get_field_id('title')); ?> name=<?php echo esc_attr($this->get_field_name('title')); ?> type='text' value=<?php echo esc_attr($title); ?> />
 		</p>
 
 		<p>
-			<label for=<?php echo esc_attr($this->get_field_id('accordion_id')); ?>><?php echo __('Select Accordion', 'accordions'); ?> : </label>
+			<label for=<?php echo esc_attr($this->get_field_id('accordion_id')); ?>><?php esc_html_e('Select Accordion', 'accordions'); ?> : </label>
 			<select name=<?php echo esc_attr($this->get_field_name('accordion_id')); ?> id=<?php echo esc_attr($this->get_field_id('accordion_id')); ?> class='widefat'>
 
 				<?php
@@ -62,8 +62,8 @@ class WidgetAccordions extends WP_Widget
 	{
 
 		$instance = array();
-		$instance['title'] 			= isset($new_instance['title']) 			? strip_tags($new_instance['title']) : '';
-		$instance['accordion_id'] 	= isset($new_instance['accordion_id']) 	? strip_tags($new_instance['accordion_id']) : '';
+		$instance['title'] 			= isset($new_instance['title']) 			? wp_strip_all_tags($new_instance['title']) : '';
+		$instance['accordion_id'] 	= isset($new_instance['accordion_id']) 	? wp_strip_all_tags($new_instance['accordion_id']) : '';
 		return $instance;
 	}
 }

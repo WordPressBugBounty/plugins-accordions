@@ -29,16 +29,16 @@ function accordions_settings_content_general()
 
 ?>
     <div class="section">
-        <div class="section-title"><?php echo __('General', 'accordions'); ?></div>
-        <p class="description section-description"><?php echo __('Choose some general options.', 'accordions'); ?></p>
+        <div class="section-title"><?php esc_html_e('General', 'accordions'); ?></div>
+        <p class="description section-description"><?php esc_html_e('Choose some general options.', 'accordions'); ?></p>
 
         <?php
 
         $args = array(
             'id'        => 'user_roles',
             'parent'        => 'accordions_settings',
-            'title'        => __('Allow access by roles', 'user-verification'),
-            'details'    => __('Allow access to edit by user roles', 'user-verification'),
+            'title'        => __('Allow access by roles', 'accordions'),
+            'details'    => __('Allow access to edit by user roles', 'accordions'),
             'type'        => 'select2',
             'multiple'        => true,
             'value'        => $user_roles,
@@ -127,10 +127,10 @@ function accordions_settings_content_general()
 
 
             endwhile;
-            wp_reset_query();
+            wp_reset_postdata();
         else :
 
-        // echo __('Not  found');
+        // esc_html_e('Not  found');
 
         endif;
 
@@ -168,7 +168,7 @@ function accordions_settings_content_general()
                 var text = document.getElementById("text-val").value;
 
 
-                var filename = "<?php echo esc_attr(date('Y-m-d-h') . '-' . time()); ?>.txt";
+                var filename = "<?php echo esc_attr(gmdate('Y-m-d-h') . '-' . time()); ?>.txt";
 
                 download(filename, text);
             }, false);
@@ -195,7 +195,7 @@ function accordions_settings_content_general()
         ?>
 
         <input placeholder="json file url" type="text" class="json_file" name="json_file" value="">
-        <div class="accordions-import-json button"><?php echo __('Import', 'accordions'); ?></div>
+        <div class="accordions-import-json button"><?php esc_html_e('Import', 'accordions'); ?></div>
         <?php
         $html = ob_get_clean();
         $args = array(
@@ -235,8 +235,8 @@ if (!function_exists('accordions_settings_content_help_support')) {
 
     ?>
         <div class="section">
-            <div class="section-title"><?php echo __('Get support', 'accordions'); ?></div>
-            <p class="description section-description"><?php echo __('Use following to get help and support from our expert team.', 'accordions'); ?></p>
+            <div class="section-title"><?php esc_html_e('Get support', 'accordions'); ?></div>
+            <p class="description section-description"><?php esc_html_e('Use following to get help and support from our expert team.', 'accordions'); ?></p>
 
             <?php
 
@@ -244,14 +244,14 @@ if (!function_exists('accordions_settings_content_help_support')) {
             ob_start();
             ?>
 
-            <p><?php echo __('Ask question for free on our forum and get quick reply from our expert team members.', 'accordions'); ?></p>
-            <a class="button" href="https://www.pickplugins.com/create-support-ticket/"><?php echo __('Create support ticket', 'accordions'); ?></a>
+            <p><?php esc_html_e('Ask question for free on our forum and get quick reply from our expert team members.', 'accordions'); ?></p>
+            <a class="button" href="https://www.pickplugins.com/create-support-ticket/"><?php esc_html_e('Create support ticket', 'accordions'); ?></a>
 
-            <p><?php echo __('Read our documentation before asking your question.', 'accordions'); ?></p>
-            <a class="button" href="https://www.pickplugins.com/documentation/accordions/"><?php echo __('Documentation', 'accordions'); ?></a>
+            <p><?php esc_html_e('Read our documentation before asking your question.', 'accordions'); ?></p>
+            <a class="button" href="https://www.pickplugins.com/documentation/accordions/"><?php esc_html_e('Documentation', 'accordions'); ?></a>
 
-            <p><?php echo __('Watch video tutorials.', 'accordions'); ?></p>
-            <a class="button" href="https://www.youtube.com/playlist?list=PL0QP7T2SN94ZPeQ83jOnteDDrOeDLBuFD"><i class="fab fa-youtube"></i> <?php echo __('All tutorials', 'accordions'); ?></a>
+            <p><?php esc_html_e('Watch video tutorials.', 'accordions'); ?></p>
+            <a class="button" href="https://www.youtube.com/playlist?list=PL0QP7T2SN94ZPeQ83jOnteDDrOeDLBuFD"><i class="fab fa-youtube"></i> <?php esc_html_e('All tutorials', 'accordions'); ?></a>
 
 
 
@@ -311,7 +311,7 @@ if (!function_exists('accordions_settings_content_help_support')) {
             $actionurl = admin_url() . 'edit.php?post_type=accordions&page=settings&tab=help_support';
             $actionurl = wp_nonce_url($actionurl,  'accordions_reset_migration');
 
-            $nonce = isset($_REQUEST['_wpnonce']) ? sanitize_text_field($_REQUEST['_wpnonce']) : '';
+            $nonce = isset($_REQUEST['_wpnonce']) ? sanitize_text_field(wp_unslash($_REQUEST['_wpnonce'])) : '';
 
             if (wp_verify_nonce($nonce, 'accordions_reset_migration')) {
 
@@ -330,11 +330,11 @@ if (!function_exists('accordions_settings_content_help_support')) {
 
             ?>
                 <p style="color: #f00;"><i class="fas fa-spin fa-spinner"></i> Migration reset on process, please wait until complete.</p>
-                <p><a href="<?php echo esc_url_raw($url); ?>">Refresh</a> to check Migration reset stats</p>
+                <p><a href="<?php echo esc_url($url); ?>">Refresh</a> to check Migration reset stats</p>
 
                 <script>
                     setTimeout(function() {
-                        window.location.href = '<?php echo esc_url_raw($url); ?>';
+                        window.location.href = '<?php echo esc_url($url); ?>';
                     }, 1000 * 20);
                 </script>
 
@@ -351,10 +351,10 @@ if (!function_exists('accordions_settings_content_help_support')) {
 
             ?>
 
-            <p class="">Please click the button bellow to reset migration data, you can start over, Please use with caution, your new migrate data will deleted. you can use default <a href="<?php echo esc_url_raw(admin_url() . 'export.php'); ?>">export</a> menu to take your wcps, wcps layouts data saved.</p>
+            <p class="">Please click the button bellow to reset migration data, you can start over, Please use with caution, your new migrate data will deleted. you can use default <a href="<?php echo esc_url(admin_url() . 'export.php'); ?>">export</a> menu to take your wcps, wcps layouts data saved.</p>
             <p>Please <a target="_blank" href="https://www.pickplugins.com/question/accordions-latest-version-data-migration-doesnt-work-here-is-the-solution/"><b>read this</b></a> if you have any issue on data migration</p>
 
-            <p class="reset-migration"><a class="button  button-primary" href="<?php echo esc_url_raw($actionurl); ?>">Reset migration</a> <span style="display: none; color: #f2433f; margin: 0 5px"> Click again to confirm!</span></p>
+            <p class="reset-migration"><a class="button  button-primary" href="<?php echo esc_url($actionurl); ?>">Reset migration</a> <span style="display: none; color: #f2433f; margin: 0 5px"> Click again to confirm!</span></p>
 
             <script>
                 (function($) {
@@ -449,8 +449,8 @@ if (!function_exists('accordions_settings_content_3rd_party_import')) {
 
     ?>
         <div class="section">
-            <div class="section-title"><?php echo __('3rd party plugin data import', 'accordions'); ?></div>
-            <p class="description section-description"><?php echo __('Import from 3rd party plugin data for accordion and tabs.', 'accordions'); ?></p>
+            <div class="section-title"><?php esc_html_e('3rd party plugin data import', 'accordions'); ?></div>
+            <p class="description section-description"><?php esc_html_e('Import from 3rd party plugin data for accordion and tabs.', 'accordions'); ?></p>
 
             <?php
 
@@ -468,11 +468,11 @@ if (!function_exists('accordions_settings_content_3rd_party_import')) {
             $actionurl = admin_url() . 'edit.php?post_type=accordions&page=settings&tab=3rd_party_import';
             $actionurl = wp_nonce_url($actionurl,  '3rd_party_import');
 
-            $nonce = isset($_REQUEST['_wpnonce']) ? sanitize_text_field($_REQUEST['_wpnonce']) : '';
+            $nonce = isset($_REQUEST['_wpnonce']) ? sanitize_text_field(wp_unslash($_REQUEST['_wpnonce'])) : '';
 
             if (wp_verify_nonce($nonce, '3rd_party_import')) {
 
-                $source = isset($_REQUEST['source']) ? sanitize_text_field($_REQUEST['source']) : '';
+                $source = isset($_REQUEST['source']) ? sanitize_text_field(wp_unslash($_REQUEST['source'])) : '';
 
                 $accordions_plugin_info['3rd_party_import'] = 'processing';
                 update_option('accordions_plugin_info', $accordions_plugin_info);
@@ -529,7 +529,7 @@ if (!function_exists('accordions_settings_content_3rd_party_import')) {
 
             ?>
                 <p style="color: #f00;"><i class="fas fa-spin fa-spinner"></i> Data import on process, please wait until complete.</p>
-                <p><a href="<?php echo esc_url_raw($url); ?>">Refresh</a> to check import stats</p>
+                <p><a href="<?php echo esc_url($url); ?>">Refresh</a> to check import stats</p>
 
 
 
@@ -552,13 +552,13 @@ if (!function_exists('accordions_settings_content_3rd_party_import')) {
                     <div class="">Easy Accordion</span></div>
                     <div class="">By ShapedPlugin</div>
 
-                    <p class=""><a class="button  button-primary" href="<?php echo esc_url_raw($actionurl) . '&source=easy-accordion-free'; ?>">Import data</a></p>
+                    <p class=""><a class="button  button-primary" href="<?php echo esc_url($actionurl) . '&source=easy-accordion-free'; ?>">Import data</a></p>
                 </div>
                 <div class="item">
                     <div class="">Responsive Accordion And Collapse </div>
                     <div class="">By wpshopmart</div>
 
-                    <p class=""><a class="button  button-primary" href="<?php echo esc_url_raw($actionurl) . '&source=responsive-accordion-and-collapse'; ?>">Import data</a></p>
+                    <p class=""><a class="button  button-primary" href="<?php echo esc_url($actionurl) . '&source=responsive-accordion-and-collapse'; ?>">Import data</a></p>
 
                 </div>
 
@@ -566,7 +566,7 @@ if (!function_exists('accordions_settings_content_3rd_party_import')) {
                     <div class="">Tabs Responsive </div>
                     <div class="">By wpshopmart</div>
 
-                    <p class=""><a class="button  button-primary" href="<?php echo esc_url_raw($actionurl) . '&source=tabs-responsive'; ?>">Import data</a></p>
+                    <p class=""><a class="button  button-primary" href="<?php echo esc_url($actionurl) . '&source=tabs-responsive'; ?>">Import data</a></p>
 
                 </div>
 
@@ -574,7 +574,7 @@ if (!function_exists('accordions_settings_content_3rd_party_import')) {
                     <div class="">Responsive Tabs</div>
                     <div class="">By WP Darko</div>
 
-                    <p class=""><a class="button  button-primary" href="<?php echo esc_url_raw($actionurl) . '&source=responsive-tabs'; ?>">Import data</a></p>
+                    <p class=""><a class="button  button-primary" href="<?php echo esc_url($actionurl) . '&source=responsive-tabs'; ?>">Import data</a></p>
 
                 </div>
 
@@ -582,7 +582,7 @@ if (!function_exists('accordions_settings_content_3rd_party_import')) {
                     <div class="">Easy Responsive Tabs </div>
                     <div class="">By oscitas</div>
 
-                    <p class=""><a class="button  button-primary" href="<?php echo esc_url_raw($actionurl) . '&source=easy-responsive-tabs'; ?>">Import data</a></p>
+                    <p class=""><a class="button  button-primary" href="<?php echo esc_url($actionurl) . '&source=easy-responsive-tabs'; ?>">Import data</a></p>
 
                 </div>
 
@@ -591,7 +591,7 @@ if (!function_exists('accordions_settings_content_3rd_party_import')) {
                     <div class="">Everest Tab Lite</div>
                     <div class="">By AccessPress Themes</div>
 
-                    <p class=""><a class="button  button-primary" href="<?php echo esc_url_raw($actionurl) . '&source=everest-tab-lite'; ?>">Import data</a></p>
+                    <p class=""><a class="button  button-primary" href="<?php echo esc_url($actionurl) . '&source=everest-tab-lite'; ?>">Import data</a></p>
 
                 </div>
 
@@ -599,42 +599,42 @@ if (!function_exists('accordions_settings_content_3rd_party_import')) {
                     <div class="">Quick and Easy FAQs</div>
                     <div class="">By Inspiry Themes</div>
 
-                    <p class=""><a class="button  button-primary" href="<?php echo esc_url_raw($actionurl) . '&source=quick-and-easy-faqs'; ?>">Import data</a></p>
+                    <p class=""><a class="button  button-primary" href="<?php echo esc_url($actionurl) . '&source=quick-and-easy-faqs'; ?>">Import data</a></p>
                 </div>
 
                 <div class="item">
                     <div class="">Shortcodes Ultimate</div>
                     <div class="">By Vladimir Anokhin</div>
 
-                    <p class=""><a class="button  button-primary" href="<?php echo esc_url_raw($actionurl) . '&source=shortcodes-ultimate'; ?>">Import data</a></p>
+                    <p class=""><a class="button  button-primary" href="<?php echo esc_url($actionurl) . '&source=shortcodes-ultimate'; ?>">Import data</a></p>
                 </div>
 
                 <div class="item">
                     <div class="">WP responsive FAQ with category plugin</div>
                     <div class="">By WP OnlineSupport</div>
 
-                    <p class=""><a class="button  button-primary" href="<?php echo esc_url_raw($actionurl) . '&source=sp-faq'; ?>">Import data</a></p>
+                    <p class=""><a class="button  button-primary" href="<?php echo esc_url($actionurl) . '&source=sp-faq'; ?>">Import data</a></p>
                 </div>
 
                 <div class="item">
                     <div class="">Squelch Tabs and Accordions Shortcodes</div>
                     <div class="">By Matt Lowe</div>
 
-                    <p class=""><a class="button  button-primary" href="<?php echo esc_url_raw($actionurl) . '&source=squelch-tabs-and-accordions-shortcodes'; ?>">Import data</a></p>
+                    <p class=""><a class="button  button-primary" href="<?php echo esc_url($actionurl) . '&source=squelch-tabs-and-accordions-shortcodes'; ?>">Import data</a></p>
                 </div>
 
                 <div class="item">
                     <div class="">Tabby Responsive Tabs</div>
                     <div class="">By cubecolour</div>
 
-                    <p class=""><a class="button  button-primary" href="<?php echo esc_url_raw($actionurl) . '&source=tabby-responsive-tabs'; ?>">Import data</a></p>
+                    <p class=""><a class="button  button-primary" href="<?php echo esc_url($actionurl) . '&source=tabby-responsive-tabs'; ?>">Import data</a></p>
                 </div>
 
                 <div class="item">
                     <div class="">Ultimate FAQ</div>
                     <div class="">By Etoile Web Design</div>
 
-                    <p class=""><a class="button  button-primary" href="<?php echo esc_url_raw($actionurl) . '&source=ultimate-faqs'; ?>">Import data</a></p>
+                    <p class=""><a class="button  button-primary" href="<?php echo esc_url($actionurl) . '&source=ultimate-faqs'; ?>">Import data</a></p>
                 </div>
 
 
@@ -643,7 +643,7 @@ if (!function_exists('accordions_settings_content_3rd_party_import')) {
                     <div class="">Accordion Shortcodes</div>
                     <div class="">By Phil Buchanan</div>
 
-                    <p class=""><a class="button  button-primary" href="<?php echo esc_url_raw($actionurl) . '&source=accordion-shortcodes'; ?>">Import data</a></p>
+                    <p class=""><a class="button  button-primary" href="<?php echo esc_url($actionurl) . '&source=accordion-shortcodes'; ?>">Import data</a></p>
                 </div>
 
 
@@ -654,21 +654,21 @@ if (!function_exists('accordions_settings_content_3rd_party_import')) {
                     <div class="">WP Shortcode</div>
                     <div class="">By MyThemeShop</div>
 
-                    <p class=""><a class="button  button-primary" href="<?php echo esc_url_raw($actionurl) . '&source=wp-shortcode'; ?>">Import data</a></p>
+                    <p class=""><a class="button  button-primary" href="<?php echo esc_url($actionurl) . '&source=wp-shortcode'; ?>">Import data</a></p>
                 </div>
 
                 <div class="item">
                     <div class="">Arconix FAQ</div>
                     <div class="">By Tyche Softwares</div>
 
-                    <p class=""><a class="button  button-primary" href="<?php echo esc_url_raw($actionurl) . '&source=arconix-faq'; ?>">Import data</a></p>
+                    <p class=""><a class="button  button-primary" href="<?php echo esc_url($actionurl) . '&source=arconix-faq'; ?>">Import data</a></p>
                 </div>
 
                 <div class="item">
                     <div class="">Meks Flexible Shortcodes</div>
                     <div class="">By Meks</div>
 
-                    <p class=""><a class="button  button-primary" href="<?php echo esc_url_raw($actionurl) . '&source=meks-flexible-shortcodes'; ?>">Import data</a></p>
+                    <p class=""><a class="button  button-primary" href="<?php echo esc_url($actionurl) . '&source=meks-flexible-shortcodes'; ?>">Import data</a></p>
                 </div>
 
 
@@ -676,7 +676,7 @@ if (!function_exists('accordions_settings_content_3rd_party_import')) {
                     <div class="">Tabs Shortcode</div>
                     <div class="">By CTLT</div>
 
-                    <p class=""><a class="button  button-primary" href="<?php echo esc_url_raw($actionurl) . '&source=tabs-shortcode'; ?>">Import data</a></p>
+                    <p class=""><a class="button  button-primary" href="<?php echo esc_url($actionurl) . '&source=tabs-shortcode'; ?>">Import data</a></p>
                 </div>
 
 
@@ -685,7 +685,7 @@ if (!function_exists('accordions_settings_content_3rd_party_import')) {
                     <div class="">Wonder Tabs Trial</div>
                     <div class="">By Magic Hills Pty Ltd</div>
 
-                    <p class=""><a class="button  button-primary" href="<?php echo esc_url_raw($actionurl) . '&source=wonderplugin-tabs-trial'; ?>">Import data</a></p>
+                    <p class=""><a class="button  button-primary" href="<?php echo esc_url($actionurl) . '&source=wonderplugin-tabs-trial'; ?>">Import data</a></p>
                 </div>
 
 
@@ -760,8 +760,8 @@ if (!function_exists('accordions_settings_content_buy_pro')) {
 
     ?>
         <div class="section">
-            <div class="section-title"><?php echo __('Get Premium', 'accordions'); ?></div>
-            <p class="description section-description"><?php echo __('Thanks for using our plugin, if you looking for some advance feature please buy premium version.', 'accordions'); ?></p>
+            <div class="section-title"><?php esc_html_e('Get Premium', 'accordions'); ?></div>
+            <p class="description section-description"><?php esc_html_e('Thanks for using our plugin, if you looking for some advance feature please buy premium version.', 'accordions'); ?></p>
 
             <?php
 
@@ -769,276 +769,234 @@ if (!function_exists('accordions_settings_content_buy_pro')) {
             ob_start();
             ?>
 
-            <p><?php echo __('If you love our plugin and want more feature please consider to buy pro version.', 'accordions'); ?></p>
-            <a class="button" href="https://pickplugins.com/accordions/?ref=dashobard"><?php echo __('Buy premium', 'accordions'); ?></a>
-            <a class="button" href="http://www.pickplugins.com/demo/accordions/?ref=dashobard"><?php echo __('See all demo', 'accordions'); ?></a>
+            <p><?php esc_html_e('If you love our plugin and want more feature please consider to buy pro version.', 'accordions'); ?></p>
+            <a class="button" href="https://pickplugins.com/accordions/?ref=dashobard"><?php esc_html_e('Buy premium', 'accordions'); ?></a>
+            <a class="button" href="http://www.pickplugins.com/demo/accordions/?ref=dashobard"><?php esc_html_e('See all demo', 'accordions'); ?></a>
 
-            <h2><?php echo __('See the differences', 'accordions'); ?></h2>
+            <h2><?php esc_html_e('See the differences', 'accordions'); ?></h2>
 
             <table class="pro-features">
                 <thead>
                     <tr>
-                        <th class="col-features"><?php echo __('Features', 'accordions'); ?></th>
-                        <th class="col-free"><?php echo __('Free', 'accordions'); ?></th>
-                        <th class="col-pro"><?php echo __('Premium', 'accordions'); ?></th>
+                        <th class="col-features"><?php esc_html_e('Features', 'accordions'); ?></th>
+                        <th class="col-free"><?php esc_html_e('Free', 'accordions'); ?></th>
+                        <th class="col-pro"><?php esc_html_e('Premium', 'accordions'); ?></th>
                     </tr>
                 </thead>
 
                 <tr>
-                    <td class="col-features"><?php echo __('Nested/multi level accordion', 'accordions'); ?> </td>
+                    <td class="col-features"><?php esc_html_e('Nested/multi level accordion', 'accordions'); ?> </td>
                     <td><i class="fas fa-times"></i></td>
                     <td><i class="fas fa-check"></i></td>
                 </tr>
                 <tr>
-                    <td class="col-features"><?php echo __('Click header to scroll top', 'accordions'); ?> </td>
-                    <td><i class="fas fa-times"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-
-                <tr>
-                    <td class="col-features"><?php echo __('Header text toggle', 'accordions'); ?> </td>
-                    <td><i class="fas fa-times"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-                <tr>
-                    <td class="col-features"><?php echo __('Display expand/collapse all button', 'accordions'); ?> </td>
-                    <td><i class="fas fa-times"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-                <tr>
-                    <td class="col-features"><?php echo __('Expand/collapse all text', 'accordions'); ?> </td>
-                    <td><i class="fas fa-times"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-                <tr>
-                    <td class="col-features"><?php echo __('Expand/collapse all button background color', 'accordions'); ?> </td>
-                    <td><i class="fas fa-times"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-                <tr>
-                    <td class="col-features"><?php echo __('Header click track & stats', 'accordions'); ?> </td>
+                    <td class="col-features"><?php esc_html_e('Click header to scroll top', 'accordions'); ?> </td>
                     <td><i class="fas fa-times"></i></td>
                     <td><i class="fas fa-check"></i></td>
                 </tr>
 
                 <tr>
-                    <td class="col-features"><?php echo __('Header background image', 'accordions'); ?> </td>
+                    <td class="col-features"><?php esc_html_e('Header text toggle', 'accordions'); ?> </td>
+                    <td><i class="fas fa-times"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Display expand/collapse all button', 'accordions'); ?> </td>
+                    <td><i class="fas fa-times"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Expand/collapse all text', 'accordions'); ?> </td>
+                    <td><i class="fas fa-times"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Expand/collapse all button background color', 'accordions'); ?> </td>
+                    <td><i class="fas fa-times"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Header click track & stats', 'accordions'); ?> </td>
                     <td><i class="fas fa-times"></i></td>
                     <td><i class="fas fa-check"></i></td>
                 </tr>
 
                 <tr>
-                    <td class="col-features"><?php echo __('Custom background color', 'accordions'); ?> </td>
+                    <td class="col-features"><?php esc_html_e('Header background image', 'accordions'); ?> </td>
                     <td><i class="fas fa-times"></i></td>
                     <td><i class="fas fa-check"></i></td>
                 </tr>
 
                 <tr>
-                    <td class="col-features"><?php echo __('Active accordion on page load', 'accordions'); ?> </td>
+                    <td class="col-features"><?php esc_html_e('Custom background color', 'accordions'); ?> </td>
                     <td><i class="fas fa-times"></i></td>
                     <td><i class="fas fa-check"></i></td>
                 </tr>
 
                 <tr>
-                    <td class="col-features"><?php echo __('Icon position to right', 'accordions'); ?> </td>
+                    <td class="col-features"><?php esc_html_e('Active accordion on page load', 'accordions'); ?> </td>
                     <td><i class="fas fa-times"></i></td>
                     <td><i class="fas fa-check"></i></td>
                 </tr>
 
                 <tr>
-                    <td class="col-features"><?php echo __('Enable search', 'accordions'); ?> </td>
-                    <td><i class="fas fa-times"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-                <tr>
-                    <td class="col-features"><?php echo __('Search placeholder text', 'accordions'); ?> </td>
+                    <td class="col-features"><?php esc_html_e('Icon position to right', 'accordions'); ?> </td>
                     <td><i class="fas fa-times"></i></td>
                     <td><i class="fas fa-check"></i></td>
                 </tr>
 
-
                 <tr>
-                    <td class="col-features"><?php echo __('Enable lazy load', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-
-                <tr>
-                    <td class="col-features"><?php echo __('Lazy load image', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
+                    <td class="col-features"><?php esc_html_e('Enable search', 'accordions'); ?> </td>
+                    <td><i class="fas fa-times"></i></td>
                     <td><i class="fas fa-check"></i></td>
                 </tr>
                 <tr>
-                    <td class="col-features"><?php echo __('Enable autoembed', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-                <tr>
-                    <td class="col-features"><?php echo __('3rd party shortcode on content', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-                <tr>
-                    <td class="col-features"><?php echo __('Enable wpautop', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-                <tr>
-                    <td class="col-features"><?php echo __('Schema for FAQ page', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-
-                <tr>
-                    <td class="col-features"><?php echo __('Accordion feature collapsible', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-                <tr>
-                    <td class="col-features"><?php echo __('Accordion feature keep expanded others', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-                <tr>
-                    <td class="col-features"><?php echo __('Accordion feature content height style', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-                <tr>
-                    <td class="col-features"><?php echo __('Accordion feature activate event', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-                <tr>
-                    <td class="col-features"><?php echo __('Accordion custom active icon', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-                <tr>
-                    <td class="col-features"><?php echo __('Accordion custom inactive icon', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-
-                <tr>
-                    <td class="col-features"><?php echo __('Accordion icons text color', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-                <tr>
-                    <td class="col-features"><?php echo __('Accordion icons hover color', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-                <tr>
-                    <td class="col-features"><?php echo __('Accordion icons background color', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-                <tr>
-                    <td class="col-features"><?php echo __('Accordion icons font size', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-                <tr>
-                    <td class="col-features"><?php echo __('Accordion icons padding', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-                <tr>
-                    <td class="col-features"><?php echo __('Accordion icons margin', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-
-                <tr>
-                    <td class="col-features"><?php echo __('Accordion header custom class', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-
-                <tr>
-                    <td class="col-features"><?php echo __('Accordion header background color', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-
-                <tr>
-                    <td class="col-features"><?php echo __('Accordion header Active background color', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-                <tr>
-                    <td class="col-features"><?php echo __('Accordion header text color', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-
-                <tr>
-                    <td class="col-features"><?php echo __('Accordion header hover text color', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-
-                <tr>
-                    <td class="col-features"><?php echo __('Accordion header font size', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-                <tr>
-                    <td class="col-features"><?php echo __('Accordion header padding', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-                <tr>
-                    <td class="col-features"><?php echo __('Accordion header margin', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-                <tr>
-                    <td class="col-features"><?php echo __('Accordion header font family', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-
-
-
-                <tr>
-                    <td class="col-features"><?php echo __('Accordion content custom class', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-
-                <tr>
-                    <td class="col-features"><?php echo __('Accordion content background color', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-
-                <tr>
-                    <td class="col-features"><?php echo __('Accordion content text color', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
+                    <td class="col-features"><?php esc_html_e('Search placeholder text', 'accordions'); ?> </td>
+                    <td><i class="fas fa-times"></i></td>
                     <td><i class="fas fa-check"></i></td>
                 </tr>
 
 
                 <tr>
-                    <td class="col-features"><?php echo __('Accordion content font size', 'accordions'); ?> </td>
+                    <td class="col-features"><?php esc_html_e('Enable lazy load', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Lazy load image', 'accordions'); ?> </td>
                     <td><i class="fas fa-check"></i></td>
                     <td><i class="fas fa-check"></i></td>
                 </tr>
                 <tr>
-                    <td class="col-features"><?php echo __('Accordion content padding', 'accordions'); ?> </td>
+                    <td class="col-features"><?php esc_html_e('Enable autoembed', 'accordions'); ?> </td>
                     <td><i class="fas fa-check"></i></td>
                     <td><i class="fas fa-check"></i></td>
                 </tr>
                 <tr>
-                    <td class="col-features"><?php echo __('Accordion content margin', 'accordions'); ?> </td>
+                    <td class="col-features"><?php esc_html_e('3rd party shortcode on content', 'accordions'); ?> </td>
                     <td><i class="fas fa-check"></i></td>
                     <td><i class="fas fa-check"></i></td>
                 </tr>
                 <tr>
-                    <td class="col-features"><?php echo __('Accordion content font family', 'accordions'); ?> </td>
+                    <td class="col-features"><?php esc_html_e('Enable wpautop', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Schema for FAQ page', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Accordion feature collapsible', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Accordion feature keep expanded others', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Accordion feature content height style', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Accordion feature activate event', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Accordion custom active icon', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Accordion custom inactive icon', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Accordion icons text color', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Accordion icons hover color', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Accordion icons background color', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Accordion icons font size', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Accordion icons padding', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Accordion icons margin', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Accordion header custom class', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Accordion header background color', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Accordion header Active background color', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Accordion header text color', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Accordion header hover text color', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Accordion header font size', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Accordion header padding', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Accordion header margin', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Accordion header font family', 'accordions'); ?> </td>
                     <td><i class="fas fa-check"></i></td>
                     <td><i class="fas fa-check"></i></td>
                 </tr>
@@ -1046,63 +1004,41 @@ if (!function_exists('accordions_settings_content_buy_pro')) {
 
 
                 <tr>
-                    <td class="col-features"><?php echo __('Accordion container padding', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-                <tr>
-                    <td class="col-features"><?php echo __('Accordion container background color', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-                <tr>
-                    <td class="col-features"><?php echo __('Accordion container background image', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-                <tr>
-                    <td class="col-features"><?php echo __('Accordion container text align', 'accordions'); ?> </td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td><i class="fas fa-check"></i></td>
-                </tr>
-                <tr>
-                    <td class="col-features"><?php echo __('Sort accordion content', 'accordions'); ?> </td>
+                    <td class="col-features"><?php esc_html_e('Accordion content custom class', 'accordions'); ?> </td>
                     <td><i class="fas fa-check"></i></td>
                     <td><i class="fas fa-check"></i></td>
                 </tr>
 
                 <tr>
-                    <td class="col-features"><?php echo __('Hide accordion content', 'accordions'); ?> </td>
+                    <td class="col-features"><?php esc_html_e('Accordion content background color', 'accordions'); ?> </td>
                     <td><i class="fas fa-check"></i></td>
                     <td><i class="fas fa-check"></i></td>
                 </tr>
 
                 <tr>
-                    <td class="col-features"><?php echo __('WP editor for accordion content', 'accordions'); ?> </td>
+                    <td class="col-features"><?php esc_html_e('Accordion content text color', 'accordions'); ?> </td>
                     <td><i class="fas fa-check"></i></td>
                     <td><i class="fas fa-check"></i></td>
                 </tr>
 
+
                 <tr>
-                    <td class="col-features"><?php echo __('Font-awesome version selection', 'accordions'); ?> </td>
+                    <td class="col-features"><?php esc_html_e('Accordion content font size', 'accordions'); ?> </td>
                     <td><i class="fas fa-check"></i></td>
                     <td><i class="fas fa-check"></i></td>
                 </tr>
-
                 <tr>
-                    <td class="col-features"><?php echo __('Accordions preview on frontend', 'accordions'); ?> </td>
+                    <td class="col-features"><?php esc_html_e('Accordion content padding', 'accordions'); ?> </td>
                     <td><i class="fas fa-check"></i></td>
                     <td><i class="fas fa-check"></i></td>
                 </tr>
-
                 <tr>
-                    <td class="col-features"><?php echo __('Export accordion', 'accordions'); ?> </td>
+                    <td class="col-features"><?php esc_html_e('Accordion content margin', 'accordions'); ?> </td>
                     <td><i class="fas fa-check"></i></td>
                     <td><i class="fas fa-check"></i></td>
                 </tr>
-
                 <tr>
-                    <td class="col-features"><?php echo __('Import accordion', 'accordions'); ?> </td>
+                    <td class="col-features"><?php esc_html_e('Accordion content font family', 'accordions'); ?> </td>
                     <td><i class="fas fa-check"></i></td>
                     <td><i class="fas fa-check"></i></td>
                 </tr>
@@ -1110,14 +1046,78 @@ if (!function_exists('accordions_settings_content_buy_pro')) {
 
 
                 <tr>
-                    <th class="col-features"><?php echo __('Features', 'accordions'); ?></th>
-                    <th class="col-free"><?php echo __('Free', 'accordions'); ?></th>
-                    <th class="col-pro"><?php echo __('Premium', 'accordions'); ?></th>
+                    <td class="col-features"><?php esc_html_e('Accordion container padding', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
                 </tr>
                 <tr>
-                    <td class="col-features"><?php echo __('Buy now', 'accordions'); ?></td>
+                    <td class="col-features"><?php esc_html_e('Accordion container background color', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Accordion container background image', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Accordion container text align', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Sort accordion content', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Hide accordion content', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td class="col-features"><?php esc_html_e('WP editor for accordion content', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Font-awesome version selection', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Accordions preview on frontend', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Export accordion', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Import accordion', 'accordions'); ?> </td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td><i class="fas fa-check"></i></td>
+                </tr>
+
+
+
+                <tr>
+                    <th class="col-features"><?php esc_html_e('Features', 'accordions'); ?></th>
+                    <th class="col-free"><?php esc_html_e('Free', 'accordions'); ?></th>
+                    <th class="col-pro"><?php esc_html_e('Premium', 'accordions'); ?></th>
+                </tr>
+                <tr>
+                    <td class="col-features"><?php esc_html_e('Buy now', 'accordions'); ?></td>
                     <td> </td>
-                    <td><a class="button" href="https://pickplugins.com/accordions/?ref=dashobard"><?php echo __('Buy premium', 'accordions'); ?></a></td>
+                    <td><a class="button" href="https://pickplugins.com/accordions/?ref=dashobard"><?php esc_html_e('Buy premium', 'accordions'); ?></a></td>
                 </tr>
 
             </table>
@@ -1204,6 +1204,6 @@ add_action('accordions_settings_save', 'accordions_settings_save');
 function accordions_settings_save()
 {
 
-    $accordions_settings = isset($_POST['accordions_settings']) ?  accordions_recursive_sanitize_arr($_POST['accordions_settings']) : array();
+    $accordions_settings = isset($_POST['accordions_settings']) ?  accordions_recursive_sanitize_arr(wp_unslash($_POST['accordions_settings'])) : array();
     update_option('accordions_settings', $accordions_settings);
 }

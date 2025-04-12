@@ -22,8 +22,8 @@ class class_accordions_notices
         $is_hidden = isset($accordions_notices['hide_notice_beta_test']) ? $accordions_notices['hide_notice_beta_test'] : 'no';
         $actionurl = admin_url() . '?hide_notice_beta_test=yes';
         $actionurl = wp_nonce_url($actionurl,  'hide_notice_beta_test');
-        $nonce = isset($_REQUEST['_wpnonce']) ? sanitize_text_field($_REQUEST['_wpnonce']) : '';
-        $hide_notice_beta_test = isset($_REQUEST['hide_notice_beta_test']) ? sanitize_text_field($_REQUEST['hide_notice_beta_test']) : '';
+        $nonce = isset($_REQUEST['_wpnonce']) ? sanitize_text_field(wp_unslash($_REQUEST['_wpnonce'])) : '';
+        $hide_notice_beta_test = isset($_REQUEST['hide_notice_beta_test']) ? sanitize_text_field(wp_unslash($_REQUEST['hide_notice_beta_test'])) : '';
         if (wp_verify_nonce($nonce, 'hide_notice_beta_test') && $hide_notice_beta_test == 'yes') {
             $accordions_notices['hide_notice_beta_test'] = 'hidden';
             update_option('accordions_notices', $accordions_notices);
@@ -31,16 +31,17 @@ class class_accordions_notices
         }
         ob_start();
         if ($is_hidden == 'no') :
-?>
-            <div class="notice">
 
-                <h3>⚡ Intorducing React Based Modern Builder for Accordions, <strong><a target="_blank" href="<?php echo admin_url(); ?>edit.php?post_type=accordions&page=accordions-builder">Try Now</a></strong></h3>
 
-                <p> <a style="margin: 0 20px;" class="" href="<?php echo esc_url_raw($actionurl) ?>">❌ Hide Notice</a></p>
+            $builder_page_url = admin_url() . 'edit.php?post_type=accordions&page=accordions-builder'
+
+?><div class="notice">
+                <h3>⚡ Intorducing React Based Modern Builder for Accordions, <strong><a target="_blank" href="<?php echo esc_url($builder_page_url); ?>">Try Now</a></strong></h3>
+                <p> <a style="margin: 0 20px;" class="" href="<?php echo esc_url($actionurl) ?>">❌ Hide Notice</a></p>
             </div>
         <?php
         endif;
-        echo (ob_get_clean());
+        echo wp_kses_post(ob_get_clean());
     }
 
 
@@ -61,7 +62,7 @@ class class_accordions_notices
         $actionurl = admin_url() . 'edit.php?post_type=accordions&page=upgrade_status';
         $actionurl = wp_nonce_url($actionurl,  'accordions_upgrade');
 
-        $nonce = isset($_REQUEST['_wpnonce']) ? sanitize_text_field($_REQUEST['_wpnonce']) : '';
+        $nonce = isset($_REQUEST['_wpnonce']) ? sanitize_text_field(wp_unslash($_REQUEST['_wpnonce'])) : '';
 
         if (wp_verify_nonce($nonce, 'accordions_upgrade')) {
             $accordions_plugin_info['accordions_upgrade'] = 'processing';
@@ -77,7 +78,16 @@ class class_accordions_notices
         ?>
             <div class="update-nag">
                 <?php
-                echo sprintf(__('Data migration required for <b>Accordions by PickPlugins</b> plugin, please <a class="button button-primary" href="%s">click to start</a> migration. Watch this <a target="_blank" href="https://www.youtube.com/watch?v=4ZGMA6hOoxs">video</a>  first', 'accordions'), esc_url_raw($actionurl));
+
+
+                echo wp_kses_post(sprintf(
+                    /* translators: 1: Action URL, 2: Video Tutorial URL. */
+                    __('Data migration required for <b>Accordions by PickPlugins</b> plugin, please <a class="button button-primary" href="%1$s">click to start</a> migration. Watch this <a target="_blank" href="%2$s">video</a> first.', 'accordions'),
+                    esc_url($actionurl),
+                    esc_url('https://www.youtube.com/watch?v=4ZGMA6hOoxs')
+                ));
+
+
                 ?>
             </div>
 <?php

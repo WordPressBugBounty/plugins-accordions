@@ -48,21 +48,24 @@ class class_accordions_post_meta
 
         $accordion_settings_tab[] = array(
             'id' => 'shortcode',
-            'title' => sprintf(__('%s Shortcode', 'accordions'), '<i class="fas fa-laptop-code"></i>'),
+            'icon' => '<i class="fas fa-laptop-code"></i>',
+            'title' => __('Shortcode', 'accordions'),
             'priority' => 1,
             'active' => ($current_tab == 'shortcode') ? true : false,
         );
 
         $accordion_settings_tab[] = array(
             'id' => 'general',
-            'title' => sprintf(__('%s General', 'accordions'), '<i class="fa fa-cogs"></i>'),
+            'icon' => '<i class="fa fa-cogs"></i>',
+            'title' => __('General', 'accordions'),
             'priority' => 2,
             'active' => ($current_tab == 'general') ? true : false,
         );
 
         $accordion_settings_tab[] = array(
             'id' => 'accordion_options',
-            'title' => sprintf(__('%s Accordion options', 'accordions'), '<i class="fas fa-bars"></i>'),
+            'icon' => '<i class="fas fa-bars"></i>',
+            'title' => __('Accordion options', 'accordions'),
             'priority' => 2,
             'active' => ($current_tab == 'accordion_options') ? true : false,
             'hidden' => ($view_type == 'tabs') ? true : false,
@@ -70,14 +73,16 @@ class class_accordions_post_meta
         );
         $accordion_settings_tab[] = array(
             'id' => 'style',
-            'title' => sprintf(__('%s Style', 'accordions'), '<i class="fas fa-palette"></i>'),
+            'icon' => '<i class="fas fa-palette"></i>',
+            'title' => __('Style', 'accordions'),
             'priority' => 3,
             'active' => ($current_tab == 'style') ? true : false,
         );
 
         $accordion_settings_tab[] = array(
             'id' => 'tabs_options',
-            'title' => sprintf(__('%s Tabs options', 'accordions'), '<i class="far fa-folder"></i>'),
+            'icon' => '<i class="far fa-folder"></i>',
+            'title' => __('Tabs options', 'accordions'),
             'priority' => 2,
             'active' => ($current_tab == 'tabs_options') ? true : false,
             'hidden' => ($view_type == 'accordion') ? true : false,
@@ -89,7 +94,8 @@ class class_accordions_post_meta
 
         $accordion_settings_tab[] = array(
             'id' => 'content',
-            'title' => sprintf(__('%s Content', 'accordions'), '<i class="far fa-edit"></i>'),
+            'icon' => '<i class="far fa-edit"></i>',
+            'title' => __('Content', 'accordions'),
             'priority' => 4,
             'active' => ($current_tab == 'content') ? true : false,
         );
@@ -98,14 +104,16 @@ class class_accordions_post_meta
 
         $accordion_settings_tab[] = array(
             'id' => 'custom_scripts',
-            'title' => sprintf(__('%s Custom scripts', 'accordions'), '<i class="far fa-file-code"></i>'),
+            'icon' => '<i class="far fa-file-code"></i>',
+            'title' => __('Custom scripts', 'accordions'),
             'priority' => 6,
             'active' => ($current_tab == 'buy_pro') ? true : false,
         );
 
         $accordion_settings_tab[] = array(
             'id' => 'help_support',
-            'title' => sprintf(__('%s Help support', 'accordions'), '<i class="fas fa-hands-helping"></i>'),
+            'icon' => '<i class="fas fa-hands-helping"></i>',
+            'title' => __('Help support', 'accordions'),
             'priority' => 80,
             'active' => ($current_tab == 'help_support') ? true : false,
         );
@@ -113,7 +121,8 @@ class class_accordions_post_meta
 
         $accordion_settings_tab[] = array(
             'id' => 'buy_pro',
-            'title' => sprintf(__('%s Buy pro', 'accordions'), '<i class="fas fa-store"></i>'),
+            'icon' => '<i class="fas fa-store"></i>',
+            'title' => __('Buy pro', 'accordions'),
             'priority' => 90,
             'active' => ($current_tab == 'buy_pro') ? true : false,
         );
@@ -193,12 +202,17 @@ class class_accordions_post_meta
                 <?php
                 foreach ($accordion_settings_tab as $tab) {
                     $id = $tab['id'];
+                    $icon = $tab['icon'];
                     $title = $tab['title'];
                     $active = $tab['active'];
                     $data_visible = isset($tab['data_visible']) ? $tab['data_visible'] : '';
                     $hidden = isset($tab['hidden']) ? $tab['hidden'] : false;
                 ?>
-                    <li <?php if (!empty($data_visible)) :  ?> data_visible="<?php echo esc_attr($data_visible); ?>" <?php endif; ?> class="tab-nav <?php if ($hidden) echo 'hidden'; ?> <?php if ($active) echo 'active'; ?>" data-id="<?php echo esc_attr($id); ?>"><?php echo ($title); ?></li>
+                    <li <?php if (!empty($data_visible)) :  ?> data_visible="<?php echo esc_attr($data_visible); ?>" <?php endif; ?> class="tab-nav <?php if ($hidden) echo 'hidden'; ?> <?php if ($active) echo 'active'; ?>" data-id="<?php echo esc_attr($id); ?>">
+
+                        <?php echo wp_kses_post($icon); ?>
+                        <?php echo wp_kses_post($title); ?>
+                    </li>
                 <?php
                 }
                 ?>
@@ -240,7 +254,7 @@ class class_accordions_post_meta
         if (!isset($_POST['accordions_nonce_check_value']))
             return $post_id;
 
-        $nonce = sanitize_text_field($_POST['accordions_nonce_check_value']);
+        $nonce = sanitize_text_field(wp_unslash($_POST['accordions_nonce_check_value']));
 
         // Verify that the nonce is valid.
         if (!wp_verify_nonce($nonce, 'accordions_nonce_check'))

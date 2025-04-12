@@ -1,5 +1,5 @@
 <?php
-if ( ! defined('ABSPATH')) exit;  // if direct access
+if (! defined('ABSPATH')) exit;  // if direct access
 
 
 
@@ -10,21 +10,22 @@ add_shortcode('accordions_import_cron_tabs_pro', 'accordions_import_cron_tabs_pr
 add_action('accordions_import_cron_tabs_pro', 'accordions_import_cron_tabs_pro');
 
 
-function accordions_import_cron_tabs_pro(){
+function accordions_import_cron_tabs_pro()
+{
     $accordions_plugin_info = get_option('accordions_plugin_info');
 
     $meta_query = array();
 
-        $meta_query[] = array(
+    $meta_query[] = array(
         'key' => 'import_done',
         'compare' => 'NOT EXISTS'
     );
 
     $args = array(
-        'post_type'=>'tp_tab_pro',
-        'post_status'=>'publish',
-        'posts_per_page'=> 1,
-        'meta_query'=> $meta_query,
+        'post_type' => 'tp_tab_pro',
+        'post_status' => 'publish',
+        'posts_per_page' => 1,
+        'meta_query' => $meta_query,
 
     );
 
@@ -32,22 +33,22 @@ function accordions_import_cron_tabs_pro(){
     $wp_query = new WP_Query($args);
 
 
-    if ( $wp_query->have_posts() ) :
-        while ( $wp_query->have_posts() ) : $wp_query->the_post();
+    if ($wp_query->have_posts()) :
+        while ($wp_query->have_posts()) : $wp_query->the_post();
 
             $post_id = get_the_id();
             $post_title = get_the_title();
             $accordions_options = array();
 
-            $custom_accordion_wordpresspro_columns       = get_post_meta( $post_id, 'custom_accordion_wordpresspro_columns' );
+            $custom_accordion_wordpresspro_columns       = get_post_meta($post_id, 'custom_accordion_wordpresspro_columns');
 
 
             $accordions_icons_plus = 'plus';
             $accordions_icons_minus = 'minus';
 
 
-            $accordions_icons_plus = !empty($accordions_icons_plus) ? '<i class="fa fa-'.$accordions_icons_plus.'"></i>' : '<i class="fa fa-plus"></i>';
-            $accordions_icons_minus = !empty($accordions_icons_minus) ? '<i class="fa fa-'.$accordions_icons_minus.'"></i>' : '<i class="fa fa-minus"></i>';
+            $accordions_icons_plus = !empty($accordions_icons_plus) ? '<i class="fa fa-' . $accordions_icons_plus . '"></i>' : '<i class="fa fa-plus"></i>';
+            $accordions_icons_minus = !empty($accordions_icons_minus) ? '<i class="fa fa-' . $accordions_icons_minus . '"></i>' : '<i class="fa fa-minus"></i>';
 
             $accordions_options['icon']['active'] = $accordions_icons_plus;
             $accordions_options['icon']['inactive'] = $accordions_icons_minus;
@@ -115,15 +116,15 @@ function accordions_import_cron_tabs_pro(){
 
             $i = 0;
 
-            if(!empty($custom_accordion_wordpresspro_columns))
-                foreach ($custom_accordion_wordpresspro_columns as $index => $accordion_single_data){
+            if (!empty($custom_accordion_wordpresspro_columns))
+                foreach ($custom_accordion_wordpresspro_columns as $index => $accordion_single_data) {
 
                     $accordion_content_title = $accordion_single_data['custom_accordions_pro_title'];
                     $accordion_content_description = $accordion_single_data['custom_accordions_pro_details'];
                     $icon = $accordion_single_data['field-14'];
 
-                    $accordions_icons_plus = !empty($accordions_icons_plus) ? '<i class="fa fa-'.$icon.'"></i>' : '<i class="fa fa-plus"></i>';
-                    $accordions_icons_minus = !empty($accordions_icons_minus) ? '<i class="fa fa-'.$icon.'"></i>' : '<i class="fa fa-minus"></i>';
+                    $accordions_icons_plus = !empty($accordions_icons_plus) ? '<i class="fa fa-' . $icon . '"></i>' : '<i class="fa fa-plus"></i>';
+                    $accordions_icons_minus = !empty($accordions_icons_minus) ? '<i class="fa fa-' . $icon . '"></i>' : '<i class="fa fa-minus"></i>';
 
 
 
@@ -147,7 +148,7 @@ function accordions_import_cron_tabs_pro(){
                 'post_title'    => $post_title,
                 'post_content'  => '',
                 'post_status'   => 'publish',
-                'post_type'   	=> 'accordions',
+                'post_type'       => 'accordions',
                 'post_author'   => 1,
             );
 
@@ -160,7 +161,7 @@ function accordions_import_cron_tabs_pro(){
 
 
 
-            wp_reset_query();
+            wp_reset_postdata();
             wp_reset_postdata();
         endwhile;
     else:
@@ -172,10 +173,4 @@ function accordions_import_cron_tabs_pro(){
 
 
     endif;
-
-
 }
-
-
-		
-		

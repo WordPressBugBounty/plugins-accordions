@@ -23,7 +23,7 @@ function accordions_main_top($atts)
     if ($lazy_load == 'yes') :
 ?><div id="accordions-lazy-<?php echo esc_attr($post_id); ?>" class="accordions-lazy" accordionsId="<?php echo esc_attr($post_id); ?>">
             <?php if (!empty($lazy_load_src)) : ?>
-                <img src="<?php echo esc_url_raw($lazy_load_src); ?>" />
+                <img src="<?php echo esc_url($lazy_load_src); ?>" />
             <?php endif; ?>
         </div>
 
@@ -166,7 +166,7 @@ transform: translate(-50%, -50%);
 ?><?php echo esc_attr('#accordions-' . $post_id); ?> {
 position: relative;
 <?php if (!empty($container_text_align)) : ?>text-align: <?php echo esc_attr($container_text_align); ?>;
-<?php endif; ?><?php if (!empty($container_background_color) || !empty($container_background_img)) : ?>background: <?php echo esc_attr($container_background_color); ?> url(<?php echo esc_url_raw($container_background_img); ?>) repeat scroll 0 0;
+<?php endif; ?><?php if (!empty($container_background_color) || !empty($container_background_img)) : ?>background: <?php echo esc_attr($container_background_color); ?> url(<?php echo esc_url($container_background_img); ?>) repeat scroll 0 0;
 <?php endif; ?><?php if (!empty($container_padding)) : ?>padding: <?php echo esc_attr($container_padding); ?>;
 <?php endif; ?>
 }
@@ -178,7 +178,7 @@ outline: none;
 <?php endif; ?>
 }
 <?php echo esc_attr('#accordions-' . $post_id . '  .accordions-head-title'); ?> {
-<?php if (!empty($header_font_family)) : ?>font-family: <?php echo wp_specialchars_decode($header_font_family, ENT_QUOTES); ?>;
+<?php if (!empty($header_font_family)) : ?>font-family: <?php echo esc_attr(wp_specialchars_decode($header_font_family, ENT_QUOTES)); ?>;
 <?php endif; ?><?php if (!empty($header_color)) : ?>color: <?php echo esc_attr($header_color); ?>;
 <?php endif; ?><?php if (!empty($header_font_size)) : ?>font-size: <?php echo esc_attr($header_font_size); ?>;
 <?php endif; ?>
@@ -199,7 +199,7 @@ border: none;
 }
 <?php echo esc_attr('#accordions-' . $post_id . ' .accordion-content'); ?> {
 border: none;
-<?php if (!empty($body_font_family)) : ?>font-family: <?php echo wp_specialchars_decode($body_font_family, ENT_QUOTES); ?>;
+<?php if (!empty($body_font_family)) : ?>font-family: <?php echo esc_attr(wp_specialchars_decode($body_font_family, ENT_QUOTES)); ?>;
 <?php endif; ?><?php if (!empty($body_background_color)) : ?>background: <?php echo esc_attr($body_background_color); ?> none repeat scroll 0 0;
 <?php endif; ?><?php if (!empty($body_color)) : ?>color: <?php echo esc_attr($body_color); ?>;
 <?php endif; ?><?php if (!empty($body_font_size)) : ?>font-size: <?php echo esc_attr($body_font_size); ?>;
@@ -221,18 +221,19 @@ border: none;
 }
 <?php
     if (!empty($custom_css)) {
-        echo wp_specialchars_decode($custom_css, ENT_QUOTES);
+        //echo wp_specialchars_decode($custom_css, ENT_QUOTES);
+        echo wp_kses(wp_specialchars_decode($custom_css, ENT_QUOTES), ['\'', '"', '{', '}', ':', ';', '-', '.', '#', '*', '!', '@', '(', ')', ',', '%']);
     }
     if (!empty($accordions_content)) {
         foreach ($accordions_content as $index => $accordion) {
             $background_img = isset($accordion['background_img']) ? $accordion['background_img'] : '';
             $background_color = isset($accordion['background_color']) ? $accordion['background_color'] : '';
-            $header_bg_img = !empty($background_img) ? 'url(' . esc_url_raw($background_img) . ')' : '';
+            $header_bg_img = !empty($background_img) ? 'url(' . esc_url($background_img) . ')' : '';
             $bg_color_css = !empty($background_color) ? $background_color : '';
 
             if (!empty($bg_color_css) || !empty($header_bg_img)) {
 ?><?php echo esc_attr('#accordions-' . $post_id . ' #header-' . $index); ?> {
-background: <?php echo esc_attr($bg_color_css); ?> <?php echo $header_bg_img; ?>;
+background: <?php echo esc_attr($bg_color_css); ?> <?php echo esc_url($header_bg_img); ?>;
 }
 <?php
             }
@@ -301,7 +302,7 @@ function accordions_main_items($atts)
     $activeHead = [];
 
     if (isset($_GET['active_index'])) {
-        $accordion_index = isset($_GET['active_index']) ? sanitize_text_field($_GET['active_index']) : '';
+        $accordion_index = isset($_GET['active_index']) ? sanitize_text_field(wp_unslash($_GET['active_index'])) : '';
         $accordion_index = explode('-', $accordion_index);
 
         foreach ($accordion_index as $args) {
@@ -444,7 +445,7 @@ function accordions_main_items($atts)
 
     if (isset($_GET['active_index'])) {
 
-        $accordion_index = isset($_GET['active_index']) ? ($_GET['active_index']) : '';
+        $accordion_index = isset($_GET['active_index']) ? wp_unslash($_GET['active_index']) : '';
 
         $activeIds = [];
 
@@ -550,7 +551,7 @@ function accordions_main_edit_link($atts)
                 $accordion_edit_url = apply_filters('accordions_edit_url', '' . $admin_url . 'post.php?post=' . $post_id . '&action=edit', $post_id);
 
 ?>
-        <div class="accordion-edit"><a href="<?php echo esc_url_raw($accordion_edit_url); ?>"><?php echo __('Edit this accordion', 'accordions'); ?></a>, <?php echo __("Only admin can see this.", 'accordions') ?></div>
+        <div class="accordion-edit"><a href="<?php echo esc_url($accordion_edit_url); ?>"><?php esc_html_e('Edit this accordion', 'accordions'); ?></a>, <?php esc_html_e("Only admin can see this.", 'accordions') ?></div>
 <?php
 
                 return;
@@ -648,6 +649,6 @@ function accordions_main_no_content()
 {
 
 ?>
-<p><?php echo __('Content missing', ''); ?></p>
+<p><?php esc_html_e('Content missing', 'accordions'); ?></p>
 <?php
 }

@@ -7,13 +7,12 @@ wp_enqueue_style('accordions-output', accordions_plugin_url . '/dist/output.css'
 wp_enqueue_style('wp-components');
 wp_enqueue_style('accordions_animate');
 
-wp_register_style('icofont-icons', accordions_plugin_url . 'assets/css/icofont/icofont.min.css');
+
+
 wp_enqueue_style('icofont-icons');
 
-wp_register_style('bootstrap-icons', accordions_plugin_url . 'assets/css/bootstrap-icons/bootstrap-icons.css');
 
 wp_enqueue_style('bootstrap-icons');
-wp_register_style('fontawesome-icons', accordions_plugin_url . 'assets/css/fontawesome/css/all.min.css');
 wp_enqueue_style('fontawesome-icons');
 
 
@@ -45,7 +44,8 @@ wp_enqueue_script(
         'wp-plugins',
         'wp-edit-post',
     ],
-    time()
+    time(),
+    true
 
 );
 

@@ -19,7 +19,7 @@ function accordions_tabs_main_top($atts)
 ?>
     <div id="accordions-lazy-<?php echo esc_attr($post_id); ?>" class="accordions-lazy">
       <?php if (!empty($lazy_load_src)) : ?>
-        <img src="<?php echo esc_url_raw($lazy_load_src); ?>" />
+        <img src="<?php echo esc_url($lazy_load_src); ?>" />
       <?php endif; ?>
     </div>
 
@@ -268,7 +268,8 @@ width: <?php echo esc_attr($panel_width_ratio . '%'); ?>;
 <?php
   }
   if (!empty($custom_css)) {
-    echo wp_specialchars_decode($custom_css, ENT_QUOTES);
+    //echo wp_specialchars_decode($custom_css, ENT_QUOTES);
+    echo wp_kses(wp_specialchars_decode($custom_css, ENT_QUOTES), ['\'', '"', '{', '}', ':', ';', '-', '.', '#', '*', '!', '@', '(', ')', ',', '%']);
   }
 ?>
 
@@ -392,8 +393,8 @@ function accordions_tabs_main_items($atts)
 
         <a style="" class="accordions-tab-head" href="#tabs-<?php echo esc_attr($index); ?>">
           <span id="accordion-icons-<?php echo esc_attr($index); ?>" class="accordion-icons">
-            <span class="accordion-icon-active accordion-plus"><?php echo wp_specialchars_decode($active_icon, ENT_QUOTES); ?></span>
-            <span class="accordion-icon-inactive accordion-minus"><?php echo wp_specialchars_decode($inactive_icon, ENT_QUOTES); ?></span>
+            <span class="accordion-icon-active accordion-plus"><?php echo wp_kses_post(wp_specialchars_decode($active_icon, ENT_QUOTES)); ?></span>
+            <span class="accordion-icon-inactive accordion-minus"><?php echo wp_kses_post(wp_specialchars_decode($inactive_icon, ENT_QUOTES)); ?></span>
           </span>
           <span id="header-text-<?php echo esc_attr($index); ?>" class="accordions-head-title"><?php echo do_shortcode(wp_specialchars_decode($accordion_header, ENT_QUOTES)); ?></span>
         </a>
@@ -403,8 +404,8 @@ function accordions_tabs_main_items($atts)
         <a style="" class="accordions-tab-head" href="#tabs-<?php echo esc_attr($index); ?>">
           <span id="header-text-<?php echo esc_attr($index); ?>" class="accordions-head-title"><?php echo do_shortcode(wp_specialchars_decode($accordion_header, ENT_QUOTES)); ?></span>
           <span id="accordion-icons-<?php echo esc_attr($index); ?>" class="accordion-icons">
-            <span class="accordion-icon-active accordion-plus"><?php echo wp_specialchars_decode($active_icon, ENT_QUOTES); ?></span>
-            <span class="accordion-icon-inactive accordion-minus"><?php echo wp_specialchars_decode($inactive_icon, ENT_QUOTES); ?></span>
+            <span class="accordion-icon-active accordion-plus"><?php echo wp_kses_post(wp_specialchars_decode($active_icon, ENT_QUOTES)); ?></span>
+            <span class="accordion-icon-inactive accordion-minus"><?php echo wp_kses_post(wp_specialchars_decode($inactive_icon, ENT_QUOTES)); ?></span>
           </span>
         </a>
 
@@ -439,15 +440,15 @@ function accordions_tabs_main_items($atts)
 ?>
 
 <ul>
-  <?php echo $nav_html; ?>
+  <?php echo wp_kses_post($nav_html); ?>
 </ul>
-<?php echo $nav_content_html; ?>
+<?php echo wp_kses_post($nav_content_html); ?>
 
 <?php
 
   if (isset($_GET['active_index'])) {
 
-    $accordion_index = isset($_GET['active_index']) ? ($_GET['active_index']) : '';
+    $accordion_index = isset($_GET['active_index']) ? wp_unslash($_GET['active_index']) : '';
 
     $activeIds = [];
 
@@ -494,7 +495,7 @@ function accordions_tabs_main_edit_link($atts)
     $accordion_edit_url = apply_filters('accordions_edit_url', '' . $admin_url . 'post.php?post=' . $post_id . '&action=edit');
 
 ?>
-  <div class="accordion-edit"><a href="<?php echo esc_url_raw($accordion_edit_url); ?>"><?php echo __('Edit this accordion', 'accordions'); ?></a>, <?php echo __("Only admin can see this.", 'accordions') ?></div>
+  <div class="accordion-edit"><a href="<?php echo esc_url($accordion_edit_url); ?>"><?php esc_html_e('Edit this accordion', 'accordions'); ?></a>, <?php esc_html_e("Only admin can see this.", 'accordions') ?></div>
 <?php
 
   }
@@ -534,7 +535,7 @@ function accordions_tabs_main_no_content()
 {
 
 ?>
-<p><?php echo __('Content missing', ''); ?></p>
+<p><?php esc_html_e('Content missing', 'accordions'); ?></p>
 <?php
 
 }

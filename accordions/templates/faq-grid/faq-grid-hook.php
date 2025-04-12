@@ -248,8 +248,8 @@ function accordions_builder_faqGrid($post_id, $accordionData)
             <?php endif; ?>
             <?php if ($expandCollapseAllEnable): ?>
                 <div class="expand-collapse-all" data-expandAllText="<?php echo esc_attr($expandAllText); ?>" data-collapseAllText="<?php echo esc_attr($collapseAllText); ?>" data-expandAllIconHtml="<?php echo esc_attr($expandAllIconHtml); ?>" data-collapseAllIconHtml="<?php echo esc_attr($collapseAllIconHtml); ?>">
-                    <?php echo $expandAllIconHtml; ?>
-                    <span><?php echo $expandAllText; ?></span>
+                    <?php echo wp_kses_post($expandAllIconHtml); ?>
+                    <span><?php echo wp_kses_post($expandAllText); ?></span>
                 </div>
             <?php endif; ?>
         </div>
@@ -318,7 +318,7 @@ function accordions_builder_faqGrid($post_id, $accordionData)
                             <?php if (empty($itemLabelIconSrc)): ?>
                                 <?php echo wp_kses_post($labelIconHtml); ?>
                             <?php else: ?>
-                                <span class="accordion-label-icon <?php echo "$labelIconClass $itemLabelIconSrc"; ?>"></span>
+                                <span class="accordion-label-icon <?php echo esc_attr($labelIconClass); ?> <?php echo esc_attr($itemLabelIconSrc); ?>"></span>
                             <?php endif; ?>
                         <?php endif; ?>
                         <<?php echo tag_escape($headerLabelTag); ?> index=""
@@ -339,7 +339,7 @@ function accordions_builder_faqGrid($post_id, $accordionData)
                                 <?php if (empty($itemLabelIconSrc)): ?>
                                     <?php echo wp_kses_post($labelIconHtml); ?>
                                 <?php else: ?>
-                                    <span class="accordion-label-icon <?php echo "$labelIconClass $itemLabelIconSrc"; ?>"></span>
+                                    <span class="accordion-label-icon <?php echo esc_attr($labelIconClass); ?> <?php echo esc_attr($itemLabelIconSrc); ?>"></span>
                                 <?php endif; ?>
                             <?php endif; ?>
                             <?php echo wp_kses_post($headerLabelText); ?>
@@ -347,7 +347,7 @@ function accordions_builder_faqGrid($post_id, $accordionData)
                                 <?php if (empty($itemLabelIconSrc)): ?>
                                     <?php echo wp_kses_post($labelIconHtml); ?>
                                 <?php else: ?>
-                                    <span class="accordion-label-icon <?php echo "$labelIconClass $itemLabelIconSrc"; ?>"></span>
+                                    <span class="accordion-label-icon <?php echo esc_attr($labelIconClass); ?> <?php echo esc_attr($itemLabelIconSrc); ?>"></span>
                                 <?php endif; ?>
                             <?php endif; ?>
                             <?php if ($labelCounterPosition == 'afterLabelText') : ?>
@@ -361,7 +361,7 @@ function accordions_builder_faqGrid($post_id, $accordionData)
                             <?php if (empty($itemLabelIconSrc)): ?>
                                 <?php echo wp_kses_post($labelIconHtml); ?>
                             <?php else: ?>
-                                <span class="accordion-label-icon <?php echo "$labelIconClass $itemLabelIconSrc"; ?>"></span>
+                                <span class="accordion-label-icon <?php echo esc_attr($labelIconClass); ?> <?php echo esc_attr($itemLabelIconSrc); ?>"></span>
                             <?php endif; ?>
                         <?php endif; ?>
                         <?php if ($iconPosition == 'right') : ?>
@@ -374,7 +374,7 @@ function accordions_builder_faqGrid($post_id, $accordionData)
                     <<?php echo tag_escape($contentTag); ?> class="<?php echo esc_attr($contentClass); ?>" id="ui-id-<?php echo esc_attr((int)$count + 2); ?>" aria-labelledby="ui-id-<?php echo esc_attr((int)$count + 1); ?>" role="tabpanel" aria-hidden="false">
                         <?php //echo wp_kses_post($contentText); 
                         ?>
-                        <?php echo wp_unslash(wp_specialchars_decode($contentText, ENT_QUOTES)) ?>
+                        <?php echo wp_kses_post(wp_unslash(wp_specialchars_decode($contentText, ENT_QUOTES))) ?>
                         <?php //echo ($contentText); 
                         ?>
                     </<?php echo tag_escape($contentTag); ?>>

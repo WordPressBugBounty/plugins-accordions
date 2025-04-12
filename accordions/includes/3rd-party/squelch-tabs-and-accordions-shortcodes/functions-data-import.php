@@ -1,5 +1,5 @@
 <?php
-if ( ! defined('ABSPATH')) exit;  // if direct access
+if (! defined('ABSPATH')) exit;  // if direct access
 
 
 
@@ -10,7 +10,8 @@ add_shortcode('accordions_import_cron_squelch_tabs_accordions', 'accordions_impo
 add_action('accordions_import_cron_squelch_tabs_accordions', 'accordions_import_cron_squelch_tabs_accordions');
 
 
-function accordions_import_cron_squelch_tabs_accordions(){
+function accordions_import_cron_squelch_tabs_accordions()
+{
 
     $accordions_plugin_info = get_option('accordions_plugin_info');
     $meta_query = array();
@@ -21,10 +22,10 @@ function accordions_import_cron_squelch_tabs_accordions(){
     );
 
     $args = array(
-        'post_type'=> array( 'page', 'post'  ),
-        'post_status'=>'publish',
-        'posts_per_page'=> 10,
-        'meta_query'=> $meta_query,
+        'post_type' => array('page', 'post'),
+        'post_status' => 'publish',
+        'posts_per_page' => 10,
+        'meta_query' => $meta_query,
     );
 
 
@@ -32,8 +33,8 @@ function accordions_import_cron_squelch_tabs_accordions(){
     $wp_query = new WP_Query($args);
 
 
-    if ( $wp_query->have_posts() ) :
-        while ( $wp_query->have_posts() ) : $wp_query->the_post();
+    if ($wp_query->have_posts()) :
+        while ($wp_query->have_posts()) : $wp_query->the_post();
 
             $post_id = get_the_id();
             $post_title = get_the_title();
@@ -46,8 +47,8 @@ function accordions_import_cron_squelch_tabs_accordions(){
             $accordions_icons_minus = 'minus';
 
 
-            $accordions_icons_plus = !empty($accordions_icons_plus) ? '<i class="fa fa-'.$accordions_icons_plus.'"></i>' : '<i class="fa fa-plus"></i>';
-            $accordions_icons_minus = !empty($accordions_icons_minus) ? '<i class="fa fa-'.$accordions_icons_minus.'"></i>' : '<i class="fa fa-minus"></i>';
+            $accordions_icons_plus = !empty($accordions_icons_plus) ? '<i class="fa fa-' . $accordions_icons_plus . '"></i>' : '<i class="fa fa-plus"></i>';
+            $accordions_icons_minus = !empty($accordions_icons_minus) ? '<i class="fa fa-' . $accordions_icons_minus . '"></i>' : '<i class="fa fa-minus"></i>';
 
             $accordions_options['icon']['active'] = $accordions_icons_plus;
             $accordions_options['icon']['inactive'] = $accordions_icons_minus;
@@ -108,68 +109,66 @@ function accordions_import_cron_squelch_tabs_accordions(){
 
 
 
-            if( strpos($post_content, '[accordions') !== false){
+            if (strpos($post_content, '[accordions') !== false) {
                 $tabs = accordions_str_between_all($post_content, "[accordions", "[/accordions]");
 
-                if(!empty($tabs))
-                foreach ($tabs as $tab_content){
+                if (!empty($tabs))
+                    foreach ($tabs as $tab_content) {
 
-                    $shortcode_content = accordions_nested_shortcode_content($tab_content, $child_tag='accordion');
+                        $shortcode_content = accordions_nested_shortcode_content($tab_content, $child_tag = 'accordion');
 
-                    $i = 0;
+                        $i = 0;
 
-                    if(!empty($shortcode_content))
-                        foreach ($shortcode_content as $index => $accordion_single_data){
+                        if (!empty($shortcode_content))
+                            foreach ($shortcode_content as $index => $accordion_single_data) {
 
-                            $acc_title = isset($accordion_single_data['title']) ? $accordion_single_data['title'] : '';
-                            $acc_content = isset($accordion_single_data['content']) ? $accordion_single_data['content'] : '';
+                                $acc_title = isset($accordion_single_data['title']) ? $accordion_single_data['title'] : '';
+                                $acc_content = isset($accordion_single_data['content']) ? $accordion_single_data['content'] : '';
 
-                            $accordions_options['content'][$index]['header'] = $acc_title;
-                            $accordions_options['content'][$index]['body'] = $acc_content;
-                            $accordions_options['content'][$index]['hide'] = 'no';
-                            $accordions_options['content'][$index]['toggled_text'] = '';
-                            $accordions_options['content'][$index]['is_active'] = '';
+                                $accordions_options['content'][$index]['header'] = $acc_title;
+                                $accordions_options['content'][$index]['body'] = $acc_content;
+                                $accordions_options['content'][$index]['hide'] = 'no';
+                                $accordions_options['content'][$index]['toggled_text'] = '';
+                                $accordions_options['content'][$index]['is_active'] = '';
 
-                            $active_icon =  '';
-                            $inactive_icon =  '';
-                            $accordions_options['content'][$index]['active_icon'] = $active_icon;
-                            $accordions_options['content'][$index]['inactive_icon'] = $inactive_icon;
-                            $accordions_options['content'][$index]['background_color'] =  '';
-                            $accordions_options['content'][$index]['background_img'] =  '';
+                                $active_icon =  '';
+                                $inactive_icon =  '';
+                                $accordions_options['content'][$index]['active_icon'] = $active_icon;
+                                $accordions_options['content'][$index]['inactive_icon'] = $inactive_icon;
+                                $accordions_options['content'][$index]['background_color'] =  '';
+                                $accordions_options['content'][$index]['background_img'] =  '';
 
-                            $i++;
-                        }
+                                $i++;
+                            }
 
-                    $accordions_id = wp_insert_post(
-                        array(
-                            'post_title'    => 'squelch accordion',
-                            'post_content'  => '',
-                            'post_status'   => 'publish',
-                            'post_type'   	=> 'accordions',
-                            'post_author'   => 1,
-                        )
-                    );
+                        $accordions_id = wp_insert_post(
+                            array(
+                                'post_title'    => 'squelch accordion',
+                                'post_content'  => '',
+                                'post_status'   => 'publish',
+                                'post_type'       => 'accordions',
+                                'post_author'   => 1,
+                            )
+                        );
 
-                    update_post_meta($accordions_id, 'accordions_options', $accordions_options);
-
-
-                }
+                        update_post_meta($accordions_id, 'accordions_options', $accordions_options);
+                    }
             }
 
 
 
-            if( strpos($post_content, '[tabs') !== false){
+            if (strpos($post_content, '[tabs') !== false) {
                 $tabs = accordions_str_between_all($post_content, "[tabs", "[/tabs]");
 
-                if(!empty($tabs))
-                    foreach ($tabs as $tab_content){
+                if (!empty($tabs))
+                    foreach ($tabs as $tab_content) {
 
-                        $shortcode_content = accordions_nested_shortcode_content($tab_content, $child_tag='tab');
+                        $shortcode_content = accordions_nested_shortcode_content($tab_content, $child_tag = 'tab');
 
                         $i = 0;
 
-                        if(!empty($shortcode_content))
-                            foreach ($shortcode_content as $index => $accordion_single_data){
+                        if (!empty($shortcode_content))
+                            foreach ($shortcode_content as $index => $accordion_single_data) {
 
                                 $acc_title = isset($accordion_single_data['title']) ? $accordion_single_data['title'] : '';
                                 $acc_content = isset($accordion_single_data['content']) ? $accordion_single_data['content'] : '';
@@ -195,31 +194,29 @@ function accordions_import_cron_squelch_tabs_accordions(){
                                 'post_title'    => 'squelch tabs',
                                 'post_content'  => '',
                                 'post_status'   => 'publish',
-                                'post_type'   	=> 'accordions',
+                                'post_type'       => 'accordions',
                                 'post_author'   => 1,
                             )
                         );
 
                         update_post_meta($accordions_id, 'accordions_options', $accordions_options);
-
-
                     }
             }
 
 
 
-            if( strpos($post_content, '[haccordions') !== false){
+            if (strpos($post_content, '[haccordions') !== false) {
                 $tabs = accordions_str_between_all($post_content, "[haccordions", "[/haccordions]");
 
-                if(!empty($tabs))
-                    foreach ($tabs as $tab_content){
+                if (!empty($tabs))
+                    foreach ($tabs as $tab_content) {
 
-                        $shortcode_content = accordions_nested_shortcode_content($tab_content, $child_tag='haccordion');
+                        $shortcode_content = accordions_nested_shortcode_content($tab_content, $child_tag = 'haccordion');
 
                         $i = 0;
 
-                        if(!empty($shortcode_content))
-                            foreach ($shortcode_content as $index => $accordion_single_data){
+                        if (!empty($shortcode_content))
+                            foreach ($shortcode_content as $index => $accordion_single_data) {
 
                                 $acc_title = isset($accordion_single_data['title']) ? $accordion_single_data['title'] : '';
                                 $acc_content = isset($accordion_single_data['content']) ? $accordion_single_data['content'] : '';
@@ -245,14 +242,12 @@ function accordions_import_cron_squelch_tabs_accordions(){
                                 'post_title'    => 'squelch haccordion',
                                 'post_content'  => '',
                                 'post_status'   => 'publish',
-                                'post_type'   	=> 'accordions',
+                                'post_type'       => 'accordions',
                                 'post_author'   => 1,
                             )
                         );
 
                         update_post_meta($accordions_id, 'accordions_options', $accordions_options);
-
-
                     }
             }
 
@@ -262,7 +257,7 @@ function accordions_import_cron_squelch_tabs_accordions(){
             update_post_meta($post_id, 'import_done', 'done');
 
 
-            wp_reset_query();
+            wp_reset_postdata();
             wp_reset_postdata();
         endwhile;
     else:
@@ -274,10 +269,4 @@ function accordions_import_cron_squelch_tabs_accordions(){
 
 
     endif;
-
-
 }
-
-
-		
-		

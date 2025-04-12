@@ -282,7 +282,7 @@ class AccordionsRest
 
 		if (empty($postId)) {
 			$response->error = true;
-			$response->errorMessage = __("Post ID should not empty");
+			$response->errorMessage = __("Post ID should not empty", 'accordions');
 			die(wp_json_encode($response));
 		}
 
@@ -290,7 +290,7 @@ class AccordionsRest
 
 		if ($post->post_type != 'accordions') {
 			$response->error = true;
-			$response->errorMessage = __("Post type is not accordions");
+			$response->errorMessage = __("Post type is not accordions", 'accordions');
 			die(wp_json_encode($response));
 		}
 
@@ -327,12 +327,12 @@ class AccordionsRest
 			if ($new_post_id) {
 				$response->post_title = $post->post_title . ' - Copy of #' . $postId;
 				$response->success = true;
-				$response->successMessage = __("Post created");
+				$response->successMessage = __("Post created", 'accordions');
 			}
 			$response->id = $new_post_id;
 		} else {
 			$response->error = true;
-			$response->errorMessage = __("Post creation failed.");
+			$response->errorMessage = __("Post creation failed.", 'accordions');
 		}
 
 
@@ -357,7 +357,7 @@ class AccordionsRest
 
 		if (empty($postId)) {
 			$response->error = true;
-			$response->errorMessage = __("Post ID should not empty");
+			$response->errorMessage = __("Post ID should not empty", 'accordions');
 			die(wp_json_encode($response));
 		}
 
@@ -365,7 +365,7 @@ class AccordionsRest
 
 		if ($post->post_type != 'accordions') {
 			$response->error = true;
-			$response->errorMessage = __("Post type is not accordions");
+			$response->errorMessage = __("Post type is not accordions", 'accordions');
 			die(wp_json_encode($response));
 		}
 
@@ -376,11 +376,11 @@ class AccordionsRest
 
 			if ($new_post_id) {
 				$response->success = true;
-				$response->successMessage = __("Post deleted");
+				$response->successMessage = __("Post deleted", 'accordions');
 			}
 		} else {
 			$response->error = true;
-			$response->errorMessage = __("Post deletion failed.");
+			$response->errorMessage = __("Post deletion failed.", 'accordions');
 		}
 
 
@@ -500,7 +500,6 @@ class AccordionsRest
 		$value = isset($request['value']) ? accordions_recursive_sanitize_arr($request['value']) : '';
 
 
-		//error_log($value);
 
 
 		$message = "";
@@ -803,21 +802,16 @@ class AccordionsRest
 		$response = new stdClass();
 
 		if (empty($postId)) {
-			$response["id_missing"] = __("Post Id should not empty");
+			$response["id_missing"] = __("Post Id should not empty", 'accordions');
 		}
 
-		//error_log("######serialize######");
-		error_log($content);
+
 
 		//$content = json_encode($content);
-		//error_log("######json_encode######");
 
-		//error_log(($content));
 
 		$content = wp_kses_post($content); // Sanitizes content for safe HTML output
-		//error_log("######wp_kses_post######");
 
-		//error_log($content);
 
 		$my_post = array(
 			'ID'           => $postId,
@@ -849,7 +843,7 @@ class AccordionsRest
 
 		if (empty($postTitle)) {
 			$response->error = true;
-			$response->errorMessage = __("Post title should not empty");
+			$response->errorMessage = __("Post title should not empty", 'accordions');
 			die(wp_json_encode($response));
 		}
 
@@ -866,7 +860,7 @@ class AccordionsRest
 
 		if ($updatep_post_id) {
 			$response->success = true;
-			$response->successMessage = __("Post created");
+			$response->successMessage = __("Post created", 'accordions');
 		}
 		$response->id = $updatep_post_id;
 
@@ -889,7 +883,7 @@ class AccordionsRest
 
 		if (empty($postTitle)) {
 			$response->error = true;
-			$response->errorMessage = __("Post title should not empty");
+			$response->errorMessage = __("Post title should not empty", 'accordions');
 			die(wp_json_encode($response));
 		}
 
@@ -906,7 +900,7 @@ class AccordionsRest
 
 		if ($updatep_post_id) {
 			$response->success = true;
-			$response->successMessage = __("Post created");
+			$response->successMessage = __("Post created", 'accordions');
 		}
 		$response->id = $updatep_post_id;
 
@@ -1283,7 +1277,7 @@ class AccordionsRest
 			$responses['posts'] = $posts;
 			$responses['pagination'] = $pages;
 
-			wp_reset_query();
+			wp_reset_postdata();
 			wp_reset_postdata();
 		else :
 			$responses['noPosts'] = true;
@@ -1582,7 +1576,7 @@ class AccordionsRest
 
 			$responses['posts'] = $posts;
 
-			wp_reset_query();
+			wp_reset_postdata();
 			wp_reset_postdata();
 		else :
 			$responses['noPosts'] = true;
@@ -1609,10 +1603,10 @@ class AccordionsRest
 		if (!wp_verify_nonce($nonce, 'wp_rest')) return $query_args;
 
 		//$nav_menus = get_registered_nav_menus();
-		$nav_menus = get_terms("nav_menu", array(
+		$nav_menus = get_terms(array(
 			'hide_empty' => false,
+			'taxonomy'   => 'nav_menu',
 		));
-		error_log(serialize($nav_menus));
 
 		$nav_menus_arr = [];
 

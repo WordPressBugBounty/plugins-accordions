@@ -253,7 +253,7 @@ function accordions_builder_tabs($post_id, $accordionData)
                         <?php if (empty($itemLabelIconSrc)): ?>
                             <?php echo wp_kses_post($labelIconHtml); ?>
                         <?php else: ?>
-                            <span class="accordion-label-icon <?php echo "$labelIconClass $itemLabelIconSrc"; ?>"></span>
+                            <span class="accordion-label-icon <?php echo esc_attr($labelIconClass); ?> <?php echo esc_attr($itemLabelIconSrc); ?>"></span>
                         <?php endif; ?>
 
 
@@ -272,7 +272,7 @@ function accordions_builder_tabs($post_id, $accordionData)
                             <?php if (empty($itemLabelIconSrc)): ?>
                                 <?php echo wp_kses_post($labelIconHtml); ?>
                             <?php else: ?>
-                                <span class="accordion-label-icon <?php echo "$labelIconClass $itemLabelIconSrc"; ?>"></span>
+                                <span class="accordion-label-icon <?php echo esc_attr($labelIconClass); ?> <?php echo esc_attr($itemLabelIconSrc); ?>"></span>
                             <?php endif; ?>
                         <?php endif; ?>
 
@@ -282,7 +282,7 @@ function accordions_builder_tabs($post_id, $accordionData)
                             <?php if (empty($itemLabelIconSrc)): ?>
                                 <?php echo wp_kses_post($labelIconHtml); ?>
                             <?php else: ?>
-                                <span class="accordion-label-icon <?php echo "$labelIconClass $itemLabelIconSrc"; ?>"></span>
+                                <span class="accordion-label-icon <?php echo esc_attr($labelIconClass); ?> <?php echo esc_attr($itemLabelIconSrc); ?>"></span>
                             <?php endif; ?>
                         <?php endif; ?>
 
@@ -294,7 +294,7 @@ function accordions_builder_tabs($post_id, $accordionData)
                         <?php if (empty($itemLabelIconSrc)): ?>
                             <?php echo wp_kses_post($labelIconHtml); ?>
                         <?php else: ?>
-                            <span class="accordion-label-icon <?php echo "$labelIconClass $itemLabelIconSrc"; ?>"></span>
+                            <span class="accordion-label-icon <?php echo esc_attr($labelIconClass); ?> <?php echo esc_attr($itemLabelIconSrc); ?>"></span>
                         <?php endif; ?>
                     <?php endif; ?>
                     <?php if ($iconPosition == 'after') : ?>
@@ -344,9 +344,8 @@ function accordions_builder_tabs($post_id, $accordionData)
             ?>
 
                 <div class="tabs-panel <?php echo ($index == $navActiveIndex) ? 'tabs-panel-active' : '' ?>" id="pg<?php echo esc_attr($index); ?>" role="tabpanel" aria-labelledby="ui-id-<?php echo esc_attr($index); ?>">
-                    <?php //echo ($contentText); 
-                    ?>
-                    <?php echo wp_unslash(wp_specialchars_decode($contentText, ENT_QUOTES)) ?>
+
+                    <?php echo wp_kses_post(wp_unslash(wp_specialchars_decode($contentText, ENT_QUOTES))) ?>
 
                 </div>
             <?php

@@ -1,5 +1,5 @@
 <?php
-if ( ! defined('ABSPATH')) exit;  // if direct access
+if (! defined('ABSPATH')) exit;  // if direct access
 
 
 
@@ -10,7 +10,8 @@ add_shortcode('accordions_import_cron_arconix_faq', 'accordions_import_cron_arco
 add_action('accordions_import_cron_arconix_faq', 'accordions_import_cron_arconix_faq');
 
 
-function accordions_import_cron_arconix_faq(){
+function accordions_import_cron_arconix_faq()
+{
     $accordions_plugin_info = get_option('accordions_plugin_info');
 
     $meta_query = array();
@@ -21,17 +22,17 @@ function accordions_import_cron_arconix_faq(){
     );
 
     $args = array(
-        'post_type'=>'faq',
-        'post_status'=>'publish',
-        'posts_per_page'=> -1,
-        'meta_query'=> $meta_query,
+        'post_type' => 'faq',
+        'post_status' => 'publish',
+        'posts_per_page' => -1,
+        'meta_query' => $meta_query,
     );
 
 
     $wp_query = new WP_Query($args);
 
 
-    if ( $wp_query->have_posts() ) :
+    if ($wp_query->have_posts()) :
 
         $accordions_options = array();
 
@@ -40,8 +41,8 @@ function accordions_import_cron_arconix_faq(){
         $accordions_icons_minus = 'minus';
 
 
-        $accordions_icons_plus = !empty($accordions_icons_plus) ? '<i class="fa fa-'.$accordions_icons_plus.'"></i>' : '<i class="fa fa-plus"></i>';
-        $accordions_icons_minus = !empty($accordions_icons_minus) ? '<i class="fa fa-'.$accordions_icons_minus.'"></i>' : '<i class="fa fa-minus"></i>';
+        $accordions_icons_plus = !empty($accordions_icons_plus) ? '<i class="fa fa-' . $accordions_icons_plus . '"></i>' : '<i class="fa fa-plus"></i>';
+        $accordions_icons_minus = !empty($accordions_icons_minus) ? '<i class="fa fa-' . $accordions_icons_minus . '"></i>' : '<i class="fa fa-minus"></i>';
 
         $accordions_options['icon']['active'] = $accordions_icons_plus;
         $accordions_options['icon']['inactive'] = $accordions_icons_minus;
@@ -111,7 +112,7 @@ function accordions_import_cron_arconix_faq(){
 
 
         $index = 0;
-        while ( $wp_query->have_posts() ) : $wp_query->the_post();
+        while ($wp_query->have_posts()) : $wp_query->the_post();
 
             $post_id = get_the_id();
             $post_title = get_the_title();
@@ -144,7 +145,7 @@ function accordions_import_cron_arconix_faq(){
             'post_title'    => 'FAQ',
             'post_content'  => '',
             'post_status'   => 'publish',
-            'post_type'   	=> 'accordions',
+            'post_type'       => 'accordions',
             'post_author'   => 1,
         );
 
@@ -154,10 +155,10 @@ function accordions_import_cron_arconix_faq(){
         update_post_meta($accordions_id, 'accordions_options', $accordions_options);
 
 
- 
 
 
-        wp_reset_query();
+
+        wp_reset_postdata();
         wp_reset_postdata();
 
     else:
@@ -169,10 +170,4 @@ function accordions_import_cron_arconix_faq(){
 
 
     endif;
-
-
 }
-
-
-		
-		

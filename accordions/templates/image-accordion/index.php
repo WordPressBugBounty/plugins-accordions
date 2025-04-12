@@ -152,7 +152,7 @@ function accordions_builder_imageAccordion($post_id, $accordionData)
                     <div class="image-accordion-overlay" style="display: none;">
                         <div class="image-accordion-title"><?php echo wp_kses_post($title); ?></div>
                         <div class="image-accordion-content">
-                            <?php echo wp_unslash(wp_specialchars_decode($content, ENT_QUOTES)) ?>
+                            <?php echo wp_kses_post(wp_unslash(wp_specialchars_decode($content, ENT_QUOTES)));  ?>
 
                         </div>
                     </div>
@@ -173,7 +173,9 @@ function accordions_builder_imageAccordion($post_id, $accordionData)
 
     <style>
         <?php
-        echo $reponsiveCss;
+        //echo $reponsiveCss;
+        echo wp_kses($reponsiveCss, ['\'', '"', '{', '}', ':', ';', '-', '.', '#', '*', '!', '@', '(', ')', ',', '%']);
+
         ?>
     </style>
 

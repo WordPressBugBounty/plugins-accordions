@@ -18,7 +18,7 @@ function accordions_global_json_ld()
             if (!empty($json)):
 ?>
                 <script type="application/ld+json">
-                    <?php echo wp_unslash(json_encode($json)); ?>
+                    <?php echo esc_js(wp_unslash(json_encode($json))); ?>
                 </script>
 <?php
             endif;

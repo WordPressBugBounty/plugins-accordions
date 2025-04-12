@@ -466,12 +466,12 @@ function accordions_ajax_import_json()
     $response = array();
 
 
-    $nonce = isset($_POST['nonce']) ? sanitize_text_field($_POST['nonce']) : '';
+    $nonce = isset($_POST['nonce']) ? sanitize_text_field(wp_unslash($_POST['nonce'])) : '';
     if (wp_verify_nonce($nonce, 'accordions_nonce')) {
 
         if (current_user_can('manage_options')) {
 
-            $json_file = isset($_POST['json_file']) ? esc_url_raw($_POST['json_file']) : '';
+            $json_file = isset($_POST['json_file']) ? esc_url(wp_unslash($_POST['json_file'])) : '';
             $string = file_get_contents($json_file);
             $json_a = json_decode($string, true);
 
@@ -500,10 +500,10 @@ function accordions_ajax_import_json()
 
 
             //$response['json_a'] = $json_a;
-            $response['message'] = __('Impor done', '');
+            $response['message'] = __('Impor done', 'accordions');
         }
     } else {
-        $response['message'] = __('You do not have permission', '');
+        $response['message'] = __('You do not have permission', 'accordions');
     }
 
 
@@ -771,13 +771,20 @@ function accordions_global_scripts()
 
     ?>
     <style>
-        <?php echo wp_strip_all_tags($accordionsCss); ?><?php echo wp_strip_all_tags($accordionsCustomCss); ?>
+        <?php
+        echo wp_kses($accordionsCss, ['\'', '"', '{', '}', ':', ';', '-', '.', '#', '*', '!', '@', '(', ')', ',', '%']);
+        echo wp_kses($accordionsCustomCss, ['\'', '"', '{', '}', ':', ';', '-', '.', '#', '*', '!', '@', '(', ')', ',', '%']);
+
+
+        //echo wp_strip_all_tags($accordionsCss); 
+        //echo wp_strip_all_tags($accordionsCustomCss); 
+        ?>
     </style>
 
     <script>
         document.addEventListener("DOMContentLoaded", function(event) {
             <?php
-            echo wp_unslash(($accordionsCustomScripts));
+            echo esc_js(wp_unslash($accordionsCustomScripts));
             ?>
         });
     </script>
@@ -822,13 +829,44 @@ function accordions_builder_global_scripts()
     ?>
 
     <style>
-        <?php echo wp_strip_all_tags($accordionsBuilderCss); ?>
+        <?php
+        echo wp_kses($accordionsBuilderCss, ['\'', '"', '{', '}', ':', ';', '-', '.', '#', '*', '!', '@', '(', ')', ',', '%']);
+
+        //echo wp_strip_all_tags($accordionsBuilderCss); 
+        ?>
     </style>
 
 
 <?php
 
 }
+
+
+
+
+// function myplugin_enqueue_styles()
+// {
+//     wp_enqueue_style('accordionsBuilderCss',  accordions_plugin_url . 'assets/frontend/css/style.css');
+//     global $accordionsBuilderCss;
+
+//     //$custom_css = get_option('myplugin_custom_css');
+
+//     if (! empty($accordionsBuilderCss)) {
+//         // Sanitize if it's user input!
+//         wp_add_inline_style('accordionsBuilderCss', $accordionsBuilderCss);
+//     }
+// }
+// add_action('wp_enqueue_scripts', 'myplugin_enqueue_styles');
+
+
+
+
+
+
+
+
+
+
 
 
 function accordions_global_vars()

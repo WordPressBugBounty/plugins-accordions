@@ -1,8 +1,6 @@
-
 (function ($) {
-
+    //jQuery(document).ready(function($){
     $(document).ready(function () {
-
         $(".settings-tabs-loading").fadeOut();
         $(".settings-tabs").fadeIn();
 
@@ -44,8 +42,7 @@
             $('input[name="tab"], input.current_tab').val(id);
 
 
-            //console.log('Hello click');
-            //console.log(id);
+
 
             $(this).parent().parent().children('.tab-content').removeClass('active');
             $(this).parent().parent().children('.tab-content#' + id).addClass('active');
@@ -97,7 +94,7 @@
                 src_url = attachment.url;
                 src_filename = attachment.filename;
 
-                //console.log(attachment);
+
 
                 $(this_).prev().val(attachmentId);
 
@@ -136,7 +133,7 @@
 
                 attachmentId = attachment.id;
                 src_url = attachment.url;
-                //console.log(attachment);
+
 
                 $(this_).prev().val(src_url);
 
@@ -157,7 +154,8 @@
 
         })
 
-        $(document).on('click', '.settings-tabs .input-text-multi-wrapper .add-item', function () {
+
+        jQuery(document).on('click', '.settings-tabs .input-text-multi-wrapper .add-item', function () {
 
             dataName = $(this).attr('data-name');
             dataSort = $(this).attr('data-sort');
@@ -178,29 +176,28 @@
 
 
 
-            html += ' <span class="button remove" onclick="$(this).parent().remove()"><i class="fas fa-times"></i></span>';
+            html += ' <span class="button remove" onclick="jQuery(this).parent().remove()"><i class="fas fa-times"></i></span>';
             html += '</div>';
 
 
-            $(this).parent().children('.field-list').append(html);
+            jQuery(this).parent().children('.field-list').append(html);
 
 
 
         })
 
 
-
-        $(document).on("click", ".settings-tabs .field-repeatable-wrapper .collapsible .header .title-text", function () {
-            if ($(this).parent().parent().hasClass("active")) {
-                $(this).parent().parent().removeClass("active");
+        jQuery(document).on("click", ".settings-tabs .field-repeatable-wrapper .collapsible .header .title-text", function () {
+            if (jQuery(this).parent().parent().hasClass("active")) {
+                jQuery(this).parent().parent().removeClass("active");
             } else {
-                $(this).parent().parent().addClass("active");
+                jQuery(this).parent().parent().addClass("active");
                 textarea_to_editor();
             }
         })
 
-        $(document).on("click", ".settings-tabs .field-repeatable-wrapper .add-repeat-field", function () {
-            now = $.now();
+        jQuery(document).on("click", ".settings-tabs .field-repeatable-wrapper .add-repeat-field", function () {
+            now = jQuery.now();
             add_html = $(this).attr('add_html');
 
             repeatable_html = add_html.replace(/TIMEINDEX/g, now);
@@ -227,7 +224,7 @@
                 //editor_enabled = $(this).attr('editor_enabled');
 
 
-                //console.log(typeof wp.editor);
+
 
                 if (el_attr == 'no' && typeof wp.editor != 'undefined') {
                     wp.editor.initialize(el_id, {
@@ -236,6 +233,7 @@
                             wpautop: true,
                             toolbar1: 'bold italic underline strikethrough | bullist numlist | blockquote hr wp_more | alignleft aligncenter alignright | link unlink | fullscreen |  wp_adv',
                             toolbar2: 'formatselect alignjustify forecolor | pastetext removeformat charmap table | outdent indent | undo redo | wp_help',
+
                         },
                         quicktags: true,
                     });
@@ -256,7 +254,7 @@
             editor_enabled = $(this).attr('editor_enabled');
 
 
-            //console.log(typeof wp.editor);
+
 
             if (editor_enabled == 'no' && typeof wp.editor != 'undefined') {
                 wp.editor.initialize(id, {
@@ -274,10 +272,7 @@
 
         })
 
-
-
-
-        $(document).on("click", ".settings-tabs .select-reset", function () {
+        jQuery(document).on("click", ".settings-tabs .select-reset", function () {
 
             $(this).prev('select').val('');
 
@@ -300,12 +295,23 @@
 
         })
 
+        // radio-img
 
+        $(document).on("click", ".radio-img label", function () {
+            if ($(this).hasClass('disabled')) {
+                return;
+            }
 
+            $(this).parent().children("label").removeClass("active");
+            $(this).addClass("active");
 
+        })
+
+        $(function () {
+            //$('.lazy').Lazy();
+        });
 
 
 
     });
-
 })(jQuery);

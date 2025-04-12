@@ -46,16 +46,15 @@ function accordions_ajax_wc_get_accordions()
 
     $return = array();
 
-    $nonce = isset($_GET['nonce']) ? sanitize_text_field($_GET['nonce']) : '';
+    $nonce = isset($_GET['nonce']) ? sanitize_text_field(wp_unslash($_GET['nonce'])) : '';
 
-    //error_log($nonce);
 
     if (wp_verify_nonce($nonce, 'accordions_nonce')) {
 
         if (current_user_can('manage_options')) {
             // you can use WP_Query, query_posts() or get_posts() here - it doesn't matter
             $search_results = new WP_Query(array(
-                's' => sanitize_text_field($_GET['q']), // the search query
+                's' => sanitize_text_field(wp_unslash($_GET['q'])), // the search query
                 'post_type' => 'accordions',
                 'post_status' => 'publish', // if you don't want drafts to be returned
                 'ignore_sticky_posts' => 1,
