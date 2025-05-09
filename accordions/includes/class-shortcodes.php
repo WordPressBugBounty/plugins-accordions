@@ -55,7 +55,7 @@ class class_accordions_shortcodes
 
 
 
-        $accordionData = (is_serialized($post_content)) ? unserialize($post_content) : (array) json_decode($post_content, true);
+        $accordionData =  (array) json_decode($post_content, true);
 
 
         $globalOptions = isset($accordionData["globalOptions"]) ? $accordionData["globalOptions"] : [];

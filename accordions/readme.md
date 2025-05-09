@@ -4,7 +4,7 @@
 	Tags: Accordion, Tabs, AI FAQ, WooCommerce FAQ Tab, Image Accordion
 	Requires at least: 5.0
 	Tested up to: 6.8
-	Stable tag: 2.3.11
+	Stable tag: 2.3.12
 	License: GPLv2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -103,6 +103,9 @@ then paste this shortcode anywhere in your page to display accordions<br />
 
 == Changelog ==
 
+	= 2.3.11 =
+    * 2024-05-09 - fix - Security issue fixed.
+    * 
 	= 2.3.11 =
     * 2024-04-12 - fix - Many scaping issue fixed
 
