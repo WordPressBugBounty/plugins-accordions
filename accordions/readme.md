@@ -1,10 +1,10 @@
 === Accordion - AI FAQ, Accordion, Tabs, Image Accordion, Product FAQ, FAQ Builder, FAQ Grid ===
-	Contributors: PickPlugins, nafismahmudayon
+	Contributors: PickPlugins
 	Donate link: https://www.pickplugins.com/demo/accordions/
 	Tags: Accordion, Tabs, AI FAQ, WooCommerce FAQ Tab, Image Accordion
 	Requires at least: 5.0
 	Tested up to: 6.8
-	Stable tag: 2.3.12
+	Stable tag: 2.3.13
 	License: GPLv2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -69,18 +69,18 @@ Whether you’re creating **FAQs**, **accordion content**, **toggled content**, 
 
 == Installation ==
 
-1. Install as regular WordPress plugin.<br />
-2. Go your plugin setting via WordPress Dashboard and find "<strong>Accordions</strong>" activate it.<br />
+1. Install as regular WordPress plugin.
+2. Go your plugin setting via WordPress Dashboard and find "Accordions" activate it.
 
-After activate plugin you will see "Accordions" menu at left side on WordPress dashboard click "New Accordions" and use the options field "Accordions Options"<br />
+After activate plugin you will see "Accordions" menu at left side on WordPress dashboard click "New Accordions" and use the options field "Accordions Options"
 
-<br />
-<strong>How to use on page or post</strong><br />
-When accordions options setup done please publish accordions<br />
 
-and then copy shortcode from top of <strong>Accordions Options</strong> `[accordions  id="1234" ]`<br />
+How to use on page or post
+When accordions options setup done please publish accordions
 
-then paste this shortcode anywhere in your page to display accordions<br />
+and then copy shortcode from top of Accordions Options `[accordions  id="1234" ]`
+
+then paste this shortcode anywhere in your page to display accordions
 
 
 
@@ -103,7 +103,10 @@ then paste this shortcode anywhere in your page to display accordions<br />
 
 == Changelog ==
 
-	= 2.3.11 =
+	= 2.3.13 =
+    * 2024-06-04 - fix - Broken Google Font script url issue fixed.
+    * 
+	= 2.3.12 =
     * 2024-05-09 - fix - Security issue fixed.
     * 
 	= 2.3.11 =

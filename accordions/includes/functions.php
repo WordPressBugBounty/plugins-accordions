@@ -804,13 +804,17 @@ function accordions_builder_global_scripts()
 
     $accordionsBuilderCss = str_replace("&quot;", '"', $accordionsBuilderCss);
 
-    $fonts = is_array($accordionsCssFontsFamilies) ? implode(',', array_filter($accordionsCssFontsFamilies)) : '';
-    $fonts = explode(',', $fonts);
+    $allFonts = is_array($accordionsCssFontsFamilies) ? implode(',', array_filter($accordionsCssFontsFamilies)) : '';
+
+    $fonts = explode(',', $allFonts);
     //var_dump($fonts);
 
     $fontsArr = [];
     $fontsStr = '';
     foreach ($fonts as $font) {
+
+
+
         $fontsStr .= $font . ',';
         if (!in_array($font, $fontsArr)) {
             $fontsArr[] =  str_replace(" ", "+", $font) . ':wght@100;200;300;400;500;600;700;800;900';
@@ -819,8 +823,10 @@ function accordions_builder_global_scripts()
 
     $fontsArrStr = implode('&family=', $fontsArr);
 
-    //var_dump($fontsArr);
-    if (!empty($fontsArr)) {
+
+
+
+    if (!empty($allFonts)) {
     ?>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=<?php echo esc_html($fontsArrStr); ?>&display=swap" />
     <?php
