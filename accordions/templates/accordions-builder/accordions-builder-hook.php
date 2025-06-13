@@ -71,6 +71,7 @@ function accordions_builder_accordion($post_id, $accordionData)
 
     $reponsiveCss = isset($accordionData["reponsiveCss"]) ? $accordionData["reponsiveCss"] : "";
 
+
     $accordionsBuilderCss .= $reponsiveCss;
 
     $searchInput = isset($accordionData["searchInput"]) ? $accordionData["searchInput"] : [];
@@ -320,7 +321,7 @@ function accordions_builder_accordion($post_id, $accordionData)
             $itemLabelIconOptions = isset($itemLabelIcon["options"]) ? $itemLabelIcon["options"] : [];
             $itemLabelIconSrc = isset($itemLabelIconOptions["iconSrc"]) ? $itemLabelIconOptions["iconSrc"] : "";
         ?>
-            <<?php echo tag_escape($headerTag); ?> id="ui-id-<?php echo esc_attr((int)$count + 1); ?>" class=" accordion-header   <?php echo esc_attr($headerClass); ?> " role="tab" aria-controls="ui-id-<?php echo esc_attr((int)$count + 2); ?>" aria-selected="false" aria-expanded="false" tabindex="-1" toggledText="<?php echo esc_attr($headerLabelToggledText); ?>">
+            <<?php echo tag_escape($headerTag); ?> id="ui-id-<?php echo esc_attr((int)$count + 1); ?>" class=" accordion-header  accordion-header-<?php echo esc_attr($index); ?> <?php echo esc_attr($headerClass); ?> " role="tab" aria-controls="ui-id-<?php echo esc_attr((int)$count + 2); ?>" aria-selected="false" aria-expanded="false" tabindex="-1" toggledText="<?php echo esc_attr($headerLabelToggledText); ?>">
                 <?php if ($iconPosition == 'left') : ?>
                     <span class="accordion-icon <?php echo esc_attr($iconClass); ?>">
                         <?php echo wp_kses_post($iconIdleHtml); ?><?php echo wp_kses_post($iconToggleHtml); ?>

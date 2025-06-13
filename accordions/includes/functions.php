@@ -807,7 +807,6 @@ function accordions_builder_global_scripts()
     $allFonts = is_array($accordionsCssFontsFamilies) ? implode(',', array_filter($accordionsCssFontsFamilies)) : '';
 
     $fonts = explode(',', $allFonts);
-    //var_dump($fonts);
 
     $fontsArr = [];
     $fontsStr = '';

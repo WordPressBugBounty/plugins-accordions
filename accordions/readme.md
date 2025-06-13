@@ -4,7 +4,7 @@
 	Tags: Accordion, Tabs, AI FAQ, WooCommerce FAQ Tab, Image Accordion
 	Requires at least: 5.0
 	Tested up to: 6.8
-	Stable tag: 2.3.13
+	Stable tag: 2.3.14
 	License: GPLv2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -103,6 +103,9 @@ then paste this shortcode anywhere in your page to display accordions
 
 == Changelog ==
 
+	= 2.3.14 =
+    * 2024-06-14 - fix - Nth Item header support added.
+    * 
 	= 2.3.13 =
     * 2024-06-04 - fix - Broken Google Font script url issue fixed.
     * 
