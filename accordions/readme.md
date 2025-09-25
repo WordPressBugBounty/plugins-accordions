@@ -4,7 +4,7 @@
 	Tags: Accordion, Tabs, AI FAQ, WooCommerce FAQ Tab, Image Accordion
 	Requires at least: 5.0
 	Tested up to: 6.8
-	Stable tag: 2.3.14
+	Stable tag: 2.3.15
 	License: GPLv2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -104,28 +104,31 @@ then paste this shortcode anywhere in your page to display accordions
 == Changelog ==
 
 	= 2.3.14 =
-    * 2024-06-14 - fix - Nth Item header support added.
+    * 2025-09-14 - fix - Minor Security issue fixed.
+
+	= 2.3.14 =
+    * 2025-06-14 - fix - Nth Item header support added.
     * 
 	= 2.3.13 =
-    * 2024-06-04 - fix - Broken Google Font script url issue fixed.
+    * 2025-06-04 - fix - Broken Google Font script url issue fixed.
     * 
 	= 2.3.12 =
-    * 2024-05-09 - fix - Security issue fixed.
+    * 2025-05-09 - fix - Security issue fixed.
     * 
 	= 2.3.11 =
-    * 2024-04-12 - fix - Many scaping issue fixed
+    * 2025-04-12 - fix - Many scaping issue fixed
 
 	= 2.3.10 =
-    * 2024-03-21 - fix - Font family issue fixed for Accordion Builder.
+    * 2025-03-21 - fix - Font family issue fixed for Accordion Builder.
 
 	= 2.3.9 =
-    * 2024-01-16 - add - Accordions Builder - FAQ Grid view added.
+    * 2025-01-16 - add - Accordions Builder - FAQ Grid view added.
     * 
 	= 2.3.8 =
-    * 2024-01-07 - fix - Accordions Builder - Image accordion added.
+    * 2025-01-07 - fix - Accordions Builder - Image accordion added.
 
 	= 2.3.7 =
-    * 2024-01-06 - fix - Accordions Builder - Multiple accordion, tabs issue on frontend fixed.
+    * 2025-01-06 - fix - Accordions Builder - Multiple accordion, tabs issue on frontend fixed.
 
 	= 2.3.6 =
     * 2024-12-28 - add - Accordions Builder - Added Tabs

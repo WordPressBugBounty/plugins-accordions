@@ -10,6 +10,8 @@ function accordions_builder_accordion($post_id, $accordionData)
     global $accordionsBuilderCss;
     global $accordionsCssFontsFamilies;
 
+    var_dump($accordionData);
+
     $globalOptions = isset($accordionData["globalOptions"]) ? $accordionData["globalOptions"] : [];
     $lazyLoad = isset($globalOptions["lazyLoad"]) ? $globalOptions["lazyLoad"] : false;
     $stats = isset($globalOptions["stats"]) ? $globalOptions["stats"] : false;
@@ -243,6 +245,7 @@ function accordions_builder_accordion($post_id, $accordionData)
         "expandCollapseAllDelay" => $expandCollapseAllDelay,
     ];
 
+    var_dump($items);
 
 
 ?>

@@ -124,8 +124,9 @@ class AccordionsRest
 			array(
 				'methods' => 'POST',
 				'callback' => array($this, 'get_posts'),
-				'permission_callback' => '__return_true',
-
+				'permission_callback' => function () {
+					return current_user_can('manage_options');
+				},
 			)
 		);
 
@@ -969,6 +970,8 @@ class AccordionsRest
 		$nonce = isset($post_data['_wpnonce']) ? $post_data['_wpnonce'] : "";
 
 
+
+		if (!current_user_can('manage_options')) return $query_args;
 		if (!wp_verify_nonce($nonce, 'wp_rest')) return $query_args;
 
 
@@ -1300,6 +1303,7 @@ class AccordionsRest
 
 		$nonce = isset($post_data['_wpnonce']) ? $post_data['_wpnonce'] : "";
 
+		if (!current_user_can('manage_options')) return $query_args;
 
 		if (!wp_verify_nonce($nonce, 'wp_rest')) return $query_args;
 
@@ -1599,7 +1603,7 @@ class AccordionsRest
 
 		$nonce = isset($post_data['_wpnonce']) ? $post_data['_wpnonce'] : "";
 
-
+		if (!current_user_can('manage_options')) return $query_args;
 		if (!wp_verify_nonce($nonce, 'wp_rest')) return $query_args;
 
 		//$nav_menus = get_registered_nav_menus();

@@ -201,10 +201,11 @@ class class_accordions_post_meta
             <ul class="tab-navs">
                 <?php
                 foreach ($accordion_settings_tab as $tab) {
-                    $id = $tab['id'];
-                    $icon = $tab['icon'];
-                    $title = $tab['title'];
-                    $active = $tab['active'];
+                    $id = isset($tab['id']) ? $tab['id'] : '';
+                    $icon = isset($tab['icon']) ? $tab['icon'] : '';
+                    $title = isset($tab['title']) ? $tab['title'] : '';
+                    $active = isset($tab['active']) ? $tab['active'] : '';
+
                     $data_visible = isset($tab['data_visible']) ? $tab['data_visible'] : '';
                     $hidden = isset($tab['hidden']) ? $tab['hidden'] : false;
                 ?>
