@@ -105,6 +105,29 @@ function accordions_metabox_content_shortcode($post_id)
 
 
 
+
+
+
+
+        <?php
+
+        $html = ob_get_clean();
+
+        $args = array(
+            'id'        => 'accordions_shortcodes',
+            'title'        => __('Tabs shortcodes', 'accordions'),
+            'details'    => '',
+            'type'        => 'custom_html',
+            'html'        => $html,
+
+
+        );
+
+        $settings_tabs_field->generate_field($args);
+        ?>
+
+
+
         <style type="text/css">
             .copy-to-clipboard {}
 
@@ -135,29 +158,6 @@ function accordions_metabox_content_shortcode($post_id)
                 })
             })(jQuery);
         </script>
-
-
-
-
-        <?php
-
-        $html = ob_get_clean();
-
-        $args = array(
-            'id'        => 'accordions_shortcodes',
-            'title'        => __('Tabs shortcodes', 'accordions'),
-            'details'    => '',
-            'type'        => 'custom_html',
-            'html'        => $html,
-
-
-        );
-
-        $settings_tabs_field->generate_field($args);
-        ?>
-
-
-
 
 
 
@@ -1191,9 +1191,6 @@ function accordions_metabox_content_content($post_id)
         $settings_tabs_field->generate_field($args);
 
 
-
-        ob_start();
-
         ?>
 
 
@@ -1364,5 +1361,9 @@ function accordions_post_meta_save($job_id)
 {
 
     $accordions_options = isset($_POST['accordions_options']) ? accordions_recursive_sanitize_arr(wp_unslash($_POST['accordions_options'])) : '';
-    update_post_meta($job_id, 'accordions_options', $accordions_options);
+    
+error_log(wp_json_encode($accordions_options));
+
+
+update_post_meta($job_id, 'accordions_options', $accordions_options);
 }

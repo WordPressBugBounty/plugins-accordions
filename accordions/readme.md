@@ -1,23 +1,23 @@
-=== Accordion - AI FAQ, Accordion, Tabs, Image Accordion, Product FAQ, FAQ Builder, FAQ Grid ===
+=== Accordions ===
 	Contributors: PickPlugins
-	Donate link: https://www.pickplugins.com/demo/accordions/
+	Donate link: https://pickplugins.com/accordions/
 	Tags: Accordion, Tabs, AI FAQ, WooCommerce FAQ Tab, Image Accordion
 	Requires at least: 5.0
-	Tested up to: 6.8
-	Stable tag: 2.3.15
+	Tested up to: 6.9
+	Stable tag: 2.3.23
 	License: GPLv2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-	Create stunning accordions, tabs, FAQs, and image accordions effortlessly with the React-based Accordions Builder. Packed with advanced styling, animations, OpenAI support, and powerful customization features.
+Create sleek accordions, tabs, FAQs, and image accordions with a React builder featuring advanced styling, animations, OpenAI support, and customization.
 
 == Description ==
 
 Transform the way you present content on your WordPress site with our React-based **Accordions Builder Plugin**. This versatile tool empowers users to create visually engaging and highly functional accordion elements, including tabs, image accordions, FAQs, toggled content, and more, all within an intuitive interface.
 
-### Accordions by  [PickPlugins](https://www.pickplugins.com/demo/accordions/)
+### Accordions by  [PickPlugins](https://pickplugins.com/)
 
 * [Accordions - Premium &raquo;](https://pickplugins.com/accordions/)
-* [Live Demo &raquo;](https://www.pickplugins.com/demo/accordions/)
+* [Live Demo &raquo;](https://demo.pickplugins.com/accordions/)
 
 
 ### Key Features
@@ -67,6 +67,22 @@ This plugin is designed to help you create stunning, interactive content element
 
 Whether you’re creating **FAQs**, **accordion content**, **toggled content**, or **tabbed layouts**, the Accordions Builder Plugin is your go-to solution for an engaging and professional WordPress site.
 
+Project in Github
+* [https://github.com/pickplugins/accordions](https://github.com/pickplugins/accordions)
+
+
+== External services ==
+
+This plugin connects to an API to obtain ready templates library https://demo.pickplugins.com/accordions/
+
+It send template query data like keywords, view types, page number to grab json data, so that json data can be used to generate slider templates.
+
+* [pickplugins.com/terms-conditions](https://pickplugins.com/terms-conditions/)
+* [pickplugins.com/privacy-policy/](https://pickplugins.com/privacy-policy/)
+* [pickplugins.com/about-us/](https://pickplugins.com/about-us/)
+
+
+
 == Installation ==
 
 1. Install as regular WordPress plugin.
@@ -103,8 +119,34 @@ then paste this shortcode anywhere in your page to display accordions
 
 == Changelog ==
 
-	= 2.3.14 =
-    * 2025-09-14 - fix - Minor Security issue fixed.
+	= 2.3.22 =
+    * 2026-01-23 - fix - Accordion content editor issue fixed.
+
+	= 2.3.22 =
+    * 2026-01-12 - fix - issue fixed for remove button. 
+
+	= 2.3.21 =
+    * 2026-01-11 - fix - issue fixed for display third party shortcodes in accordion content. 
+
+	= 2.3.20 =
+    * 2026-01-04 - fix - issue fixed for display third party shortcodes in accordion content. 
+    * 2026-01-04 - add - filter hook(accordions_allowed_tags) added for Allowed Tags accordion content. 
+
+	= 2.3.19 =
+    * 2025-12-12 - fix - Escaping issue fixed.
+
+	= 2.3.18 =
+    * 2025-12-05 - fix - Old meatbox class updated
+    * 2025-12-05 - fix - Escaping issue fixed.
+
+	= 2.3.17 =
+    * 2025-11-26 - fix - Escaping issue fixed.
+  
+	= 2.3.16 =
+    * 2025-09-25 - fix - unnecessary rest path removed
+    * 
+	= 2.3.15 =
+    * 2025-09-20 - fix - Minor Security issue fixed.
 
 	= 2.3.14 =
     * 2025-06-14 - fix - Nth Item header support added.

@@ -62,12 +62,12 @@ $accordions_settings = get_option('accordions_settings');
         ));
 
         ?></h2>
-    <form method="post" action="<?php echo esc_url(str_replace('%7E', '~', wp_unslash($_SERVER['REQUEST_URI']))); ?>">
+    <form method="post" action="<?php echo isset($_SERVER['REQUEST_URI']) ? esc_url(sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI']))) : ""; ?>">
         <input type="hidden" name="accordions_hidden" value="Y">
         <input type="hidden" name="tab" value="<?php echo esc_attr($current_tab); ?>">
         <?php
         if (!empty($_POST['accordions_hidden'])) {
-            $nonce = sanitize_text_field(wp_unslash($_POST['_wpnonce']));
+            $nonce = isset($_POST['_wpnonce']) ? sanitize_text_field(wp_unslash($_POST['_wpnonce'])) : '';
             if (wp_verify_nonce($nonce, 'accordions_nonce') && $_POST['accordions_hidden'] == 'Y') {
                 do_action('accordions_settings_save');
         ?>

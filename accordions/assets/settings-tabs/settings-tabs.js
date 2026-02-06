@@ -10,9 +10,36 @@
             header: "> div > h3",
             collapsible: true,
         });
-
+        $(".color-picker").wpColorPicker();
         $(".settings-tabs [colorPicker]").wpColorPicker();
+        $(".datepicker").datepicker({
+            dateFormat: ""
+        });
 
+        $(document).on("keyup", ".text-icon input", function () {
+            val = $(this).val();
+            if (val) {
+                $(this).parent().children(".icon").html(val);
+            }
+        })
+
+        if ($('.code-editor').length) {
+            wp.codeEditor.initialize($('.code-editor'), { type: "text/javascript" });
+        }
+        if ($('.css_editor').length) {
+            wp.codeEditor.initialize($('.css_editor'), { type: "text/css" });
+        }
+
+
+
+
+
+        $(document).on("change", ".range", function () {
+            val = $(this).val();
+            if (val) {
+                $(this).parent().children(".range-value").html(val);
+            }
+        })
 
         $(".settings-tabs .accordion[sortable='true']").sortable({
             axis: "y",
@@ -196,18 +223,59 @@
             }
         })
 
-        jQuery(document).on("click", ".settings-tabs .field-repeatable-wrapper .add-repeat-field", function () {
-            now = jQuery.now();
-            add_html = $(this).attr('add_html');
+        // jQuery(document).on("click", ".settings-tabs .field-repeatable-wrapper .add-repeat-field", function () {
+        //     now = jQuery.now();
+        //     add_html = $(this).attr('add_html');
 
-            repeatable_html = add_html.replace(/TIMEINDEX/g, now);
+        //     //console.log($(this));
 
-            $(this).parent().children('.repeatable-field-list').append(repeatable_html);
+        //     repeatable_html = add_html.replace(/TIMEINDEX/g, now);
 
-            textarea_to_editor();
+        //     $(this).parent().children('.repeatable-field-list').append(repeatable_html);
+
+        //     textarea_to_editor();
 
 
-        })
+        // })
+
+
+        document.querySelectorAll(".add-repeat-field").forEach(item => {
+
+
+
+            item.addEventListener("click", function (e) {
+                const timestamp = Date.now();
+
+                const wrapperid = e.target.getAttribute("data-wrapper-id");
+                const add_html = e.target.getAttribute("data-add_html");
+                repeatable_html = add_html.replace(/TIMEINDEX/g, timestamp);
+
+                console.log("textarea_to_editor");
+
+
+                e.target.parentElement.querySelector('.repeatable-field-list').insertAdjacentHTML('beforeend', repeatable_html);
+                textarea_to_editor();
+            });
+        });
+
+
+
+        document.querySelectorAll(".repeatable-field-list .item-wrap .remove").forEach(item => {
+            item.addEventListener("click", function (e) {
+                const timestamp = Date.now();
+                console.log(timestamp);
+                //const wrapperid = e.target.getAttribute("data-wrapper-id");
+                e.target.closest('.item-wrap').remove()
+
+            });
+        });
+
+
+
+
+
+
+
 
 
         function textarea_to_editor() {
@@ -216,13 +284,16 @@
 
             var textarea = document.getElementsByClassName("textarea-editor");
 
+
+
             for (i = 0; i < textarea.length; i++) {
 
                 el_id = textarea[i].id;
-                el_attr = textarea[i].getAttribute('editor_enabled');
+                el_attr = textarea[i].getAttribute('data-editor_enabled');
 
                 //editor_enabled = $(this).attr('editor_enabled');
 
+                console.log(el_attr);
 
 
 

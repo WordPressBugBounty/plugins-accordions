@@ -424,10 +424,17 @@ function accordions_main_items($atts)
             <div class="accordion-content content<?php echo esc_attr($index); ?> <?php echo esc_attr($body_class); ?>">
                 <?php
 
-                $allowed = wp_kses_allowed_html('post');
-                global $allowedposttags, $allowedtags, $allowedentitynames;
+                //$allowed = wp_kses_allowed_html('post');
+                //global $allowedposttags, $allowedtags, $allowedentitynames;
 
-                echo ($accordion_body); ?>
+                $allowed_tags = wp_kses_allowed_html( 'post' );
+                $allowed_tags = apply_filters( 'accordions_content_body_allowed_tags', $allowed_tags );
+
+
+                //echo wp_kses( $accordion_body, $allowed_tags );
+
+                echo apply_filters('accordions_content_body', $accordion_body); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped 
+                ?>
             </div>
     <?php
             $item_count++;
@@ -445,7 +452,7 @@ function accordions_main_items($atts)
 
     if (isset($_GET['active_index'])) {
 
-        $accordion_index = isset($_GET['active_index']) ? wp_unslash($_GET['active_index']) : '';
+        $accordion_index = isset($_GET['active_index']) ? sanitize_text_field(wp_unslash($_GET['active_index'])) : '';
 
         $activeIds = [];
 

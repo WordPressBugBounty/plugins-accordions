@@ -10,7 +10,6 @@ function accordions_builder_accordion($post_id, $accordionData)
     global $accordionsBuilderCss;
     global $accordionsCssFontsFamilies;
 
-    var_dump($accordionData);
 
     $globalOptions = isset($accordionData["globalOptions"]) ? $accordionData["globalOptions"] : [];
     $lazyLoad = isset($globalOptions["lazyLoad"]) ? $globalOptions["lazyLoad"] : false;
@@ -245,7 +244,6 @@ function accordions_builder_accordion($post_id, $accordionData)
         "expandCollapseAllDelay" => $expandCollapseAllDelay,
     ];
 
-    var_dump($items);
 
 
 ?>
@@ -402,6 +400,9 @@ function accordions_builder_accordion($post_id, $accordionData)
         <?php
             $count++;
         }
+
+
+
         if ($schema) {
 
             $json = [];
@@ -414,14 +415,16 @@ function accordions_builder_accordion($post_id, $accordionData)
                 if ($hideOnSchema) continue;
                 $headerLabel = isset($item["headerLabel"]) ? $item["headerLabel"] : [];
                 $headerLabelOptions = isset($headerLabel["options"]) ? $headerLabel["options"] : [];
-                $headerLabelText = isset($headerLabelOptions["text"]) ? $headerLabelOptions["text"] : "";
+                $headerLabelText = isset($item["headerLabelText"]) ? $item["headerLabelText"] : "";
                 $content = isset($item["content"]) ? $item["content"] : [];
                 $contentOptions = isset($content["options"]) ? $content["options"] : [];
-                $contentText = isset($contentOptions["text"]) ? $contentOptions["text"] : "";
+                $contentText = isset($item["contentText"]) ? $item["contentText"] : "";
+
+
 
                 $json['mainEntity'][$i]['@type'] = "Question";
                 $json['mainEntity'][$i]['@id'] = isset($item['attrs']['blockId']) ? "#" . $item['attrs']['blockId'] : '';
-                $json['mainEntity'][$i]['name'] = isset($item['attrs']['headerLabel']['options']['text']) ? _wp_specialchars($headerLabelText, ENT_QUOTES)  : '';
+                $json['mainEntity'][$i]['name'] = isset($item['headerLabelText']) ? _wp_specialchars($headerLabelText, ENT_QUOTES)  : '';
                 $json['mainEntity'][$i]['acceptedAnswer']['@type'] = "Answer";
                 $json['mainEntity'][$i]['acceptedAnswer']['text'] = _wp_specialchars($contentText, ENT_QUOTES);
                 $i++;

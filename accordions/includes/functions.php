@@ -471,7 +471,7 @@ function accordions_ajax_import_json()
 
         if (current_user_can('manage_options')) {
 
-            $json_file = isset($_POST['json_file']) ? esc_url(wp_unslash($_POST['json_file'])) : '';
+            $json_file = isset($_POST['json_file']) ? sanitize_text_field(wp_unslash($_POST['json_file'])) : '';
             $string = file_get_contents($json_file);
             $json_a = json_decode($string, true);
 
@@ -670,9 +670,9 @@ function accordions_recursive_sanitize_arr($array)
         if (is_array($value)) {
             $value = accordions_recursive_sanitize_arr($value);
         } else {
-            // $value = wp_unslash(_wp_specialchars($value, ENT_QUOTES));
+             $value =_wp_specialchars(wp_unslash($value), ENT_QUOTES);
             //$value = wp_kses_post($value);
-            $value = wp_kses_post(($value));
+            //$value = wp_kses_post(($value));
         }
     }
 
@@ -891,37 +891,22 @@ function accordions_global_vars()
         var accordions_tabs_active = <?php echo (wp_json_encode($accordionsTabsActiveIndex)); ?>;
     </script>
 
+
     <?php
+
+
+
+
 
     if (!empty($accordionsSchema)) {
         foreach ($accordionsSchema as $index => $accordion) {
 
-            $mainEntity = '';
-            $length = count($accordion);
-            $i = 1;
-            foreach ($accordion as $index2 => $item) {
-
-
-                $mainEntity .= json_encode($item);
-                if ($length > $i) {
-                    $mainEntity .= ',';
-                }
-
-
-                $i++;
-            }
-
-
     ?>
             <script type="application/ld+json">
-                {
-                    "@context": "https://schema.org",
-                    "@type": "FAQPage",
-                    "mainEntity": [<?php echo ($mainEntity); ?>]
-                }
+                <?php echo wp_json_encode($accordion, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped 
+                ?>
             </script>
     <?php
-
         }
     }
 

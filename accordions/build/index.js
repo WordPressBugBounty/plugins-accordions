@@ -5764,37 +5764,7 @@ function Html(props) {
     free: true,
     pro: true
   }];
-  const ourPlugins = [{
-    name: "Plugin Name 1",
-    description: "At ShapedPlugin LLC, we have been looking for the best way to create FAQ pages or sections on WordPress sites.",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/WordPress_blue_logo.svg/512px-WordPress_blue_logo.svg.png",
-    link: "https://example.com"
-  }, {
-    name: "Plugin Name 2",
-    description: "At ShapedPlugin LLC, we have been looking for the best way to create FAQ pages or sections on WordPress sites.",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/WordPress_blue_logo.svg/512px-WordPress_blue_logo.svg.png",
-    link: "https://example.com"
-  }, {
-    name: "Plugin Name 3",
-    description: "At ShapedPlugin LLC, we have been looking for the best way to create FAQ pages or sections on WordPress sites.",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/WordPress_blue_logo.svg/512px-WordPress_blue_logo.svg.png",
-    link: "https://example.com"
-  }, {
-    name: "Plugin Name 4",
-    description: "At ShapedPlugin LLC, we have been looking for the best way to create FAQ pages or sections on WordPress sites.",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/WordPress_blue_logo.svg/512px-WordPress_blue_logo.svg.png",
-    link: "https://example.com"
-  }, {
-    name: "Plugin Name 5",
-    description: "At ShapedPlugin LLC, we have been looking for the best way to create FAQ pages or sections on WordPress sites.",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/WordPress_blue_logo.svg/512px-WordPress_blue_logo.svg.png",
-    link: "https://example.com"
-  }, {
-    name: "Plugin Name 6",
-    description: "At ShapedPlugin LLC, we have been looking for the best way to create FAQ pages or sections on WordPress sites.",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/WordPress_blue_logo.svg/512px-WordPress_blue_logo.svg.png",
-    link: "https://example.com"
-  }];
+  const ourPlugins = [];
   const copyData = data => {
     navigator.clipboard.writeText(data).then(() => {
       addNotifications({
@@ -7026,7 +6996,7 @@ function Html(props) {
       viewType: queryLayouts.viewType
     };
     requestData = JSON.stringify(requestData);
-    fetch("https://pickplugins.com/demo/accordions/wp-json/accordions/v2/get_posts_accordions",
+    fetch("https://demo.pickplugins.com/accordions/wp-json/accordions/v2/get_posts_accordions",
     // "http://localhost/wordpress/wp-json/accordions/v2/get_posts_accordions",
     {
       method: "POST",
@@ -8951,8 +8921,6 @@ function Html(props) {
   function onUpdateAccordion() {
     setisLoading(true);
     var content = accordionData;
-    console.log(content);
-    console.log(JSON.stringify(content));
     _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default()({
       path: "/accordions/v2/update_post_data",
       method: "POST",
@@ -35255,42 +35223,9 @@ function Html(props) {
       return map[match];
     });
   }
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
     className: "",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
-      className: "hidden",
-      onClick: () => {
-        var str = `{
-				"wrapper":${JSON.stringify(wrapper)}
-				"header":${JSON.stringify(header)},
-				"navItem":${JSON.stringify(navItem)},
-				"activeNavItem":${JSON.stringify(activeNavItem)},
-				"labelCounter":${JSON.stringify(labelCounter)},
-				"labelIcon":${JSON.stringify(labelIcon)},
-				"icon":${JSON.stringify(icon)},
-				"iconToggle":${JSON.stringify(iconToggle)},
-				"navLabel":${JSON.stringify(navLabel)},
-				"panelWrap":${JSON.stringify(panelWrap)},
-				"topWrap":${JSON.stringify(topWrap)},
-				}`;
-        copyData(str);
-        addNotifications({
-          title: "Copied to clipboard!",
-          content: "Use the shortcode in page or post conent where you want to display.",
-          type: "success"
-        });
-      },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
-        className: "p-3",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
-          children: `{`
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
-          children: [`"wrapper":${JSON.stringify(wrapper)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
-          children: `}`
-        })]
-      })
-    }), props.postData.post_content != null && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.Fragment, {
+    children: props.postData.post_content != null && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.Fragment, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
         className: "font-medium text-slate-900 ",
         title: "Items",
@@ -36976,7 +36911,7 @@ function Html(props) {
           })]
         })
       })]
-    })]
+    })
   });
 }
 class EditAccordionMenu extends Component {
@@ -37733,68 +37668,9 @@ function Html(props) {
       return map[match];
     });
   }
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
     className: "",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
-      className: "hidden",
-      onClick: () => {
-        var str = `
-{
-"wrapper":${JSON.stringify(wrapper)}
-"content":${JSON.stringify(content)},
-				"header":${JSON.stringify(header)},
-				"headerActive":${JSON.stringify(headerActive)},
-				"headerLabel":${JSON.stringify(headerLabel)},
-				"labelCounter":${JSON.stringify(labelCounter)},
-				"labelIcon":${JSON.stringify(labelIcon)},
-				"icon":${JSON.stringify(icon)},
-				"iconToggle":${JSON.stringify(iconToggle)},
-				"searchInput":${JSON.stringify(searchInput)},
-				"expandCollapseAll":${JSON.stringify(expandCollapseAll)},
-				"topWrap":${JSON.stringify(topWrap)},
-				}
-
-`;
-        copyData(str);
-        addNotifications({
-          title: "Copied to clipboard!",
-          content: "Use the shortcode in page or post conent where you want to display.",
-          type: "success"
-        });
-      },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
-        className: "p-3",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
-          children: `{`
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
-          children: [`"wrapper":${JSON.stringify(wrapper)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
-          children: [`"content":${JSON.stringify(content)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
-          children: [`"header":${JSON.stringify(header)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
-          children: [`"headerActive":${JSON.stringify(headerActive)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
-          children: [`"headerLabel":${JSON.stringify(headerLabel)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
-          children: [`"labelCounter":${JSON.stringify(labelCounter)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
-          children: [`"labelIcon":${JSON.stringify(labelIcon)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
-          children: [`"icon":${JSON.stringify(icon)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
-          children: [`"iconToggle":${JSON.stringify(iconToggle)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
-          children: [`"searchInput":${JSON.stringify(searchInput)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
-          children: [`"expandCollapseAll":${JSON.stringify(expandCollapseAll)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)("div", {
-          children: [`"topWrap":${JSON.stringify(topWrap)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsx)("div", {
-          children: `}`
-        })]
-      })
-    }), JSON.stringify(items), props.postData.post_content != null && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.Fragment, {
+    children: props.postData.post_content != null && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.Fragment, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_24__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.PanelBody, {
         className: "font-medium text-slate-900 ",
         title: "Items",
@@ -40751,7 +40627,7 @@ function Html(props) {
           })
         })]
       })]
-    })]
+    })
   });
 }
 class EditAccordion extends Component {
@@ -41458,65 +41334,9 @@ function Html(props) {
       return map[match];
     });
   }
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("div", {
     className: "",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("div", {
-      className: "hidden",
-      onClick: () => {
-        var str = `
-{
-"wrapper":${JSON.stringify(wrapper)}
-"itemsWrap":${JSON.stringify(itemsWrap)}
-"itemWrap":${JSON.stringify(itemWrap)}
-"content":${JSON.stringify(content)},
-				"header":${JSON.stringify(header)},
-				"headerLabel":${JSON.stringify(headerLabel)},
-				"labelCounter":${JSON.stringify(labelCounter)},
-				"labelIcon":${JSON.stringify(labelIcon)},
-				"icon":${JSON.stringify(icon)},
-				"searchInput":${JSON.stringify(searchInput)},
-				"topWrap":${JSON.stringify(topWrap)},
-				}
-
-`;
-        copyData(str);
-        addNotifications({
-          title: "Copied to clipboard!",
-          content: "Use the shortcode in page or post conent where you want to display.",
-          type: "success"
-        });
-      },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
-        className: "p-3",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("div", {
-          children: `{`
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
-          children: [`"wrapper":${JSON.stringify(wrapper)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
-          children: [`"itemsWrap":${JSON.stringify(itemsWrap)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
-          children: [`"itemWrap":${JSON.stringify(itemWrap)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
-          children: [`"content":${JSON.stringify(content)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
-          children: [`"header":${JSON.stringify(header)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
-          children: [`"headerLabel":${JSON.stringify(headerLabel)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
-          children: [`"labelCounter":${JSON.stringify(labelCounter)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
-          children: [`"labelIcon":${JSON.stringify(labelIcon)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
-          children: [`"icon":${JSON.stringify(icon)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
-          children: [`"searchInput":${JSON.stringify(searchInput)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
-          children: [`"topWrap":${JSON.stringify(topWrap)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("div", {
-          children: `}`
-        })]
-      })
-    }), props.postData.post_content != null && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.Fragment, {
+    children: props.postData.post_content != null && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.Fragment, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.PanelBody, {
         className: "font-medium text-slate-900 ",
         title: "Items",
@@ -43751,7 +43571,7 @@ function Html(props) {
           })
         })]
       })]
-    })]
+    })
   });
 }
 class EditFaqGrid extends Component {
@@ -44467,42 +44287,9 @@ function Html(props) {
       return map[match];
     });
   }
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
     className: "",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
-      className: "hidden",
-      onClick: () => {
-        var str = `{
-				"wrapper":${JSON.stringify(wrapper)}
-				"header":${JSON.stringify(header)},
-				"navItem":${JSON.stringify(navItem)},
-				"activeNavItem":${JSON.stringify(activeNavItem)},
-				"labelCounter":${JSON.stringify(labelCounter)},
-				"labelIcon":${JSON.stringify(labelIcon)},
-				"icon":${JSON.stringify(icon)},
-				"iconToggle":${JSON.stringify(iconToggle)},
-				"navLabel":${JSON.stringify(navLabel)},
-				"panelWrap":${JSON.stringify(panelWrap)},
-				"topWrap":${JSON.stringify(topWrap)},
-				}`;
-        copyData(str);
-        addNotifications({
-          title: "Copied to clipboard!",
-          content: "Use the shortcode in page or post conent where you want to display.",
-          type: "success"
-        });
-      },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
-        className: "p-3",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
-          children: `{`
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)("div", {
-          children: [`"wrapper":${JSON.stringify(wrapper)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsx)("div", {
-          children: `}`
-        })]
-      })
-    }), props.postData.post_content != null && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.Fragment, {
+    children: props.postData.post_content != null && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.Fragment, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_18__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
         className: "font-medium text-slate-900 ",
         title: "Items",
@@ -46187,7 +45974,7 @@ function Html(props) {
           })]
         })
       })]
-    })]
+    })
   });
 }
 class EditImageAccordion extends Component {
@@ -46803,61 +46590,9 @@ function Html(props) {
       return map[match];
     });
   }
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("div", {
     className: "",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("div", {
-      className: "hidden",
-      onClick: () => {
-        var str = `{
-				"wrapper":${JSON.stringify(wrapper)},
-				"navItem":${JSON.stringify(navItem)},
-				"activeNavItem":${JSON.stringify(activeNavItem)},
-				"labelCounter":${JSON.stringify(labelCounter)},
-				"labelIcon":${JSON.stringify(labelIcon)},
-				"icon":${JSON.stringify(icon)},
-				"iconToggle":${JSON.stringify(iconToggle)},
-				"navLabel":${JSON.stringify(navLabel)},
-				"panelWrap":${JSON.stringify(panelWrap)},
-				"topWrap":${JSON.stringify(topWrap)},
-				}`;
-        copyData(str);
-        addNotifications({
-          title: "Copied to clipboard!",
-          content: "Use the shortcode in page or post conent where you want to display.",
-          type: "success"
-        });
-      },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
-        className: "p-3",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("div", {
-          children: `{`
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
-          children: [`"wrapper":${JSON.stringify(wrapper)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
-          children: [`"navsWrap":${JSON.stringify(navsWrap)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
-          children: [`"navItem":${JSON.stringify(navItem)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
-          children: [`"activeNavItem":${JSON.stringify(activeNavItem)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
-          children: [`"labelCounter":${JSON.stringify(labelCounter)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
-          children: [`"labelIcon":${JSON.stringify(labelIcon)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
-          children: [`"icon":${JSON.stringify(icon)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
-          children: [`"iconToggle":${JSON.stringify(iconToggle)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
-          children: [`"navLabel":${JSON.stringify(navLabel)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
-          children: [`"panelWrap":${JSON.stringify(panelWrap)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)("div", {
-          children: [`"panelWrapActive":${JSON.stringify(panelWrapActive)}`, ","]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsx)("div", {
-          children: `}`
-        })]
-      })
-    }), props.postData.post_content != null && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.Fragment, {
+    children: props.postData.post_content != null && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.Fragment, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_22__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__.PanelBody, {
         className: "font-medium text-slate-900 ",
         title: "Items",
@@ -49213,7 +48948,7 @@ function Html(props) {
           })
         })]
       })]
-    })]
+    })
   });
 }
 class EditTabs extends Component {
@@ -54283,7 +54018,7 @@ function DOMContentLoadedImport() {
   var appData = {
     name: "Accordions",
     version: "1.0.0",
-    demoUrl: "https://pickplugins.com/demo/accordions/",
+    demoUrl: "https://demo.pickplugins.com/accordions/",
     reviewsUrl: "https://wordpress.org/support/plugin/accordions/reviews/#new-post/"
   };
   setTimeout(() => {

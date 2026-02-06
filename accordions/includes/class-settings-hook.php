@@ -142,38 +142,7 @@ function accordions_settings_content_general()
         <textarea id="text-val" rows="4"><?php echo esc_textarea($post_data_exported_json); ?></textarea><br />
         <input type="button" class="button" id="dwn-btn" value="Download json" />
 
-        <style type="text/css">
-            #text-val {
-                width: 260px;
-            }
-        </style>
-
-        <script>
-            function download(filename, text) {
-                var element = document.createElement('a');
-                element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-                element.setAttribute('download', filename);
-
-                element.style.display = 'none';
-                document.body.appendChild(element);
-
-                element.click();
-
-                document.body.removeChild(element);
-            }
-
-            // Start file download.
-            document.getElementById("dwn-btn").addEventListener("click", function() {
-                // Generate download of hello.txt file with some content
-                var text = document.getElementById("text-val").value;
-
-
-                var filename = "<?php echo esc_attr(gmdate('Y-m-d-h') . '-' . time()); ?>.txt";
-
-                download(filename, text);
-            }, false);
-        </script>
-
+        
 
         <?php
         $html = ob_get_clean();
@@ -215,6 +184,37 @@ function accordions_settings_content_general()
         ?>
 
     </div>
+<style type="text/css">
+            #text-val {
+                width: 260px;
+            }
+        </style>
+
+        <script>
+            function download(filename, text) {
+                var element = document.createElement('a');
+                element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+                element.setAttribute('download', filename);
+
+                element.style.display = 'none';
+                document.body.appendChild(element);
+
+                element.click();
+
+                document.body.removeChild(element);
+            }
+
+            // Start file download.
+            document.getElementById("dwn-btn").addEventListener("click", function() {
+                // Generate download of hello.txt file with some content
+                var text = document.getElementById("text-val").value;
+
+
+                var filename = "<?php echo esc_attr(gmdate('Y-m-d-h') . '-' . time()); ?>.txt";
+
+                download(filename, text);
+            }, false);
+        </script>
 
     <?php
 
@@ -697,23 +697,7 @@ if (!function_exists('accordions_settings_content_3rd_party_import')) {
 
 
 
-            <style type="text/css">
-                .import-source {}
-
-                .import-source .item {
-                    width: 255px;
-                    overflow: hidden;
-                    display: inline-block;
-                    margin: 10px;
-                    background: #306c9e;
-                    padding: 10px;
-                    color: #fff;
-                }
-
-                .import-source .item img {
-                    width: 100%;
-                }
-            </style>
+            
 
             <?php
 
@@ -738,7 +722,23 @@ if (!function_exists('accordions_settings_content_3rd_party_import')) {
 
 
         </div>
+<style type="text/css">
+                .import-source {}
 
+                .import-source .item {
+                    width: 255px;
+                    overflow: hidden;
+                    display: inline-block;
+                    margin: 10px;
+                    background: #306c9e;
+                    padding: 10px;
+                    color: #fff;
+                }
+
+                .import-source .item img {
+                    width: 100%;
+                }
+            </style>
     <?php
 
 

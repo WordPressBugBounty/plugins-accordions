@@ -3,13 +3,59 @@ if (!defined('ABSPATH')) exit;  // if direct access
 if (!class_exists('settings_tabs_field')) {
   class settings_tabs_field
   {
-    //public $asset_dir_url = '';
-    public $textdomain = 'settings-tabs';
-    public function __construct()
+
+    public function allowed()
     {
-      //        $this->asset_dir_url = isset($args['asset_dir_url']) ? $args['asset_dir_url'] : '';
-      //        'accordions' = isset($args['textdomain']) ? $args['textdomain'] : '';
+
+      return  wp_kses_allowed_html('post');
     }
+    public $custom = array(
+      'select' => array(
+        'name'     => true,
+        'id'       => true,
+        'class'    => true,
+        'multiple' => true,
+      ),
+      'option' => array(
+        'value'    => true,
+        'selected' => true,
+      ),
+      'optgroup' => array(
+        'label' => true,
+      ),
+      'input' => array(
+        'type'  => true,
+        'name'  => true,
+        'value' => true,
+        'class' => true,
+        'id'    => true,
+        'checked' => true,
+        'placeholder' => true,
+      ),
+      'label' => array(
+        'for'   => true,
+        'class' => true,
+      ),
+    );
+
+    public function allowed_html()
+    {
+
+      return  array_merge($this->allowed(), $this->custom);
+    }
+
+
+    //public $asset_dir_url = '';
+    public function __construct() {}
+
+
+
+
+
+
+
+
+
     function admin_scripts()
     {
       wp_enqueue_script('jquery');
@@ -27,6 +73,8 @@ if (!class_exists('settings_tabs_field')) {
       wp_enqueue_script('code-editor');
       wp_enqueue_style('code-editor');
       wp_enqueue_script('jquery.lazy');
+      wp_enqueue_script('jquery-ui-datepicker');
+
       if (function_exists('wp_enqueue_editor')) {
         wp_enqueue_editor();
       }
@@ -236,7 +284,7 @@ if (!class_exists('settings_tabs_field')) {
       </div><!-- .option-group-accordion-wrap -->
     <?php
       $input_html = ob_get_clean();
-      echo (sprintf($field_template, $title, $input_html, $group_details));
+      echo wp_kses(sprintf($field_template, esc_html($title), $input_html, wp_kses_post($group_details)));
     }
     public function field_option_group($option)
     {
@@ -289,7 +337,7 @@ if (!class_exists('settings_tabs_field')) {
       </div>
     <?php
       $input_html = ob_get_clean();
-      echo sprintf($field_template, $title, $input_html, $group_details);
+      echo wp_kses(sprintf($field_template, esc_html($title), $input_html, wp_kses_post($group_details)), $this->allowed_html());
     }
     public function field_media($option)
     {
@@ -309,7 +357,7 @@ if (!class_exists('settings_tabs_field')) {
       $value          = !empty($value) ?  $value : $default;
       $media_url    = wp_get_attachment_url($value);
       $media_type    = get_post_mime_type($value);
-      $media_title = !empty($value) ? get_the_title($value) : esc_html_e('Placeholder.jpg', 'accordions');
+      $media_title = !empty($value) ? get_the_title($value) : "Placeholder";
       $media_url = !empty($media_url) ? $media_url : $default;
       $media_url = !empty($media_url) ? $media_url : $placeholder;
       $media_basename = wp_basename($media_type);
@@ -353,14 +401,13 @@ if (!class_exists('settings_tabs_field')) {
         </div>
         <input class="media-input-value" type="hidden" name="<?php echo esc_attr($field_name); ?>" id="media_input_<?php echo esc_attr($css_id); ?>" value="<?php echo esc_attr($value); ?>" />
         <div class="media-upload button" id="media_upload_<?php echo esc_attr($css_id); ?>">
-          <?php esc_html_e('Upload', 'accordions'); ?></div>
-        <div placeholder="<?php echo esc_attr($placeholder); ?>" class="clear button" id="media_clear_<?php echo esc_attr($css_id); ?>"><?php esc_html_e('Clear', 'accordions'); ?></div>
+          <?php echo "Upload"; ?></div>
+        <div placeholder="<?php echo esc_attr($placeholder); ?>" class="clear button" id="media_clear_<?php echo esc_attr($css_id); ?>"><?php echo 'Clear'; ?></div>
         <div class="error-mgs"></div>
       </div>
     <?php
       $input_html = ob_get_clean();
-      /*Code reviewers: Inputs values escaped before*/
-      echo (sprintf($field_template, $title, $input_html, $details));
+      echo wp_kses(sprintf($field_template, esc_html($title), $input_html, wp_kses_post($details)), $this->allowed_html());
     }
     public function field_media_url($option)
     {
@@ -414,14 +461,14 @@ if (!class_exists('settings_tabs_field')) {
         </div>
         <input type="text" placeholder="<?php echo esc_attr($placeholder); ?>" name="<?php echo esc_attr($field_name); ?>" id="media_input_<?php echo esc_attr($css_id); ?>" value="<?php echo esc_attr($value); ?>" />
         <div class="media-upload button" id="media_upload_<?php echo esc_attr($css_id); ?>">
-          <?php echo esc_html_e('Upload', 'accordions'); ?></div>
+          <?php echo 'Upload'; ?></div>
         <div class="clear button" id="media_clear_<?php echo esc_attr($css_id); ?>">
-          <?php echo esc_html_e('Clear', 'accordions'); ?></div>
+          <?php echo 'Clear'; ?></div>
         <div class="error-mgs"></div>
       </div>
     <?php
       $input_html = ob_get_clean();
-      echo (sprintf($field_template, $title, $input_html, $details));
+      echo wp_kses(sprintf($field_template, esc_html($title), $input_html, wp_kses_post($details)), $this->allowed_html());
     }
     public function field_repeatable($option)
     {
@@ -449,7 +496,7 @@ if (!class_exists('settings_tabs_field')) {
     ?>
       <div class="item-wrap collapsible">
         <div class="header">
-          <span class="remove" onclick="jQuery(this).parent().parent().remove()"><?php echo wp_kses_post($remove_text); ?></span>
+          <span class="remove"><?php echo wp_kses_post($remove_text); ?></span>
           <?php
           if ($sortable) :
           ?>
@@ -489,8 +536,8 @@ if (!class_exists('settings_tabs_field')) {
       ?>
       <div id="input-wrapper-<?php echo esc_attr($css_id); ?>" class=" input-wrapper field-repeatable-wrapper
             field-repeatable-wrapper-<?php echo esc_attr($css_id); ?>">
-        <div add_html="<?php echo esc_attr($fieldHtml); ?>" class="add-repeat-field"><i class="far fa-plus-square"></i>
-          <?php _e('Add', 'accordions'); ?></div>
+        <div data-add_html="<?php echo esc_attr($fieldHtml); ?>" class="add-repeat-field" data-wrapper-id="<?php echo esc_attr($css_id); ?>"><i class="far fa-plus-square"></i>
+          <?php echo 'Add'; ?></div>
         <div class="repeatable-field-list sortable" id="<?php echo esc_attr($css_id); ?>">
           <?php
           if (!empty($values)) :
@@ -502,7 +549,7 @@ if (!class_exists('settings_tabs_field')) {
                 <?php if ($collapsible) : ?>
                   <div class="header">
                   <?php endif; ?>
-                  <span class="remove" onclick="jQuery(this).parent().parent().remove()"><?php echo wp_kses_post($remove_text); ?></span>
+                  <span class="remove" onclick=""><?php echo wp_kses_post($remove_text); ?></span>
                   <?php if ($sortable) : ?>
                     <span class="sort"><i class="fas fa-arrows-alt"></i></span>
                   <?php endif; ?>
@@ -545,7 +592,7 @@ if (!class_exists('settings_tabs_field')) {
       </div>
     <?php
       $input_html = ob_get_clean();
-      echo (sprintf($field_template, $title, $input_html, $details));
+      echo wp_kses(sprintf($field_template, esc_html($title), $input_html, wp_kses_post($details)), $this->allowed_html());
     }
     public function field_select($option)
     {
@@ -595,7 +642,7 @@ if (!class_exists('settings_tabs_field')) {
       <?php
       if ($multiple) :
       ?>
-        <div class="button select-reset"><?php echo esc_html_e('Reset', 'accordions'); ?></div><br>
+        <div class="button select-reset"><?php echo 'Reset'; ?></div><br>
       <?php
       endif;
       ?>
@@ -604,7 +651,7 @@ if (!class_exists('settings_tabs_field')) {
       <?php endif; ?>
     <?php
       $input_html = ob_get_clean();
-      echo (sprintf($field_template, $title, $input_html, $details));
+      echo wp_kses(sprintf($field_template, esc_html($title), $input_html, wp_kses_post($details)), $this->allowed_html());
     }
     public function field_select2($option)
     {
@@ -653,7 +700,7 @@ if (!class_exists('settings_tabs_field')) {
       </select>
     <?php
       $input_html = ob_get_clean();
-      echo (sprintf($field_template, $title, $input_html, $details));
+      echo wp_kses(sprintf($field_template, esc_html($title), $input_html, wp_kses_post($details)), $this->allowed_html());
     }
     public function field_text_multi($option)
     {
@@ -679,7 +726,7 @@ if (!class_exists('settings_tabs_field')) {
     ?>
       <div id="input-wrapper-<?php echo esc_attr($id); ?>" class="input-wrapper input-text-multi-wrapper
             input-text-multi-wrapper-<?php echo esc_attr($css_id); ?>">
-        <span data-placeholder="<?php echo esc_attr($placeholder); ?>" data-sort="<?php echo esc_attr($sortable); ?>" data-clone="<?php echo esc_attr($allow_clone); ?>" data-name="<?php echo esc_attr($field_name); ?>[]" class="button add-item"><?php echo esc_html_e('Add', 'accordions'); ?></span>
+        <span data-placeholder="<?php echo esc_attr($placeholder); ?>" data-sort="<?php echo esc_attr($sortable); ?>" data-clone="<?php echo esc_attr($allow_clone); ?>" data-name="<?php echo esc_attr($field_name); ?>[]" class="button add-item"><?php echo 'Add'; ?></span>
         <div class="field-list <?php if ($sortable) {
                                   echo 'sortable';
                                 } ?>" id="<?php echo esc_attr($css_id); ?>">
@@ -721,7 +768,7 @@ if (!class_exists('settings_tabs_field')) {
       </div>
     <?php
       $input_html = ob_get_clean();
-      echo (sprintf($field_template, $title, $input_html, $details));
+      echo wp_kses(sprintf($field_template, esc_html($title), $input_html, wp_kses_post($details)), $this->allowed_html());
     }
     public function field_hidden($option)
     {
@@ -746,7 +793,7 @@ if (!class_exists('settings_tabs_field')) {
       <input type="hidden" class="" name="<?php echo esc_attr($field_name); ?>" id="<?php echo esc_attr($css_id); ?>" placeholder="<?php echo esc_attr($placeholder); ?>" value="<?php echo esc_attr($value); ?>" />
     <?php
       $input_html = ob_get_clean();
-      echo (sprintf($field_template, $title, $input_html, $details));
+      echo wp_kses(sprintf($field_template, esc_html($title), $input_html, wp_kses_post($details)), $this->allowed_html());
     }
     public function field_text($option)
     {
@@ -770,7 +817,7 @@ if (!class_exists('settings_tabs_field')) {
       <input type="text" class="" name="<?php echo esc_attr($field_name); ?>" id="<?php echo esc_attr($css_id); ?>" placeholder="<?php echo esc_attr($placeholder); ?>" value="<?php echo esc_attr($value); ?>" />
     <?php
       $input_html = ob_get_clean();
-      echo (sprintf($field_template, $title, $input_html, $details));
+      echo wp_kses(sprintf($field_template, esc_html($title), $input_html, wp_kses_post($details)), $this->allowed_html());
     }
     public function field_number($option)
     {
@@ -795,7 +842,7 @@ if (!class_exists('settings_tabs_field')) {
       <input type="number" class="" name="<?php echo esc_attr($field_name); ?>" id="<?php echo esc_attr($css_id); ?>" placeholder="<?php echo esc_attr($placeholder); ?>" value="<?php echo esc_attr($value); ?>" />
     <?php
       $input_html = ob_get_clean();
-      echo (sprintf($field_template, $title, $input_html, $details));
+      echo wp_kses(sprintf($field_template, esc_html($title), $input_html, wp_kses_post($details)), $this->allowed_html());
     }
     public function field_wp_editor($option)
     {
@@ -827,7 +874,7 @@ if (!class_exists('settings_tabs_field')) {
       </div>
     <?php
       $input_html = ob_get_clean();
-      echo (sprintf($field_template, $title, $input_html, $details));
+      echo wp_kses(sprintf($field_template, esc_html($title), $input_html, wp_kses_post($details)), $this->allowed_html());
     }
     public function field_text_icon($option)
     {
@@ -847,36 +894,13 @@ if (!class_exists('settings_tabs_field')) {
       ob_start();
     ?>
       <div class="text-icon">
-        <span class="icon"><?php echo wp_kses_post($option_value); ?></span><input type="text" class="" name="<?php echo esc_attr($field_name); ?>" id="<?php echo esc_attr($css_id); ?>" placeholder="<?php echo esc_attr($placeholder); ?>" value="<?php echo esc_attr($option_value); ?>" />
+        <span class="icon"><?php echo esc_html($option_value); ?></span><input type="text" class="" name="<?php echo esc_attr($field_name); ?>" id="<?php echo esc_attr($css_id); ?>" placeholder="<?php echo esc_attr($placeholder); ?>" value="<?php echo esc_attr($option_value); ?>" />
       </div>
-      <style type="text/css">
-        .text-icon {}
 
-        .text-icon .icon {
-          /* width: 30px; */
-          background: #ddd;
-          /* height: 28px; */
-          display: inline-block;
-          vertical-align: top;
-          text-align: center;
-          font-size: 14px;
-          padding: 5px 10px;
-          line-height: normal;
-        }
-      </style>
-      <script>
-        jQuery(document).ready(function($) {
-          $(document).on("keyup", ".text-icon input", function() {
-            val = $(this).val();
-            if (val) {
-              $(this).parent().children(".icon").html(val);
-            }
-          })
-        })
-      </script>
+
     <?php
       $input_html = ob_get_clean();
-      echo (sprintf($field_template, $title, $input_html, $details));
+      echo wp_kses(sprintf($field_template, esc_html($title), $input_html, wp_kses_post($details)), $this->allowed_html());
     }
     public function field_range($option)
     {
@@ -899,32 +923,13 @@ if (!class_exists('settings_tabs_field')) {
       ob_start();
     ?>
       <div class="range-input">
-        <span class="range-value"><?php echo esc_html($value); ?></span><input type="range" min="<?php if ($min) echo esc_attr($min); ?>" max="<?php if ($max) echo esc_attr($max); ?>" step="<?php if ($step) echo esc_attr($step); ?>" class="" name="<?php echo esc_attr($field_name); ?>" id="<?php echo esc_attr($css_id); ?>" value="<?php echo esc_attr($value); ?>" />
+        <span class="range-value"><?php echo esc_html($value); ?></span><input type="range" min="<?php if ($min) echo esc_attr($min); ?>" max="<?php if ($max) echo esc_attr($max); ?>" step="<?php if ($step) echo esc_attr($step); ?>" class="" name="<?php echo esc_attr($field_name); ?>" id="<?php echo esc_attr($css_id); ?>" class="range" value="<?php echo esc_attr($value); ?>" />
       </div>
-      <script>
-        jQuery(document).ready(function($) {
-          $(document).on("change", "#<?php echo esc_attr($css_id); ?>", function() {
-            val = $(this).val();
-            if (val) {
-              $(this).parent().children(".range-value").html(val);
-            }
-          })
-        })
-      </script>
-      <style type="text/css">
-        .range-input {}
 
-        .range-input .range-value {
-          display: inline-block;
-          vertical-align: top;
-          margin: 0 0;
-          padding: 4px 10px;
-          background: #eee;
-        }
-      </style>
+
     <?php
       $input_html = ob_get_clean();
-      echo (sprintf($field_template, $title, $input_html, $details));
+      echo wp_kses(sprintf($field_template, esc_html($title), $input_html, wp_kses_post($details)), $this->allowed_html());
     }
     public function field_textarea($option)
     {
@@ -949,7 +954,7 @@ if (!class_exists('settings_tabs_field')) {
       <textarea name="<?php echo esc_attr($field_name); ?>" id="<?php echo esc_attr($css_id); ?>" cols="40" rows="5" placeholder="<?php echo esc_attr($placeholder); ?>"><?php echo esc_html($value); ?></textarea>
     <?php
       $input_html = ob_get_clean();
-      echo (sprintf($field_template, $title, $input_html, $details));
+      echo wp_kses(sprintf($field_template, esc_html($title), $input_html, wp_kses_post($details)), $this->allowed_html());
     }
     public function field_textarea_editor($option)
     {
@@ -971,10 +976,10 @@ if (!class_exists('settings_tabs_field')) {
       }
       ob_start();
     ?>
-      <textarea editor_enabled="no" class="textarea-editor" name="<?php echo esc_attr($field_name); ?>" id="<?php echo esc_attr($css_id); ?>" cols="40" rows="5" placeholder="<?php echo esc_attr($placeholder); ?>"><?php echo esc_html($value); ?></textarea>
+      <textarea data-editor_enabled="no" class="textarea-editor" name="<?php echo esc_attr($field_name); ?>" id="<?php echo esc_attr($css_id); ?>" cols="40" rows="5" placeholder="<?php echo esc_attr($placeholder); ?>"><?php echo esc_html($value); ?></textarea>
     <?php
       $input_html = ob_get_clean();
-      echo (sprintf($field_template, $title, $input_html, $details));
+      echo wp_kses(sprintf($field_template, esc_html($title), $input_html, wp_kses_post($details)), $this->allowed_html());
     }
     public function field_scripts_js($option)
     {
@@ -991,19 +996,13 @@ if (!class_exists('settings_tabs_field')) {
       $title            = isset($option['title']) ? $option['title'] : "";
       $details             = isset($option['details']) ? $option['details'] : "";
       $field_name = !empty($parent) ? $parent . '[' . $id . ']' : $id;
-      $settings = wp_enqueue_code_editor(array('type' => 'text/javascript'));
-      $code_editor = wp_json_encode($settings);
       ob_start();
     ?>
-      <textarea name="<?php echo esc_attr($field_name); ?>" id="<?php echo esc_attr($css_id); ?>" cols="40" rows="5" placeholder="<?php echo esc_attr($placeholder); ?>"><?php echo esc_html($value); ?></textarea>
-      <script>
-        jQuery(document).ready(function($) {
-          wp.codeEditor.initialize($('#<?php echo esc_attr($css_id); ?>'), <?php echo ($code_editor); ?>);
-        })
-      </script>
+      <textarea name="<?php echo esc_attr($field_name); ?>" id="<?php echo esc_attr($css_id); ?>" class="code-editor" cols="40" rows="5" placeholder="<?php echo esc_attr($placeholder); ?>"><?php echo esc_html($value); ?></textarea>
+
     <?php
       $input_html = ob_get_clean();
-      echo (sprintf($field_template, $title, $input_html, $details));
+      echo wp_kses(sprintf($field_template, esc_html($title), $input_html, wp_kses_post($details)), $this->allowed_html());
     }
     public function field_scripts_css($option)
     {
@@ -1019,22 +1018,16 @@ if (!class_exists('settings_tabs_field')) {
       $pro_text     = isset($option['pro_text']) ? $option['pro_text'] : '';
       $title            = isset($option['title']) ? $option['title'] : "";
       $details         = isset($option['details']) ? $option['details'] : "";
-      $settings = wp_enqueue_code_editor(array('type' => 'text/css'));
-      $code_editor = wp_json_encode($settings);
       $field_name = !empty($parent) ? $parent . '[' . $id . ']' : $id;
     ?>
       <?php
       ob_start();
       ?>
-      <textarea name="<?php echo esc_attr($field_name); ?>" id="<?php echo esc_attr($css_id); ?>" cols="40" rows="5" placeholder="<?php echo esc_attr($placeholder); ?>"><?php echo esc_html($value); ?></textarea>
-      <script>
-        jQuery(document).ready(function($) {
-          wp.codeEditor.initialize($('#<?php echo esc_attr($css_id); ?>'), <?php echo ($code_editor); ?>);
-        })
-      </script>
+      <textarea name="<?php echo esc_attr($field_name); ?>" id="<?php echo esc_attr($css_id); ?>" class="css_editor" cols="40" rows="5" placeholder="<?php echo esc_attr($placeholder); ?>"><?php echo esc_html($value); ?></textarea>
+
     <?php
       $input_html = ob_get_clean();
-      echo (sprintf($field_template, $title, $input_html, $details));
+      echo wp_kses(sprintf($field_template, esc_html($title), $input_html, wp_kses_post($details)), $this->allowed_html());
     }
     public function field_checkbox($option)
     {
@@ -1109,7 +1102,7 @@ if (!class_exists('settings_tabs_field')) {
           }
         endforeach;
       $input_html = ob_get_clean();
-      echo (sprintf($field_template, $title, $input_html, $details));
+      echo wp_kses(sprintf($field_template, esc_html($title), $input_html, wp_kses_post($details)), $this->allowed_html());
     }
     public function field_radio_image($option)
     {
@@ -1167,7 +1160,7 @@ if (!class_exists('settings_tabs_field')) {
       </div>
     <?php
       $input_html = ob_get_clean();
-      echo (sprintf($field_template, $title, $input_html, $details));
+      echo wp_kses(sprintf($field_template, esc_html($title), $input_html, wp_kses_post($details)), $this->allowed_html());
     }
     public function field_datepicker($option)
     {
@@ -1185,21 +1178,14 @@ if (!class_exists('settings_tabs_field')) {
       $title            = isset($option['title']) ? $option['title'] : "";
       $details             = isset($option['details']) ? $option['details'] : "";
       $field_name = !empty($parent) ? $parent . '[' . $id . ']' : $id;
-      wp_enqueue_script('jquery-ui-datepicker');
-      wp_enqueue_style('jquery-ui');
+
       ob_start();
     ?>
-      <input type="text" autocomplete="off" name="<?php echo esc_attr($field_name); ?>" id="<?php echo esc_attr($css_id); ?>" placeholder="<?php echo esc_attr($placeholder); ?>" value="<?php echo esc_attr($value); ?>" />
-      <script>
-        jQuery(document).ready(function($) {
-          $("#<?php echo esc_attr($css_id); ?>").datepicker({
-            dateFormat: "<?php echo esc_attr($format); ?>"
-          });
-        });
-      </script>
+      <input type="text" autocomplete="off" name="<?php echo esc_attr($field_name); ?>" class="datepicker" id="<?php echo esc_attr($css_id); ?>" placeholder="<?php echo esc_attr($placeholder); ?>" value="<?php echo esc_attr($value); ?>" format="<?php echo esc_attr($format); ?>" />
+
     <?php
       $input_html = ob_get_clean();
-      echo (sprintf($field_template, $title, $input_html, $details));
+      echo wp_kses(sprintf($field_template, esc_html($title), $input_html, wp_kses_post($details)), $this->allowed_html());
     }
     public function field_colorpicker($option)
     {
@@ -1221,7 +1207,7 @@ if (!class_exists('settings_tabs_field')) {
       <input colorPicker="" name="<?php echo esc_attr($field_name); ?>" id="<?php echo esc_attr($css_id); ?>" placeholder="<?php echo esc_attr(esc_attr($placeholder)); ?>" value="<?php echo esc_attr($value); ?>" />
       <?php
       $input_html = ob_get_clean();
-      echo (sprintf($field_template, $title, $input_html, $details));
+      echo wp_kses(sprintf($field_template, esc_html($title), $input_html, wp_kses_post($details)), $this->allowed_html());
     }
     public function field_colorpicker_multi($option)
     {
@@ -1245,18 +1231,14 @@ if (!class_exists('settings_tabs_field')) {
       ?>
           <div class="">
             <span><?php echo esc_html($arg_key); ?></span>
-            <input name="<?php echo esc_attr($field_name); ?>[<?php echo esc_attr($arg_key); ?>]" id="<?php echo esc_attr($arg_key . '-' . $css_id); ?>" value="<?php echo esc_attr($item_value); ?>" />
-            <script>
-              jQuery(document).ready(function($) {
-                $("#<?php echo esc_attr($arg_key . '-' . $css_id); ?>").wpColorPicker();
-              });
-            </script>
+            <input name="<?php echo esc_attr($field_name); ?>[<?php echo esc_attr($arg_key); ?>]" id="<?php echo esc_attr($arg_key . '-' . $css_id); ?>" class="color-picker" value="<?php echo esc_attr($item_value); ?>" />
+
           </div>
 <?php
         endforeach;
       endif;
       $input_html = ob_get_clean();
-      echo (sprintf($field_template, $title, $input_html, $details));
+      echo wp_kses(sprintf($field_template, esc_html($title), $input_html, wp_kses_post($details)), $this->allowed_html());
     }
     public function field_custom_html($option)
     {
@@ -1269,7 +1251,7 @@ if (!class_exists('settings_tabs_field')) {
       $pro_text     = isset($option['pro_text']) ? $option['pro_text'] : '';
       $title            = isset($option['title']) ? $option['title'] : "";
       $details             = isset($option['details']) ? $option['details'] : "";
-      echo sprintf($field_template, $title, $html, $details);
+      echo wp_kses(sprintf($field_template, esc_html($title), $html, wp_kses_post($details)), $this->allowed_html());
     }
   }
 }

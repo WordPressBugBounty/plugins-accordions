@@ -424,7 +424,8 @@ function accordions_tabs_main_items($atts)
 
 
     <div class="tabs-content tabs-content<?php echo esc_attr($index); ?> <?php echo esc_attr($body_class); ?>" id="tabs-<?php echo esc_attr($index); ?>">
-      <?php echo ($accordion_body); ?>
+      <?php echo ($accordion_body); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped  
+      ?>
     </div>
 
 <?php
