@@ -3,8 +3,8 @@
 	Donate link: https://pickplugins.com/accordions/
 	Tags: Accordion, Tabs, AI FAQ, WooCommerce FAQ Tab, Image Accordion
 	Requires at least: 5.0
-	Tested up to: 6.9
-	Stable tag: 2.3.23
+	Tested up to: 7.0
+	Stable tag: 2.3.25
 	License: GPLv2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -119,7 +119,10 @@ then paste this shortcode anywhere in your page to display accordions
 
 == Changelog ==
 
-	= 2.3.22 =
+	= 2.3.25 =
+   * 2026-06-08- fix - Authenticated (Custom+) Stored Cross-Site Scripting via Accordion Body Field
+
+	= 2.3.23 =
     * 2026-01-23 - fix - Accordion content editor issue fixed.
 
 	= 2.3.22 =

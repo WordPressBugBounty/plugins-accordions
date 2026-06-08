@@ -427,13 +427,13 @@ function accordions_main_items($atts)
                 //$allowed = wp_kses_allowed_html('post');
                 //global $allowedposttags, $allowedtags, $allowedentitynames;
 
-                $allowed_tags = wp_kses_allowed_html( 'post' );
-                $allowed_tags = apply_filters( 'accordions_content_body_allowed_tags', $allowed_tags );
+                $allowed_tags = wp_kses_allowed_html('post');
+                $allowed_tags = apply_filters('accordions_content_body_allowed_tags', $allowed_tags);
 
 
-                //echo wp_kses( $accordion_body, $allowed_tags );
+                echo wp_kses($accordion_body, $allowed_tags);
 
-                echo apply_filters('accordions_content_body', $accordion_body); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped 
+                //echo apply_filters('accordions_content_body', $accordion_body); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped 
                 ?>
             </div>
     <?php
